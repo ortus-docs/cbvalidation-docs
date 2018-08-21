@@ -1,4 +1,4 @@
-# Introduction
+# ColdBox Validation
 
 ColdBox sports its own server side validation engine so it can provide you with a unified approach to object and form validation. We have based it on several interfaces, so you can also use any validation framework in your as long as they implement the required interfaces \(See the included API Docs\).
 
