@@ -14,7 +14,7 @@ ColdBox sports its own server side validation engine so it can provide you with 
 
 ## Introduction
 
-ColdBox validation is based on a way to declaratively specify validation rules for properties or fields in an object or form. The constraints can exist inside of the target object or you can define object and form constraints in your ColdBox [configuration file](http://coldbox.ortusbooks.com/content/configuration/coldboxcfc/index.html) so you can reuse validation constraints or as we call them: **shared constraints**.
+ColdBox validation is based on a way to declaratively specify validation rules for properties or fields in an object or form. The constraints can exist inside of the target object or you can define object and form constraints in your ColdBox [configuration file](overview/coldbox-validation/declaring-constraints/configuration-file.md) so you can reuse validation constraints or as we call them: **shared constraints**.
 
 ## Professional Open Source
 
