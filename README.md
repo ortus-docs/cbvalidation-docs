@@ -18,7 +18,7 @@ ColdBox validation is based on a way to declaratively specify validation rules f
 
 ## Professional Open Source
 
-![Ortus Solutions, Corp](https://github.com/ortus/cbox-validation/tree/cc7e4d96663e1732860bcea678a632286d72e87e/images/ortussolutions_button.png)
+![Ortus Solutions, Corp](.gitbook/assets/ortus-solutions-logo.png)
 
 The ColdBox ORM Module is a professional open source software backed by [Ortus Solutions, Corp](http://www.ortussolutions.com/services) offering services like:
 
