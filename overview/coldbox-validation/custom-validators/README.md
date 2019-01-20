@@ -10,7 +10,7 @@ You can build also your own validators by implementing our interface `cbvalidato
 * @field.hint The field on the target object to validate on
 * @targetValue.hint The target value to validate
 */
-boolean function validate(required cbvalidation.models.result.IValidationResult validationResult, required any target, required string field, any targetValue, string validationData);
+boolean function validate(required cbvalidation.models.result.IValidationResult validationResult, required any target, required string field, any targetValue, any validationData);
 
 /**
 * Get the name of the validator
@@ -73,4 +73,8 @@ component accessors="true" implements="cbvalidation.models.validators.IValidator
 
 }
 ```
+
+{% hint style="warning" %}
+WARNING: You can't do a normal wirebox mapping for `YourOwnValidator` in your main application. A validator needs an `IValidator` interface from the `cbvalidation` module. When wirebox inspects the binder, the `cbvalidation` module is not loaded yet, so it will error. This can be solved by defining your custom validators in an own module \(depending on `cbvalidation`\) or by mapping your validator in the `afterConfigurationLoad()` method of your binder, e.g in `config/wirebox.cfc`
+{% endhint %}
 

@@ -8,6 +8,10 @@ The `unique` constraint is part of the [cborm](https://github.com/coldbox/cbox-c
 box install cborm
 ```
 
+{% hint style="info" %}
+See the [Advanced Custom Validators](../custom-validators/advanced-custom-validators.md) for a uniqueness validator which is **not** dependent of ORM
+{% endhint %}
+
 ## Declaring the Constraint
 
 The constraints is mapped into wirebox as `UniqueValidator@cborm` so you can use in your constraints like so:
