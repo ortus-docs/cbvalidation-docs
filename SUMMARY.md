@@ -10,6 +10,7 @@
   * [Declaring Constraints](overview/coldbox-validation/declaring-constraints/README.md)
     * [Configuration File](overview/coldbox-validation/declaring-constraints/configuration-file.md)
     * [Domain Object](overview/coldbox-validation/declaring-constraints/domain-object.md)
+    * [A-la-carte via event handlers](overview/coldbox-validation/declaring-constraints/a-la-carte-via-event-handlers.md)
   * [Valid Constraints](overview/coldbox-validation/valid-constraints/README.md)
     * [Unique Constraints](overview/coldbox-validation/valid-constraints/unique-constraints.md)
     * [Constraint Custom Messages](overview/coldbox-validation/valid-constraints/constraint-custom-messages.md)
