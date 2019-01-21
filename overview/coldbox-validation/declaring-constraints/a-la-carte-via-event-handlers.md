@@ -1,6 +1,6 @@
 # A-la-carte via event handlers
 
-You can define your constraints in your validation target or in a sharedConstraint but sometimes you need something more flexable. In this case you can define your constraints on the fly in your handler.
+You can define your constraints in your validation target or in a sharedConstraint but sometimes you need something more flexible. In this case you can define your constraints on the fly in your handler.
 
 In this sample we validate the public request context `rc`. This sample validates all fields in the `rc`.  If you need more control you can specify the `fields` parameter \(default all\) or the `includeFields` and `excludeFields` parameters in your `Validatemodel()` call.
 
