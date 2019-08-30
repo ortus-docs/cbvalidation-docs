@@ -20,9 +20,12 @@
   * [Validating with a-la-carte constraints](overview/validating-constraints/validating-with-a-la-carte-constraints.md)
   * [Validating Custom Fields](overview/validating-constraints/validating-custom-fields.md)
 * [Displaying Errors](overview/displaying-errors.md)
-* [i18n Integration](overview/i18n-integration.md)
 * [WireBox DSL & Integration](overview/wirebox-dsl-and-integration.md)
-* [Advanced Custom Validators](overview/advanced-custom-validators.md)
-* [Custom Validators](overview/custom-validators.md)
-* [Custom Validation Managers](overview/custom-validation-managers.md)
+
+## Advanced
+
+* [i18n Integration](advanced/i18n-integration.md)
+* [Advanced Custom Validators](advanced/advanced-custom-validators.md)
+* [Custom Validators](advanced/custom-validators.md)
+* [Custom Validation Managers](advanced/custom-validation-managers.md)
 

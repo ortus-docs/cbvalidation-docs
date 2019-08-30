@@ -9,7 +9,7 @@ box install cborm
 ```
 
 {% hint style="info" %}
-See the [Advanced Custom Validators](../advanced-custom-validators.md) for a uniqueness validator which is **not** dependent of ORM
+See the [Advanced Custom Validators](../../advanced/advanced-custom-validators.md) for a uniqueness validator which is **not** dependent of ORM
 {% endhint %}
 
 ## Declaring the Constraint

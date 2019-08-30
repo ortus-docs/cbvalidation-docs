@@ -1,6 +1,6 @@
 # Available Constraints
 
-Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../custom-validators.md).
+Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../../advanced/custom-validators.md).
 
 ```javascript
 propertyName = {
@@ -74,7 +74,7 @@ propertyName = {
 
 With the `validator` constraint you can specify your own custom validator, but if you need your own parameters for your validator this is a bit limited. You can also specify `YourOwnValidator` as constraint label where `YourOwnValidator` is a wirebox id string. In this  case you can specify your own parameters. 
 
-See [Advanced Custom Validators](../advanced-custom-validators.md) for details.
+See [Advanced Custom Validators](../../advanced/advanced-custom-validators.md) for details.
 
 {% hint style="warning" %}
 WARNING: You can't do a normal wirebox mapping for `YourOwnValidator` in your main application. A validator needs an `IValidator` interface from the `cbvalidation` module. When wirebox inspects the binder, the `cbvalidation` module is not loaded yet, so it will error. This can be solved by defining your custom validators in an own module \(depending on `cbvalidation`\) or by mapping your validator in the `afterConfigurationLoad()` method of your binder, e.g in `config/wirebox.cfc`
