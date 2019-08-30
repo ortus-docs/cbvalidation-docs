@@ -9,12 +9,12 @@ box install cborm
 ```
 
 {% hint style="info" %}
-See the [Advanced Custom Validators](../custom-validators/advanced-custom-validators.md) for a uniqueness validator which is **not** dependent of ORM
+See the [Advanced Custom Validators](../advanced-custom-validators.md) for a uniqueness validator which is **not** dependent of ORM
 {% endhint %}
 
 ## Declaring the Constraint
 
-The constraints is mapped into wirebox as `UniqueValidator@cborm` so you can use in your constraints like so:
+The constraints is mapped into WireBox as `UniqueValidator@cborm` so you can use in your constraints like so:
 
 ```javascript
 { fieldName : { validator: "UniqueValidator@cborm" } }

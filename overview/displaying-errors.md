@@ -6,7 +6,7 @@ After validation you can use the same results object and use it to display the v
 
 ```javascript
 // store the validation results in the request collection
-prc.validationResults = validateModel( obj );
+prc.validationResults = validate( obj );
 ```
 
 ## Views:

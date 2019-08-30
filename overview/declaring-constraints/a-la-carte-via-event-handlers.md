@@ -1,13 +1,13 @@
-# A-la-carte via event handlers
+# A-la-carte
 
-You can define your constraints in your validation target or in a sharedConstraint but sometimes you need something more flexible. In this case you can define your constraints on the fly in your handler.
+You can also define your constraints on the fly right where you are doing your validation.
 
-In this sample we validate the public request context `rc`. This sample validates all fields in the `rc`.  If you need more control you can specify the `fields` parameter \(default all\) or the `includeFields` and `excludeFields` parameters in your `Validatemodel()` call.
+In this sample we validate the public request context `rc`. This sample validates all fields in the `rc`.  If you need more control you can specify the `fields` parameter \(default all\) or the `includeFields` and `excludeFields` parameters in your `validate()` call.
 
 ```javascript
 // sample REST API create user
 function create( event, rc, prc ){
-	var validationResult = validateModel( 
+	var validationResult = validate( 
 		target = rc,
 		constraints = { 
 			username = { required = true },

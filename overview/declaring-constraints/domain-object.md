@@ -1,7 +1,11 @@
 # Domain Object
 
-Within any domain object you can define a public variable called `constraints` that is a assigned an implicit structure of validation rules for any fields or properties in your object:
+Within any domain object you can define a public variable called `constraints` that is a assigned an implicit structure of validation rules for any fields or properties in your object.
 
+### Declaration
+
+{% code-tabs %}
+{% code-tabs-item title="models/User.cfc" %}
 ```javascript
 component persistent="true"{
 
@@ -20,9 +24,13 @@ component persistent="true"{
     }
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 We can then create the validation rules for the properties it will apply to it:
 
+{% code-tabs %}
+{% code-tabs-item title="config/User.cfc" %}
 ```javascript
 component persistent="true"{
 
@@ -39,8 +47,20 @@ component persistent="true"{
     };
 }
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 That easy! You can just declare these validation rules and ColdBox will validate your properties according to the rules. In this case you can see that a password must be between 6 and 10 characters long, and it cannot be blank.
 
-> **Info** By default all properties are of type string and **not** required
+{% hint style="info" %}
+By default all properties are of type **string** and **not** required
+{% endhint %}
+
+### Usage
+
+You can then use them implicitly
+
+```javascript
+validate( myUser );
+```
 

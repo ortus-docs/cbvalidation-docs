@@ -9,6 +9,11 @@ By default if a constraint fails an error message will be set in the result obje
 Just add the name of the constraint you like and append to it the work Message and you are ready to roll:
 
 ```javascript
-username = { required="true", requiredMessage="Please enter the username", size="6-8", sizeMessage="The username must be between 6 to 8 characters" }
+username = { 
+    required="true", 
+    requiredMessage="Please enter the username", 
+    size="6-8", 
+    sizeMessage="The username must be between 6 to 8 characters" 
+}
 ```
 

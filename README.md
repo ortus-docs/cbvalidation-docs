@@ -1,26 +1,23 @@
 # Introduction
 
-ColdBox sports its own server side validation engine so it can provide you with a unified approach to object and form validation. We have based it on several interfaces, so you can also use any validation framework in your as long as they implement the required interfaces \(See the included API Docs\).
+This module is a server side rules validation engine that can provide you with a unified approach to object, struct and form validation. You can construct validation constraint rules and then tell the engine to validate them accordingly.
 
 ## System Requirements
 
-![](https://img.shields.io/badge/Lucee-v4.5+-red.svg?style=for-the-badge)
-
-![](https://img.shields.io/badge/ColdFusion-v9.0+-green.svg?style=for-the-badge)
-
-* Lucee 4.5+
-* Railo 4+
-* ColdFusion 9+
+* Lucee 5+
+* ColdFusion 2016+
 
 ## Introduction
 
-ColdBox validation is based on a way to declaratively specify validation rules for properties or fields in an object or form. The constraints can exist inside of the target object or you can define object and form constraints in your ColdBox [configuration file](overview/coldbox-validation/declaring-constraints/configuration-file.md) so you can reuse validation constraints or as we call them: **shared constraints**.
+ColdBox validation is based on a way to declaratively specify validation rules for properties or fields in an object or form. The constraints can exist inside of the target object or you can define object and form constraints in your ColdBox [configuration file](overview/declaring-constraints/configuration-file.md) so you can reuse validation constraints or as we call them: **shared constraints**.
+
+You can then use 2 simple validation methods and report on the results: `validate(), validateOrFail()`
 
 ## Professional Open Source
 
 ![Ortus Solutions, Corp](.gitbook/assets/ortus-solutions-logo.png)
 
-The ColdBox ORM Module is a professional open source software backed by [Ortus Solutions, Corp](http://www.ortussolutions.com/services) offering services like:
+The ColdBox ORM Module is a professional open source software backed by [Ortus Solutions, Corp](https://www.ortussolutions.com/) offering services like:
 
 * Custom Development
 * Professional Support & Mentoring
@@ -28,7 +25,7 @@ The ColdBox ORM Module is a professional open source software backed by [Ortus S
 * Server Tuning
 * Security Hardening
 * Code Reviews
-* [Much More](http://www.ortussolutions.com/services)
+* [Much More](https://www.ortussolutions.com/)
 
 ### HONOR GOES TO GOD ABOVE ALL
 

@@ -13,7 +13,25 @@ Most likely you will be validating your objects at the controller layer in your 
 * 
 * @return cbvalidation.model.result.IValidationResult
 */
-function validateModel()
+function validate()
+
+/**
+ * Validate an object or structure according to the constraints rules and throw an exception if the validation fails.
+ * The validation errors will be contained in the `extendedInfo` of the exception in JSON format
+ *
+ * @target An object or structure to validate
+ * @fields The fields to validate on the target. By default, it validates on all fields
+ * @constraints A structure of constraint rules or the name of the shared constraint rules to use for validation
+ * @locale The i18n locale to use for validation messages
+ * @excludeFields The fields to exclude from the validation
+ * @includeFields The fields to include in the validation
+ *
+ * @return The validated object or the structure fields that where validated
+ * @throws ValidationException
+ */
+function validateOrFail(){
+	return getValidationManager().validateOrFail( argumentCollection=arguments );
+}
 
 /**
 * Retrieve the application's configured Validation Manager
@@ -21,14 +39,14 @@ function validateModel()
 function getValidationManager()
 ```
 
-You pass in your target object or structure, an optional list of fields or properties to validate only \(by default it does all of them\), an an optional constraints argument which can be the shared name or an actual constraints structure a-la-carte. If no constraints are passed, then we will look for the constraints in the target object as a public property called `constraints`. The `validateModel()` method returns a `cbvalidation.models.results.IValidationResult` type object, which you can then use for evaluating the validation.
+You pass in your target object or structure, an optional list of fields or properties to validate only \(by default it does all of them\), an an optional constraints argument which can be the shared name or an actual constraints structure a-la-carte. If no constraints are passed, then we will look for the constraints in the target object as a public property called `constraints`. The `validate()` method returns a `cbvalidation.models.results.IValidationResult` type object, which you can then use for evaluating the validation.
 
 ```javascript
 function saveUser(event,rc,prc){
     // create and populate a user object from an incoming form
     var user = populateModel( entityNew("User") );
     // validate model
-    prc.validationResults = validateModel( user );
+    prc.validationResults = validate( user );
 
     if( prc.validationResults.hasErrors() ){
         // show errors
