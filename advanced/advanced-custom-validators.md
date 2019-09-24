@@ -5,9 +5,12 @@ You can use multiple custom validators or pass in arbitrary data to custom valid
 ```javascript
 //sample custom validator constraints
 this.constraints = {
+  myField = {
     UniqueInDB = { 
-    table= "table_name", 
-    column = 'column_name' } },
+      table= "table_name", 
+      column = 'column_name' 
+    }    
+  }
 };
 ```
 
