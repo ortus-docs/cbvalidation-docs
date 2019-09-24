@@ -52,6 +52,7 @@ component singleton implements="cbvalidation.models.validators.IValidator" acces
 		var myParams = { table =validationData.table, column=validationData.column, columnvalue=targetValue };
 		var sql = "Select #validationData.column# from #validationData.table# where #validationData.column# = :columnvalue";
 		var myQuery = queryExecute(sql, myParams);
+		// This sample only validates NEW records, additional code is necessary for EDITING existing records
 		if  (myQuery.recordcount == 0) { 
 			return true 
 		} 
