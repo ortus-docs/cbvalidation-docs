@@ -2,8 +2,7 @@
 
 Here are the module settings you can place in your `ColdBox.cfc` by using the `validation` settings structure:
 
-{% code-tabs %}
-{% code-tabs-item title="config/Coldbox.cfc" %}
+{% code title="config/Coldbox.cfc" %}
 ```javascript
 validation = {
     // The third-party validation manager to use, by default it uses CBValidation.
@@ -17,8 +16,7 @@ validation = {
 
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 | Key | Type | Required | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |

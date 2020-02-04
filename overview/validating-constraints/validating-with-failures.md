@@ -1,6 +1,6 @@
 # Validating With Failures
 
-In **cbValidation** 1.5 we introduced the `validateOrFail()` function.  This function works in similar manner to the `validate()` method, but instead of giving you the results object, it throws an exception.
+In **cbValidation** 1.5 we introduced the `validateOrFail()` function.  This function works in similar manner to the `validate()` method, but instead of giving you the results object, it throws an exception of type `ValidationException`.
 
 | Incoming Target | Validation Fails | Result |
 | :--- | :--- | :--- |

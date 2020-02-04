@@ -18,15 +18,18 @@ The module will also register two methods in your handlers/interceptors/layouts/
 
 ```javascript
 /**
-* Validate an object or structure according to the constraints rules.
-* @target An object or structure to validate
-* @fields The fields to validate on the target. By default, it validates on all fields
-* @constraints A structure of constraint rules or the name of the shared constraint rules to use for validation
-* @locale The i18n locale to use for validation messages
-* @excludeFields The fields to exclude in the validation
-* 
-* @return cbvalidation.model.result.IValidationResult
-*/
+ * Validate an object or structure according to the constraints rules.
+ *
+ * @target An object or structure to validate
+ * @fields The fields to validate on the target. By default, it validates on all fields
+ * @constraints A structure of constraint rules or the name of the shared constraint rules to use for validation
+ * @locale The i18n locale to use for validation messages
+ * @excludeFields The fields to exclude from the validation
+ * @includeFields The fields to include in the validation
+ * @profiles If passed, a list of profile names to use for validation constraints
+ *
+ * @return cbvalidation.model.result.IValidationResult
+ */
 function validate()
 
 /**
@@ -39,17 +42,17 @@ function validate()
  * @locale The i18n locale to use for validation messages
  * @excludeFields The fields to exclude from the validation
  * @includeFields The fields to include in the validation
+ * @profiles If passed, a list of profile names to use for validation constraints
  *
  * @return The validated object or the structure fields that where validated
  * @throws ValidationException
  */
-function validateOrFail(){
-	return getValidationManager().validateOrFail( argumentCollection=arguments );
-}
+function validateOrFail()
 
 /**
-* Retrieve the application's configured Validation Manager
-*/
+ * Retrieve the application's configured Validation Manager
+ */
 function getValidationManager()
+
 ```
 

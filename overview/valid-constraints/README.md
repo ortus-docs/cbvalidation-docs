@@ -1,84 +1,278 @@
 # Available Constraints
 
-Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../../advanced/custom-validators.md).
+Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../../advanced/advanced-custom-validators.md) as well.
 
 ```javascript
 propertyName = {
-	// required field or not, includes null values
-	required : boolean [false],
-	
-	// specific type constraint, one in the list.
-	type  : (ssn,email,url,alpha,boolean,date,usdate,eurodate,numeric,GUID,UUID,integer,string,telephone,zipcode,ipaddress,creditcard,binary,component,query,struct,json,xml),
+		// The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
+		accepted : any value,
 
-	// size or length of the value which can be a (struct,string,array,query)
-	size  : numeric or range, eg: 10 or 6..8
-	
-	// range is a range of values the property value should exist in
-	range : eg: 1..10 or 5..-5
-	
-	// regex validation
-	regex : valid no case regex
-	
-	// same as another property
-	sameAs : propertyName
-	
-	// same as but with no case
-	sameAsNoCase : propertyName
-	
-	// value in list
-	inList : list
+		// The field must be alpahbetical ONLY
+		alpha : any value,
 
-	// value is unique in the database via the cborm module, it must be installed
-	unique : true
-	
-	// discrete math modifiers
-	discrete : (gt,gte,lt,lte,eq,neq):value
-	
-	// UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target):boolean
-	udf = variables.UDF or this.UDF or a closure.
-	
-	// Validation method to use in the target object must return boolean accept the incoming value and target object 
-	method : methodName
-	
-	// Custom validator, must implement coldbox.system.validation.validators.IValidator
-	validator : path or wirebox id, example: 'mypath.MyValidator' or 'id:MyValidator'
-	
-	// min value
-	min : value
-	
-	// max value
-	max : value
+		// discrete math modifiers
+		discrete : (gt,gte,lt,lte,eq,neq):value
+
+		// value in list
+		inList : list,
+
+		// max value
+		max : value,
+
+		// Validation method to use in the target object must return boolean accept the incoming value and target object 
+		method : methodName,
+
+		// min value
+		min : value,
+
+		// range is a range of values the property value should exist in
+		range : eg: 1..10 or 5..-5,
+		
+		// regex validation
+		regex : valid no case regex
+
+		// required field or not, includes null values
+		required : boolean [false],
+
+		// The field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`.
+		requiredIf : {
+			anotherfield:value, anotherfield:value
+		}
+		
+		// The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed 
+		requiredUnless : {
+			anotherfield:value, anotherfield:value
+		}
+		
+		// same as but with no case
+		sameAsNoCase : propertyName
+
+		// same as another property
+		sameAs : propertyName
+
+		// size or length of the value which can be a (struct,string,array,query)
+		size  : numeric or range, eg: 10 or 6..8
+
+		// specific type constraint, one in the list.
+		type  : (ssn,email,url,alpha,boolean,date,usdate,eurodate,numeric,GUID,UUID,integer,string,telephone,zipcode,ipaddress,creditcard,binary,component,query,struct,json,xml),
+
+		// UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target):boolean
+		udf = variables.UDF or this.UDF or a closure.
+
+		// Check if a column is unique in the database
+		unique = {
+			table : The table name,
+			column : The column to check, defaults to the property field in check
+		}
+		
+		// Custom validator, must implement coldbox.system.validation.validators.IValidator
+		validator : path or wirebox id, example: 'mypath.MyValidator' or 'id:MyValidator'
 }
 ```
 
-## Reference
+## accepted
 
-| Constraint | Type | Default |  |
-| :--- | :--- | :--- | :--- |
-| `required` | boolean | false | Whether the property must have a non-null value |
-| `type` | string | string |  Validates that the value is of a certain format type. Our included types are: ssn,email,url,alpha,boolean,date,usdate,eurodate,numeric,GUID,UUID,integer,string,telephone,zipcode,ipaddress,creditcard,binary,component,query,struct,json,xml |
-| `size` |  numeric or range | --- | The size or length of the value which can be a struct, string, array, or query. The value can be a single numeric value or our cool ranges. Ex: size=4, size=6..8, size=-5..0 |
-| `range` | range | --- | Range is a range of values the property value should exist in. Ex: range=1..10, range=6..8 |
-| `regex` | regular expression | --- | The regular expression to try and match the value with for validation. This is a no case regex check. |
-| `sameAs` | propertyName | --- | Makes sure the value of the constraint is the same as the value of another property in the object. This is a case sensitive check. |
-| `sameAsNoCase` | propertyName | --- | Makes sure the value of the constraint is the same as the value of another property in the object with no case sensitivity. |
-| `inList` | string list | --- | A list of values that the property value must exist in |
-| `discrete` | string | --- | Do discrete math in the property value. The valid values are: eq,neq,lt,lte,gt,gte. Example: discrete="eq:4" or discrete="lte:10" |
-| `udf` | UDF or closure | --- | I can do my own custom validation by doing an inline closure \(CF 10 or Railo only\) or a pointer to a custom defined function. The function must return boolean and accepts two parameters: value and target. |
-| `method` | method name | --- | The name of a method to call in the target object for validation. The function must return boolean and accepts two parameters: value and target. |
-| `min` | numeric | --- | The value must be greater than or equal to this minimum value |
-| `max` | numeric | --- | The value must be less than or equal to this maximum value |
-| `validator` | instantiation path or wirebox DSL | --- | You can also build your own validators instead of our internal ones. This value will be the instantiation path to the validator or a wirebox id string. Example: validator="mymodel.validators.MyValidator", validator="id:MyValidator" |
+The field must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
 
-### Custom Validator
+```javascript
+terms = { accepted = true }
+```
 
-With the `validator` constraint you can specify your own custom validator, but if you need your own parameters for your validator this is a bit limited. You can also specify `YourOwnValidator` as constraint label where `YourOwnValidator` is a wirebox id string. In this  case you can specify your own parameters. 
+## alpha
 
-See [Advanced Custom Validators](../../advanced/advanced-custom-validators.md) for details.
+The field must be alphabetical ONLY
 
-{% hint style="warning" %}
-WARNING: You can't do a normal wirebox mapping for `YourOwnValidator` in your main application. A validator needs an `IValidator` interface from the `cbvalidation` module. When wirebox inspects the binder, the `cbvalidation` module is not loaded yet, so it will error. This can be solved by defining your custom validators in an own module \(depending on `cbvalidation`\) or by mapping your validator in the `afterConfigurationLoad()` method of your binder, e.g in `config/wirebox.cfc`
-{% endhint %}
+```javascript
+terms = { alpha = true }
+```
 
+## discrete
 
+The field must pass certain discrete math operations using the format: `operator:value`
+
+* `gt` - Greater than the value
+* `gte` - Greater than or equal to the value
+* `lt` - Less than the value
+* `lte` - Less than or equal to the value
+* `eq` - Equal to the value
+* `neq` - Not equal to the value
+
+```javascript
+myField = { discrete = "gt:4" }
+myField = { discrete = "eq:luis" }
+myField = { discrete = "lte:1" }
+```
+
+## inList
+
+The field must be in the included list
+
+```javascript
+myField = { inList = "red,green,blue" }
+```
+
+## max
+
+The field must be less than or equal to the defined value
+
+```javascript
+myField = { max = 25 }
+```
+
+## method
+
+The `methodName` will be called on the target object and it will pass in the  target, validationData, targetValue. It must return a boolean response: **true** = pass, **false** = fail.
+
+```javascript
+myField = { method = "methodName" }
+
+function methodName( target, validationData, value ){
+    return true;
+}
+```
+
+## min
+
+The field must be greater than or equal to the defined value
+
+```javascript
+myField = { min = 8 }
+```
+
+## range
+
+The field must be within the range values and the validation data must follow the range pattern: `min..max`
+
+```javascript
+myField = { range = "1..5" }
+myField = { range = "5..-5" }
+```
+
+## regex
+
+The field must pass the regular expression match with no case sensitivity
+
+```javascript
+myField = { regex = "^(sick|vacation|disability)$" }
+```
+
+## required
+
+The field must have some type of value and not null.
+
+```javascript
+myField = { required=true }
+myField = { required=false }
+```
+
+## requiredIf
+
+the field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`.
+
+```javascript
+myField = { 
+ requiredIf = {
+  field2 = "test",
+  field3 = "hello"
+ }
+}
+```
+
+## requiredUnless
+
+The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed
+
+```javascript
+myField = { 
+ requiredUnless = {
+  field2 = "test",
+  field3 = "hello"
+ }
+}
+```
+
+## sameAsNoCase
+
+The field must be the same as another field with no case sensitivity
+
+```javascript
+myField = { sameAs = "otherField" }
+```
+
+## sameAs
+
+The field must be the same as another field with case sensitivity
+
+```javascript
+myField = { sameAs = "otherField" }
+```
+
+## size
+
+The field value size must be within the range values and the validation data must follow the range pattern: `min..max.`  Value can be a \(struct,string,array,query\)
+
+```javascript
+myField = { size : 10 }
+myFiedl = { size : 8..20 }
+```
+
+## type
+
+One of the most versatile validators.  It can test if the value is of the following specific types:
+
+* alpha
+* binary
+* boolean
+* component
+* creditcard
+* date
+* email
+* eurodate
+* GUID
+* integer
+* ipaddress
+* json
+* numeric
+* query
+* ssn
+* string
+* struct
+* telephone
+* url
+* usdate
+* UUID
+* xml
+* zipcode
+
+```javascript
+myField = { type : "float" }
+```
+
+## udf
+
+The field value will be passed to the declared closure/lambda to use for validation, must return **boolean** accept the incoming value and target object, `validate(value,target):boolean`
+
+```javascript
+myField = { udf = function( value, target ) { return true; } }
+myField = { udf = (value,targe) => true }
+```
+
+## unique
+
+The field must be a unique value in a specific database table.  The validation data is a struct with the following keys:
+
+* `table` : The name of the teable to check
+* `column` : The column to check, defaults to the property field in check 
+
+```javascript
+myField = { unique = { table : "users", column : "username" } }
+```
+
+## validator
+
+The field value will be passed to the validator CFC to be uses for validation. Please see [Custom Validators](../../advanced/advanced-custom-validators.md)
+
+```javascript
+myField = { validator = "UniqueValidator@cborm" }
+```
 

@@ -1,87 +1,176 @@
-# Advanced Custom Validators
+# Custom Validators
 
-You can use multiple custom validators or pass in arbitrary data to custom validators by specifying the validator name as the key in the rules struct.
+If the core validators are not sufficient for you, then you can create your own custom validators.  You can either leverage the `udf` validator and create your own closure/lambda to validate inline or create a reusable validator CFC
+
+## Closure/Lambda Validator
+
+If you use the `udf` validator, then you can declare your validation inline.  Just create a closure/lambda that will be called for you at the time of validation.  This closure/lambda will receive all the following arguments and MUST return a boolean indicator: **true** =&gt; passed, **false** =&gt; invalid
+
+* `value` : The value to validate, can be null
+* `target` : The object that is the target of validation
 
 ```javascript
-//sample custom validator constraints
-this.constraints = {
-  myField = {
-    UniqueInDB = { 
-      table= "table_name", 
-      column = 'column_name' 
-    }    
-  }
-};
+slug : { 
+	required : true, 
+	udf : ( value, target ) => {
+		if( isNull( arguments.value ) ) return false;
+		return qb.from( "content" )
+			.where( "slug", arguments.value )
+			.when( this.isLoaded(), ( q ) => {
+				arguments.q.whereNotIn( "id", this.getId() );
+			} )
+			.count() == 0;
+	}
+},
 ```
 
-This example will look for a `UniqueInDBValidator` in WireBox and pass in `{ table = "table_name", column = "column_name" }` to the `validate` method.
+## Custom CFC Validator
+
+You can also create a reusable CFC that can be shared in any ColdBox app as a validator.  Create the CFC and it should implement our interface which can be found here: `cbvalidation.models.validators.IValidator` and it specifies just two functions your own validator must implement: `getName(), validate():`
+
+{% code title="cbvalidation.models.validators.IValidator" %}
+```java
+/**
+ * Copyright since 2020 by Ortus Solutions, Corp
+ * www.ortussolutions.com
+ * ---
+ * The ColdBox validator interface, all inspired by awesome Hyrule Validation Framework by Dan Vega
+ */
+interface {
+
+	/**
+	 * Will check if an incoming value validates
+	 * @validationResultThe result object of the validation
+	 * @targetThe target object to validate on
+	 * @fieldThe field on the target object to validate on
+	 * @targetValueThe target value to validate
+	 * @rules The rules imposed on the currently validating field
+	 */
+	boolean function validate(
+		required any validationResult,
+		required any target,
+		required string field,
+		any targetValue,
+		any validationData,
+		struct rules
+	);
+
+	/**
+	 * Get the name of the validator
+	 */
+	string function getName();
+
+}
+
+```
+{% endcode %}
+
+Here is a sample validator:
 
 ```javascript
-//sample validator
 /**
-* UniqueInDB validator. This checks and returns fals if value is already present in DB
-*/
-component singleton implements="cbvalidation.models.validators.IValidator" accessors="true"  {
+ * Copyright since 2020 by Ortus Solutions, Corp
+ * www.ortussolutions.com
+ * ---
+ * This validator validates if a value is is less than a maximum number
+ */
+component accessors="true" singleton {
+
+	property name="name";
+
 	/**
 	 * Constructor
 	 */
-	UniqueInDB function init(){
-		variables.Name = "UniqueInDBValidator";
+	MaxValidator function init(){
+		variables.name = "Max";
 		return this;
 	}
-	
+
 	/**
-	* validate
-	*/
+	 * Will check if an incoming value validates
+	 * @validationResultThe result object of the validation
+	 * @targetThe target object to validate on
+	 * @fieldThe field on the target object to validate on
+	 * @targetValueThe target value to validate
+	 * @validationDataThe validation data the validator was created with
+	 */
 	boolean function validate(
-		required cbvalidation.models.result.IValidationResult validationResult,
+		required any validationResult,
 		required any target,
 		required string field,
 		any targetValue,
 		any validationData
 	){
-		//check validationdata
-		if ( !IsStruct(validationData ) ) {
-			throw(message="The validator data is invalid: #arguments.validationData#, it must be a struct with keys 'table' = 'tableName' and 'column' = 'columnName'");
-		}
-		//check validationdata
-		if ( !structKeyExists(validationData,"table") || !structKeyExists(validationData,"column") ) {
-			throw(message="The validator data is invalid: #serializeJSON(validationData)# it must be a struct with keys 'table' = 'tableName' and 'column' = 'columnName'");
+		// return true if no data to check, type needs a data element to be checked.
+		if ( isNull( arguments.targetValue ) || ( isSimpleValue( arguments.targetValue ) && !len( arguments.targetValue ) ) ) {
+			return true;
 		}
 
-		var myParams = { table =validationData.table, column=validationData.column, columnvalue=targetValue };
-		var sql = "Select #validationData.column# from #validationData.table# where #validationData.column# = :columnvalue";
-		var myQuery = queryExecute(sql, myParams);
-		// This sample only validates NEW records, additional code is necessary for EDITING existing records
-		if  (myQuery.recordcount == 0) { 
-			return true 
-		} 
-		// error messages definieren
+		// Max Tests
+		if ( arguments.targetValue <= arguments.validationData ) {
+			return true;
+		}
+
 		var args = {
-			message="The value #targetValue# is not unique in your database",
-			field=arguments.field,
-			validationType=getName(),
-			validationData=arguments.validationData
+			message        : "The '#arguments.field#' value is not less than or equal to #arguments.validationData#",
+			field          : arguments.field,
+			validationType : getName(),
+			rejectedValue  : ( isSimpleValue( arguments.targetValue ) ? arguments.targetValue : "" ),
+			validationData : arguments.validationData
 		};
-		var error = validationResult.newError(argumentCollection=args).setErrorMetadata({table=validationData.table, column=validationData.column});
+		var error = validationResult.newError( argumentCollection = args ).setErrorMetadata( { max : arguments.validationData } );
 		validationResult.addError( error );
 		return false;
 	}
 
 	/**
-	* getName
-	*/
+	 * Get the name of the validator
+	 */
 	string function getName(){
-		return variables.Name
+		return variables.name;
 	}
+
 }
+
 ```
 
-Using these advanced techniques you can build reusable validators that accept the data they need in the `validationData` struct. You can also include multiple custom validators just by specifying each of them as a key.
+## Defining Custom Validators
 
-If you don't have any custom data to pass to a validator, just pass an empty struct \(`{}`\)
+You can use them in two approaches when defining them in your constraints:
 
-{% hint style="warning" %}
-WARNING: You can't do a normal wirebox mapping for `YourOwnValidator` in your main application. A validator needs an `IValidator` interface from the `cbvalidation` module. When wirebox inspects the binder, the `cbvalidation` module is not loaded yet, so it will error. This can be solved by defining your custom validators in an own module \(depending on `cbvalidation`\) or by mapping your validator in the `afterConfigurationLoad()` method of your binder, e.g in `config/wirebox.cfc`
+1. Use the `validator` constraints which points to the Wirebox ID of your own custom validator object. Please note that if you use this approach you will not be able to pass validation data into the validator.
+2. Use the WireBox Id as they key of your validator. Then you can pass your own validation data into the validator.
+
+{% hint style="success" %}
+Approach number 2 is much more flexible as it will allow you to declare multiple custom validators and each of those validators can receive validation data as well.
 {% endhint %}
+
+```javascript
+//sample custom validator constraints
+	this.constraints = {
+		// Approach #1
+		myField = {
+			required : true, 
+			validator : "MyCustomID" 
+		},
+
+		// Approach #2
+		myField2 = {
+			required : true, 
+			UniqueInMyDatabase : {
+				column : "column_name",
+				table : "table_name",
+				dsn : "myDatasource"
+			},
+			MyTimezoneValidator : true
+		}
+ 	};
+ 
+```
+
+{% hint style="success" %}
+If you don't have any validation data to pass to a validator, just pass an empty struct \(`{}`\) or an empty string
+{% endhint %}
+
+## 
 

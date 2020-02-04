@@ -6,3 +6,20 @@ If you would like to adapt your own validation engines to work with ANY ColdBox 
 * Validation Results : Implement the `cbvalidation.models.result.IValidationResult`, which makes it possible for any ColdBox application to use your validation results.
 * Validation Error : Implement the `cbvalidation.models.result.IValidationError`, which makes it possible for any ColdBox application to use your validation error representations.
 
+Then map it in your configuration file:
+
+{% code title="config/Coldbox.cfc" %}
+```javascript
+validation = {
+    // The third-party validation manager to use, by default it uses CBValidation.
+    manager = "my.class.path"
+}
+```
+{% endcode %}
+
+|  |
+| :--- |
+
+
+
+
