@@ -2,6 +2,14 @@
 
 * [Introduction](README.md)
 
+## Intro
+
+* [Release History](release-history/README.md)
+  * [What's New With 2.1.0](release-history/whats-new-with-2.1.0.md)
+  * [What's New With 2.0.0](release-history/whats-new-with-2.0.0.md)
+* [About This Book](about-this-book/README.md)
+  * [Author](about-this-book/author.md)
+
 ## Overview
 
 * [Installation](overview/installation.md)
