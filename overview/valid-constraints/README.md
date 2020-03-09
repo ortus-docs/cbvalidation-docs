@@ -54,7 +54,7 @@ propertyName = {
 		size  : numeric or range, eg: 10 or 6..8
 
 		// specific type constraint, one in the list.
-		type  : (ssn,email,url,alpha,boolean,date,usdate,eurodate,numeric,GUID,UUID,integer,string,telephone,zipcode,ipaddress,creditcard,binary,component,query,struct,json,xml),
+		type  : (alpha,array,binary,boolean,component,creditcard,date,email,eurodate,float,GUID,integer,ipaddress,json,numeric,query,ssn,string,struct,telephone,url,usdate,UUID,xml,zipcode),
 
 		// UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target):boolean
 		udf = variables.UDF or this.UDF or a closure.
@@ -221,6 +221,7 @@ myFiedl = { size : 8..20 }
 One of the most versatile validators.  It can test if the value is of the following specific types:
 
 * alpha
+* array
 * binary
 * boolean
 * component
@@ -228,6 +229,7 @@ One of the most versatile validators.  It can test if the value is of the follow
 * date
 * email
 * eurodate
+* float
 * GUID
 * integer
 * ipaddress
