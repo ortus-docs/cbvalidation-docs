@@ -1,6 +1,6 @@
 # A-la-carte
 
-You can also define constraints a-la-carte. Meaning you can create them on the fly or storem as JSON or somewhere in a service.  As long as it is a struct of constraints, that's all the validation methods accept via the `constraints` argument.
+You can also define constraints a-la-carte. Meaning you can create them on the fly or store them as JSON or somewhere in a service.  As long as it is a struct of constraints, that's all the validation methods accept via the `constraints` argument.
 
 In this sample we validate the public request context `rc`. This sample validates all fields in the `rc`.  If you need more control you can specify the `fields` parameter \(default all\) or the `includeFields` and `excludeFields` parameters in your `validate()` call.
 

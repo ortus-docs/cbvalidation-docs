@@ -6,7 +6,7 @@ By default if a constraint fails an error message will be set in the result obje
 {constraintName}Message = "My Custom Message";
 ```
 
-Just add the name of the constraint you like and append to it the work Message and you are ready to roll:
+Just add the name of the constraint you like and append to it the word Message and you are ready to roll:
 
 ```javascript
 username = { 

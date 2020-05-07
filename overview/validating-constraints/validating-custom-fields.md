@@ -12,8 +12,8 @@ This will only validate the `login` and `password` fields.
 
 You can also use the following arguments:
 
-* `includeFields` :  The fields to include in the validation ONLY
-* `excludeFields`: The fields to exclude in the validation
+* `includeFields` : The fields to include in the validation ONLY
+* `excludeFields` : The fields to exclude in the validation
 
 ```javascript
 prc.results = validateModel( 

@@ -139,7 +139,7 @@ component accessors="true" singleton {
 You can use them in two approaches when defining them in your constraints:
 
 1. Use the `validator` constraints which points to the Wirebox ID of your own custom validator object. Please note that if you use this approach you will not be able to pass validation data into the validator.
-2. Use the WireBox Id as they key of your validator. Then you can pass your own validation data into the validator.
+2. Use the WireBox ID as they key of your validator. Then you can pass your own validation data into the validator.
 
 {% hint style="success" %}
 Approach number 2 is much more flexible as it will allow you to declare multiple custom validators and each of those validators can receive validation data as well.
