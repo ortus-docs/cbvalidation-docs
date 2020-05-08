@@ -7,7 +7,7 @@ propertyName = {
 		// The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
 		accepted : any value,
 
-		// The field must be alpahbetical ONLY
+		// The field must be alphanumeric ONLY
 		alpha : any value,
 
 		// discrete math modifiers
@@ -263,7 +263,7 @@ myField = { udf = (value,targe) => true }
 
 The field must be a unique value in a specific database table.  The validation data is a struct with the following keys:
 
-* `table` : The name of the teable to check
+* `table` : The name of the table to check
 * `column` : The column to check, defaults to the property field in check 
 
 ```javascript
@@ -272,7 +272,7 @@ myField = { unique = { table : "users", column : "username" } }
 
 ## validator
 
-The field value will be passed to the validator CFC to be uses for validation. Please see [Custom Validators](../../advanced/advanced-custom-validators.md)
+The field value will be passed to the validator CFC to be used for validation. Please see [Custom Validators](../../advanced/advanced-custom-validators.md)
 
 ```javascript
 myField = { validator = "UniqueValidator@cborm" }

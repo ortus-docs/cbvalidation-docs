@@ -6,7 +6,7 @@ A constraint is by definition the following:
 
 > The state of being restricted or confined within prescribed bounds.
 
-That is exactly what you will create for specific fields. You will declare the constraints for one or more fields.  Each constraint will be composed of  one or more **validators** and **validation data**.  The validation data is defined by the validator and can be of `any` type, the default is an empty struct \(`{}`\)
+That is exactly what you will create for specific fields. You will declare the constraints for one or more fields.  Each constraint will be composed of one or more **validators** and **validation data**.  The validation data is defined by the validator and can be of `any` type, the default is an empty struct \(`{}`\)
 
 ```javascript
 // Define the field by name

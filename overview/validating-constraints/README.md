@@ -2,7 +2,7 @@
 
 ## Validation Methods: `validate(), validateOrFail()`
 
-Most likely you will be validating your objects at the controller layer in your ColdBox event handlers. All event handlers,layouts, views and interceptors have some new methods thanks to our module mixins.
+Most likely you will be validating your objects at the controller layer in your ColdBox event handlers. All event handlers, layouts, views and interceptors have some new methods thanks to our module mixins.
 
 ```javascript
 /**
@@ -43,7 +43,7 @@ function validateOrFail()
 function getValidationManager()
 ```
 
-You pass in your target object or structure, an optional list of fields or properties to validate only \(by default it does all of them\), an an optional constraints argument which can be the shared name or an actual constraints structure a-la-carte. If no constraints are passed, then we will look for the constraints in the target object as a public property called `constraints`. The `validate()` method returns a `cbvalidation.models.results.IValidationResult` type object, which you can then use for evaluating the validation.
+You pass in your target object or structure, an optional list of fields or properties to validate only \(by default it does all of them\), and an optional constraints argument which can be the shared name or an actual constraints structure a-la-carte. If no constraints are passed, then we will look for the constraints in the target object as a public property called `constraints`. The `validate()` method returns a `cbvalidation.models.results.IValidationResult` type object, which you can then use for evaluating the validation.
 
 ```javascript
 function saveUser( event, rc, prc ){
