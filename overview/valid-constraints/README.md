@@ -7,7 +7,7 @@ propertyName = {
 		// The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
 		accepted : any value,
 
-		// The field must be alphanumeric ONLY
+		// The field must be alphabetical ONLY
 		alpha : any value,
 
 		// discrete math modifiers
