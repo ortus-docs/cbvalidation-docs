@@ -83,88 +83,88 @@ The return of validate model is our results interface which has cool methods lik
 import cbvalidation.models.result.*;
 interface{
 
-	/**
-	 * Add errors into the result object
-	 * @error The validation error to add into the results object
-	 * @error_generic IValidationError
-	 *
-	 * @return IValidationResult
-	 */
-	any function addError(required error);
+    /**
+     * Add errors into the result object
+     * @error The validation error to add into the results object
+     * @error_generic IValidationError
+     *
+     * @return IValidationResult
+     */
+    any function addError(required error);
 
-	/**
-	 * Set the validation target object name
-	 * @return IValidationResult
-	 */
-	any function setTargetName(required string name);
+    /**
+     * Set the validation target object name
+     * @return IValidationResult
+     */
+    any function setTargetName(required string name);
 
-	/**
-	 * Get the name of the target object that got validated
-	 */
-	string function getTargetName();
+    /**
+     * Get the name of the target object that got validated
+     */
+    string function getTargetName();
 
-	/**
-	 * Get the validation locale
-	 */
-	string function getValidationLocale();
+    /**
+     * Get the validation locale
+     */
+    string function getValidationLocale();
 
-	/**
-	 * has locale information
-	 */
-	boolean function hasLocale();
+    /**
+     * has locale information
+     */
+    boolean function hasLocale();
 
-	/**
-	 * Set the validation locale
-	 *
-	 * @return IValidationResult
-	 */
-	any function setLocale(required string locale);
-
-
-	/**
-	 * Determine if the results had error or not
-	 * @fieldThe field to count on (optional)
-	 */
-	boolean function hasErrors(string field);
-
-	/**
-	 * Clear All errors
-	 * @return IValidationResult
-	 */
-	any function clearErrors();
+    /**
+     * Set the validation locale
+     *
+     * @return IValidationResult
+     */
+    any function setLocale(required string locale);
 
 
-	/**
-	 * Get how many errors you have
-	 * @fieldThe field to count on (optional)
-	 */
-	numeric function getErrorCount(string field);
+    /**
+     * Determine if the results had error or not
+     * @fieldThe field to count on (optional)
+     */
+    boolean function hasErrors(string field);
 
-	/**
-	 * Get the Errors Array, which is an array of error messages (strings)
-	 * @fieldThe field to use to filter the error messages on (optional)
-	 */
-	array function getAllErrors(string field);
+    /**
+     * Clear All errors
+     * @return IValidationResult
+     */
+    any function clearErrors();
 
-	/**
-	 * Get an error object for a specific field that failed. Throws exception if the field does not exist
-	 * @fieldThe field to return error objects on
-	 *
-	 * @return IValidationError[]
-	 */
-	array function getFieldErrors(required string field);
 
-	/**
-	 * Get a collection of metadata about the validation results
-	 */
-	struct function getResultMetadata();
+    /**
+     * Get how many errors you have
+     * @fieldThe field to count on (optional)
+     */
+    numeric function getErrorCount(string field);
 
-	/**
-	 * Set a collection of metadata into the results object
-	 *
-	 * @return IValidationResult
-	 */
-	any function setResultMetadata(required struct data);
+    /**
+     * Get the Errors Array, which is an array of error messages (strings)
+     * @fieldThe field to use to filter the error messages on (optional)
+     */
+    array function getAllErrors(string field);
+
+    /**
+     * Get an error object for a specific field that failed. Throws exception if the field does not exist
+     * @fieldThe field to return error objects on
+     *
+     * @return IValidationError[]
+     */
+    array function getFieldErrors(required string field);
+
+    /**
+     * Get a collection of metadata about the validation results
+     */
+    struct function getResultMetadata();
+
+    /**
+     * Set a collection of metadata into the results object
+     *
+     * @return IValidationResult
+     */
+    any function setResultMetadata(required struct data);
 
 }
 ```
@@ -183,62 +183,61 @@ Some of these methods return error objects which adhere to our Error Interface: 
 import cbvalidation.models.result.*;
 interface {
 
-	/**
-	 * Set the error message
-	 * @messageThe error message
-	 */
-	IValidationError function setMessage( required string message );
+    /**
+     * Set the error message
+     * @messageThe error message
+     */
+    IValidationError function setMessage( required string message );
 
-	/**
-	 * Set the field
-	 * @messageThe error message
-	 */
-	IValidationError function setField( required string field );
+    /**
+     * Set the field
+     * @messageThe error message
+     */
+    IValidationError function setField( required string field );
 
-	/**
-	 * Set the rejected value
-	 * @valueThe rejected value
-	 */
-	IValidationError function setRejectedValue( required any value );
+    /**
+     * Set the rejected value
+     * @valueThe rejected value
+     */
+    IValidationError function setRejectedValue( required any value );
 
-	/**
-	 * Set the validator type name that rejected
-	 * @validationTypeThe name of the rejected validator
-	 */
-	IValidationError function setValidationType( required any validationType );
+    /**
+     * Set the validator type name that rejected
+     * @validationTypeThe name of the rejected validator
+     */
+    IValidationError function setValidationType( required any validationType );
 
-	/**
-	 * Get the error validation type
-	 */
-	string function getValidationType();
+    /**
+     * Get the error validation type
+     */
+    string function getValidationType();
 
-	/**
-	 * Set the validator data
-	 * @dataThe data of the validator
-	 */
-	IValidationError function setValidationData( required any data );
+    /**
+     * Set the validator data
+     * @dataThe data of the validator
+     */
+    IValidationError function setValidationData( required any data );
 
-	/**
-	 * Get the error validation data
-	 */
-	string function getValidationData();
+    /**
+     * Get the error validation data
+     */
+    string function getValidationData();
 
-	/**
-	 * Get the error message
-	 */
-	string function getMessage();
+    /**
+     * Get the error message
+     */
+    string function getMessage();
 
-	/**
-	 * Get the error field
-	 */
-	string function getField();
+    /**
+     * Get the error field
+     */
+    string function getField();
 
-	/**
-	 * Get the rejected value
-	 */
-	any function getRejectedValue();
+    /**
+     * Get the rejected value
+     */
+    any function getRejectedValue();
 
 }
-
 ```
 

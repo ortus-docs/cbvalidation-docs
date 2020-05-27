@@ -4,69 +4,69 @@ Below are all the currently supported constraints. If you need more you can crea
 
 ```javascript
 propertyName = {
-		// The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
-		accepted : any value,
+        // The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
+        accepted : any value,
 
-		// The field must be alphanumeric ONLY
-		alpha : any value,
+        // The field must be alphanumeric ONLY
+        alpha : any value,
 
-		// discrete math modifiers
-		discrete : (gt,gte,lt,lte,eq,neq):value
+        // discrete math modifiers
+        discrete : (gt,gte,lt,lte,eq,neq):value
 
-		// value in list
-		inList : list,
+        // value in list
+        inList : list,
 
-		// max value
-		max : value,
+        // max value
+        max : value,
 
-		// Validation method to use in the target object must return boolean accept the incoming value and target object 
-		method : methodName,
+        // Validation method to use in the target object must return boolean accept the incoming value and target object 
+        method : methodName,
 
-		// min value
-		min : value,
+        // min value
+        min : value,
 
-		// range is a range of values the property value should exist in
-		range : eg: 1..10 or 5..-5,
-		
-		// regex validation
-		regex : valid no case regex
+        // range is a range of values the property value should exist in
+        range : eg: 1..10 or 5..-5,
 
-		// required field or not, includes null values
-		required : boolean [false],
+        // regex validation
+        regex : valid no case regex
 
-		// The field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`.
-		requiredIf : {
-			anotherfield:value, anotherfield:value
-		}
-		
-		// The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed 
-		requiredUnless : {
-			anotherfield:value, anotherfield:value
-		}
-		
-		// same as but with no case
-		sameAsNoCase : propertyName
+        // required field or not, includes null values
+        required : boolean [false],
 
-		// same as another property
-		sameAs : propertyName
+        // The field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`.
+        requiredIf : {
+            anotherfield:value, anotherfield:value
+        }
 
-		// size or length of the value which can be a (struct,string,array,query)
-		size  : numeric or range, eg: 10 or 6..8
+        // The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed 
+        requiredUnless : {
+            anotherfield:value, anotherfield:value
+        }
 
-		// specific type constraint, one in the list.
-		type  : (alpha,array,binary,boolean,component,creditcard,date,email,eurodate,float,GUID,integer,ipaddress,json,numeric,query,ssn,string,struct,telephone,url,usdate,UUID,xml,zipcode),
+        // same as but with no case
+        sameAsNoCase : propertyName
 
-		// UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target):boolean
-		udf = variables.UDF or this.UDF or a closure.
+        // same as another property
+        sameAs : propertyName
 
-		// Check if a column is unique in the database
-		unique = {
-			table : The table name,
-			column : The column to check, defaults to the property field in check
-		}
-		
-		// Custom validator, must implement coldbox.system.validation.validators.IValidator
-		validator : path or wirebox id, example: 'mypath.MyValidator' or 'id:MyValidator'
+        // size or length of the value which can be a (struct,string,array,query)
+        size  : numeric or range, eg: 10 or 6..8
+
+        // specific type constraint, one in the list.
+        type  : (alpha,array,binary,boolean,component,creditcard,date,email,eurodate,float,GUID,integer,ipaddress,json,numeric,query,ssn,string,struct,telephone,url,usdate,UUID,xml,zipcode),
+
+        // UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target):boolean
+        udf = variables.UDF or this.UDF or a closure.
+
+        // Check if a column is unique in the database
+        unique = {
+            table : The table name,
+            column : The column to check, defaults to the property field in check
+        }
+
+        // Custom validator, must implement coldbox.system.validation.validators.IValidator
+        validator : path or wirebox id, example: 'mypath.MyValidator' or 'id:MyValidator'
 }
 ```
 
@@ -121,12 +121,12 @@ myField = { max = 25 }
 
 ## method
 
-The `methodName` will be called on the target object and it will pass in the  target, validationData, targetValue. It must return a boolean response: **true** = pass, **false** = fail.
+The `methodName` will be called on the target object and it will pass in the target, validationData, targetValue. It must return a boolean response: **true** = pass, **false** = fail.
 
 ```javascript
 myField = { method = "methodName" }
 
-function methodName( target, validationData, value ){
+function methodName( target, value ){
     return true;
 }
 ```
@@ -209,7 +209,7 @@ myField = { sameAs = "otherField" }
 
 ## size
 
-The field value size must be within the range values and the validation data must follow the range pattern: `min..max.`  Value can be a \(struct,string,array,query\)
+The field value size must be within the range values and the validation data must follow the range pattern: `min..max.` Value can be a \(struct,string,array,query\)
 
 ```javascript
 myField = { size : 10 }
@@ -218,7 +218,7 @@ myFiedl = { size : 8..20 }
 
 ## type
 
-One of the most versatile validators.  It can test if the value is of the following specific types:
+One of the most versatile validators. It can test if the value is of the following specific types:
 
 * alpha
 * array
@@ -261,7 +261,7 @@ myField = { udf = (value,targe) => true }
 
 ## unique
 
-The field must be a unique value in a specific database table.  The validation data is a struct with the following keys:
+The field must be a unique value in a specific database table. The validation data is a struct with the following keys:
 
 * `table` : The name of the table to check
 * `column` : The column to check, defaults to the property field in check 

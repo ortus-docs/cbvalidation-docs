@@ -6,7 +6,7 @@ You can also tell the validation manager to **ONLY** validate on certain fields 
 prc.results = validateModel( target=user, fields="login,password" );
 ```
 
-This will only validate the `login` and `password` fields.  
+This will only validate the `login` and `password` fields.
 
 ## Custom Includes/Excludes
 
@@ -22,6 +22,4 @@ prc.results = validateModel(
     excludeFields="id" 
 );
 ```
-
-
 

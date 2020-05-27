@@ -6,7 +6,7 @@ A constraint is by definition the following:
 
 > The state of being restricted or confined within prescribed bounds.
 
-That is exactly what you will create for specific fields. You will declare the constraints for one or more fields.  Each constraint will be composed of one or more **validators** and **validation data**.  The validation data is defined by the validator and can be of `any` type, the default is an empty struct \(`{}`\)
+That is exactly what you will create for specific fields. You will declare the constraints for one or more fields. Each constraint will be composed of one or more **validators** and **validation data**. The validation data is defined by the validator and can be of `any` type, the default is an empty struct \(`{}`\)
 
 ```javascript
 // Define the field by name
@@ -33,7 +33,7 @@ You can define constraints in several locations:
 3. [A-la-carte](a-la-carte-via-event-handlers.md)
 
 {% hint style="info" %}
-When validating using  `validate(), validateOrFail()` you have to specify a **target**, but specifying a **constraint** in your call is optional.
+When validating using `validate(), validateOrFail()` you have to specify a **target**, but specifying a **constraint** in your call is optional.
 {% endhint %}
 
 ## Constraints Discovery
@@ -43,6 +43,4 @@ When you call the validation methods with **NO** `constraints` passed explicitly
 * Lookup your constraints in `myTarget.constraints` struct in your target object or struct.
 * If you specify your constraint parameter as a **string**, the validator will lookup a shared constraint in your configuration file definitions.
 * If you specify your constraint parameter as a **struct**, this struct will directly server as your set of constraints, so you can specify your constraints on the fly,  or specify an alternative set of constraints in your model, e.g `User.constraints` vs `User.signInConstraints`
-
-## 
 
