@@ -99,7 +99,8 @@ component accessors="true" singleton {
 		required any target,
 		required string field,
 		any targetValue,
-		any validationData
+		any validationData,
+		struct rules
 	){
 		// return true if no data to check, type needs a data element to be checked.
 		if ( isNull( arguments.targetValue ) || ( isSimpleValue( arguments.targetValue ) && !len( arguments.targetValue ) ) ) {
