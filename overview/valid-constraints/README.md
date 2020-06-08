@@ -256,7 +256,7 @@ The field value will be passed to the declared closure/lambda to use for validat
 
 ```javascript
 myField = { udf = function( value, target ) { return true; } }
-myField = { udf = (value,targe) => true }
+myField = { udf = (value,target) => true }
 ```
 
 ## unique
