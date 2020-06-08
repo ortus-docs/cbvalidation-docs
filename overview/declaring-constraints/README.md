@@ -42,5 +42,5 @@ When you call the validation methods with **NO** `constraints` passed explicitly
 
 * Lookup your constraints in `myTarget.constraints` struct in your target object or struct.
 * If you specify your constraint parameter as a **string**, the validator will lookup a shared constraint in your configuration file definitions.
-* If you specify your constraint parameter as a **struct**, this struct will directly server as your set of constraints, so you can specify your constraints on the fly,  or specify an alternative set of constraints in your model, e.g `User.constraints` vs `User.signInConstraints`
+* If you specify your constraint parameter as a **struct**, this struct will directly serve as your set of constraints, so you can specify your constraints on the fly,  or specify an alternative set of constraints in your model, e.g `User.constraints` vs `User.signInConstraints`
 
