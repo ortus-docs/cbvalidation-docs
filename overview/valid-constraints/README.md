@@ -121,12 +121,12 @@ myField = { max = 25 }
 
 ## method
 
-The `methodName` will be called on the target object and it will pass in the target, validationData, targetValue. It must return a boolean response: **true** = pass, **false** = fail.
+The `methodName` will be called on the target object and it will pass in validationData and targetValue. It must return a boolean response: **true** = pass, **false** = fail.
 
 ```javascript
 myField = { method = "methodName" }
 
-function methodName( target, value ){
+function methodName( validationData, targetValue ){
     return true;
 }
 ```
