@@ -213,7 +213,7 @@ The field value size must be within the range values and the validation data mus
 
 ```javascript
 myField = { size : 10 }
-myFiedl = { size : 8..20 }
+myFiedl = { size : "8..20" }
 ```
 
 ## type
