@@ -4,8 +4,7 @@ Within any domain object you can define a public variable called `constraints` t
 
 ### Declaration
 
-{% code-tabs %}
-{% code-tabs-item title="models/User.cfc" %}
+{% code title="models/User.cfc" %}
 ```javascript
 component persistent="true"{
 
@@ -24,13 +23,11 @@ component persistent="true"{
     }
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 We can then create the validation rules for the properties it will apply to it:
 
-{% code-tabs %}
-{% code-tabs-item title="config/User.cfc" %}
+{% code title="config/User.cfc" %}
 ```javascript
 component persistent="true"{
 
@@ -47,8 +44,7 @@ component persistent="true"{
     };
 }
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 That easy! You can just declare these validation rules and ColdBox will validate your properties according to the rules. In this case you can see that a password must be between 6 and 10 characters long, and it cannot be blank.
 
