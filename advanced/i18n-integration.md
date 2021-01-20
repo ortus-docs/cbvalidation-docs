@@ -68,5 +68,7 @@ matches=The field {property} does not match {regex}.
 numeric=The field {property} is not a valid number.
 ```
 
-
+{% hint style="info" %}
+Please note that since version 3.x of cbvalidation you can use json resource bundles thanks to cbi18n v2.x
+{% endhint %}
 
