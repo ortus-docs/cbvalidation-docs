@@ -167,27 +167,42 @@ myField = { required=false }
 
 ## requiredIf
 
-the field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`.
+The field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`. The validation data can be a `struct` or a `string` representing the field to check.
 
 ```javascript
+// Struct based
 myField = { 
+ // myField is required if field2 = test and field3 = hello
  requiredIf = {
   field2 = "test",
   field3 = "hello"
  }
 }
+
+// String Based
+myField = {
+ // myField is required if field3 exists and has a value.
+ requiredIf = "field3"
+}
 ```
 
 ## requiredUnless
 
-The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed
+The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed `value`. The validation data can be a `struct` or a `string` representing the field to check.
 
 ```javascript
 myField = { 
+ // myField is required unless field2 = test and field3 = hello
  requiredUnless = {
   field2 = "test",
   field3 = "hello"
  }
+}
+
+// String Based
+myField = {
+ // myField is required unless field3 exists and has a value.
+ requiredUnless = "field3"
 }
 ```
 

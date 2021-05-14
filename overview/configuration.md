@@ -1,27 +1,32 @@
 # Configuration
 
-Here are the module settings you can place in your `ColdBox.cfc` by using the `validation` settings structure:
+You can configure the module by creating a `cbvalidation` key in the `config/Coldbox.cfc` `moduleSettings` structure
 
 {% code title="config/Coldbox.cfc" %}
 ```javascript
-validation = {
-    // The third-party validation manager to use, by default it uses CBValidation.
-    manager = "class path",
-    // You can store global constraint rules here with unique names
-    sharedConstraints = {
-        name = {
-            field = { constraints here }
+moduleSettings = {
+    cbValidation = {
+        // The third-party validation manager to use, by default it uses CBValidation.
+        manager = "class path",
+        // You can store global constraint rules here with unique names
+        sharedConstraints = {
+            name = {
+                field = { constraints here }
+            }
         }
+    
     }
-
 }
 ```
 {% endcode %}
 
-| Key | Type | Required | Default | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| `manager` | instantiation path or WireBox ID | false | `cbValidation.models.ValidationManager` | You can override the module manager with your own implementation. Just use an instantiation path or a valid WireBox object id. |
-| `sharedConstraints` | struct | false | `{}` | This structure will hold all of your shared constraints for forms or/and objects. |
+#### manager
+
+The `manager`  key by default points to `cbValidation.models.ValidationManager`.  If you would like to override or decorate our manager, then you can set the classpath of the manager to use.  This manager must adhere to our interface: `cbvalidation.interfaces.IValidationManager`
+
+**sharedConstraints**
+
+This structure will hold all of your shared constraints for forms or/and objects that you can easily reference by name.  It's like declaring the constraints inline but storing them globally.
 
 {% hint style="danger" %}
 **Important:** The module will register several objects into WireBox using the `@cbvalidation` namespace. The validation manager is registered as `ValidationManager@cbvalidation`
