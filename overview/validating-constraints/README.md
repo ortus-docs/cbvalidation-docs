@@ -45,21 +45,44 @@ function getValidationManager()
 
 You pass in your target object or structure, an optional list of fields or properties to validate only \(by default it does all of them\), and an optional constraints argument which can be the shared name or an actual constraints structure a-la-carte. If no constraints are passed, then we will look for the constraints in the target object as a public property called `constraints`. The `validate()` method returns a `cbvalidation.models.results.IValidationResult` type object, which you can then use for evaluating the validation.
 
+{% hint style="info" %}
+Please note that you can validate using a procedural approach or a functional approach by using our `onError() and onSuccess()` callback methods.
+{% endhint %}
+
 ```javascript
+// Validation using the results object procedurally
 function saveUser( event, rc, prc ){
     // create and populate a user object from an incoming form
     var user = populateModel( entityNew("User") );
-    // validate model
+    // validate model and get validation results object
     prc.validationResults = validate( user );
-
+    // check for errors
     if( prc.validationResults.hasErrors() ){
-        // show errors
+        messagebox.error( prc.validationResults.getAllErrors() );
+        relocate( "users/editor" );
     }
     else{
-        // save
+        userService.save( user );
     }
 }
 
+// Validation using the results object functionally
+function saveUser( event, rc, prc ){
+    // create and populate a user object from an incoming form
+    var user = populateModel( entityNew("User") );
+    
+    validate( user )
+        .onError( function( results ){
+            messagebox.error( results.getAllErrors() );
+            relocate( "users/editor" );
+        })
+        .onSuccess( function( results ){
+            userService.save( user );
+        });
+    
+}
+
+// Validation using Active Entity and validate or fail
 function save( event, rc, prc ){
     userService
         .getOrFail( rc.id )
@@ -71,102 +94,111 @@ function save( event, rc, prc ){
 
 ## Validation Results
 
-The return of validate model is our results interface which has cool methods like and can be found under `cbvalidation.models.result.IValidationResult`
+The return of the `validate()` method is our results object  `cbvalidation.models.result.ValidationResult` which has several methods that you can use to interact with the validation results.  Usually you woul use the `onError() and onSuccess()` callbacks to finalize the validation.
 
 ```javascript
 /**
- * Copyright since 2020 by Ortus Solutions, Corp
- * www.ortussolutions.com
- * ---
- * The ColdBox validation results interface, all inspired by awesome Hyrule Validation Framework by Dan Vega
- */
-import cbvalidation.models.result.*;
-interface{
+* Add errors into the result object
+* @error The validation error to add into the results object
+* @error_generic IValidationError
+*
+* @return IValidationResult
+*/
+any function addError(required error);
 
-    /**
-     * Add errors into the result object
-     * @error The validation error to add into the results object
-     * @error_generic IValidationError
-     *
-     * @return IValidationResult
-     */
-    any function addError(required error);
+/**
+* Set the validation target object name
+* @return IValidationResult
+*/
+any function setTargetName(required string name);
 
-    /**
-     * Set the validation target object name
-     * @return IValidationResult
-     */
-    any function setTargetName(required string name);
+/**
+* Get the name of the target object that got validated
+*/
+string function getTargetName();
 
-    /**
-     * Get the name of the target object that got validated
-     */
-    string function getTargetName();
+/**
+* Get the validation locale
+*/
+string function getValidationLocale();
 
-    /**
-     * Get the validation locale
-     */
-    string function getValidationLocale();
+/**
+* has locale information
+*/
+boolean function hasLocale();
 
-    /**
-     * has locale information
-     */
-    boolean function hasLocale();
-
-    /**
-     * Set the validation locale
-     *
-     * @return IValidationResult
-     */
-    any function setLocale(required string locale);
+/**
+* Set the validation locale
+*
+* @return IValidationResult
+*/
+any function setLocale(required string locale);
 
 
-    /**
-     * Determine if the results had error or not
-     * @fieldThe field to count on (optional)
-     */
-    boolean function hasErrors(string field);
+/**
+* Determine if the results had error or not
+* @fieldThe field to count on (optional)
+*/
+boolean function hasErrors(string field);
 
-    /**
-     * Clear All errors
-     * @return IValidationResult
-     */
-    any function clearErrors();
+/**
+* Clear All errors
+* @return IValidationResult
+*/
+any function clearErrors();
 
 
-    /**
-     * Get how many errors you have
-     * @fieldThe field to count on (optional)
-     */
-    numeric function getErrorCount(string field);
+/**
+* Get how many errors you have
+* @fieldThe field to count on (optional)
+*/
+numeric function getErrorCount(string field);
 
-    /**
-     * Get the Errors Array, which is an array of error messages (strings)
-     * @fieldThe field to use to filter the error messages on (optional)
-     */
-    array function getAllErrors(string field);
+/**
+* Get the Errors Array, which is an array of error messages (strings)
+* @fieldThe field to use to filter the error messages on (optional)
+*/
+array function getAllErrors(string field);
 
-    /**
-     * Get an error object for a specific field that failed. Throws exception if the field does not exist
-     * @fieldThe field to return error objects on
-     *
-     * @return IValidationError[]
-     */
-    array function getFieldErrors(required string field);
+/**
+* Get an error object for a specific field that failed. Throws exception if the field does not exist
+* @fieldThe field to return error objects on
+*
+* @return IValidationError[]
+*/
+array function getFieldErrors(required string field);
 
-    /**
-     * Get a collection of metadata about the validation results
-     */
-    struct function getResultMetadata();
+/**
+* Get a collection of metadata about the validation results
+*/
+struct function getResultMetadata();
 
-    /**
-     * Set a collection of metadata into the results object
-     *
-     * @return IValidationResult
-     */
-    any function setResultMetadata(required struct data);
+/**
+* Set a collection of metadata into the results object
+*
+* @return IValidationResult
+*/
+any function setResultMetadata(required struct data);
 
-}
+/**
+* Call back that will be executed if the validation results had errors in them.
+* The consumer receives the results instance: `(results) => {}, function( results ){}`
+*
+* @consumer Block to be executed if the result of the validation had errors.
+*
+* @return Same instance
+*/
+function onError( required consumer )
+
+/**
+* Call back that will be executed if the validation results had NO errors in them.
+* The consumer receives the results instance: `(results) => {}, function( results ){}`
+*
+* @consumer Block to be executed if the result of the validation had NO errors.
+*
+* @return Same instance
+*/
+function onSuccess( required consumer )
 ```
 
 ## Validation Error Object

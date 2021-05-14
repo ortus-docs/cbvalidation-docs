@@ -5,34 +5,39 @@ Below are all the currently supported constraints. If you need more you can crea
 ```javascript
 propertyName = {
         // The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
-        accepted : any value,
+        accepted : any value
 
         // The field must be alphanumeric ONLY
-        alpha : any value,
+        alpha : any value
+        
+        // The field under validation is an array and all items must pass this validation as well
+        arrayItem : {
+            // All the constraints to validate the items with
+        }
 
         // discrete math modifiers
         discrete : (gt,gte,lt,lte,eq,neq):value
 
         // value in list
-        inList : list,
+        inList : list
 
         // max value
-        max : value,
+        max : value
 
         // Validation method to use in the target object must return boolean accept the incoming value and target object 
-        method : methodName,
+        method : methodName
 
         // min value
-        min : value,
+        min : value
 
         // range is a range of values the property value should exist in
-        range : eg: 1..10 or 5..-5,
+        range : eg: 1..10 or 5..-5
 
         // regex validation
         regex : valid no case regex
 
         // required field or not, includes null values
-        required : boolean [false],
+        required : boolean [false]
 
         // The field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`.
         requiredIf : {
@@ -84,6 +89,22 @@ The field must be alphabetical ONLY
 
 ```javascript
 terms = { alpha = true }
+```
+
+## arrayItem
+
+This validator is used to validate an array's items.  It will iterate through each of the array's items and validate each item against the `validationData` constraints you pass in.
+
+```javascript
+invoiceItems = {
+    required : true,
+    type : "array",
+    arrayItem : {
+        logDate : { required : true, type : "date" },
+        isBilled : { required: true, type : "boolean" },
+        notes : { required: true }
+    }
+}
 ```
 
 ## discrete
