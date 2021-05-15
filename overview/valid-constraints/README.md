@@ -26,7 +26,10 @@ propertyName = {
         
         // The field under validation must be a date before or equal the set targetDate
         beforeOrEqual : targetDate
-
+        
+        // The field under validation must be a date that is equal the set targetDate
+        dateEquals : targetDate
+        
         // discrete math modifiers
         discrete : (gt,gte,lt,lte,eq,neq):value
 
@@ -161,6 +164,20 @@ The field under validation must be a value before or equal a given date. The dat
 
 ```javascript
 endDate : { required:true, type:"date", beforeOrEqual: "01/01/2022" }
+```
+
+## dateEquals
+
+The field under validation must be a value that is the same as the given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+
+```javascript
+endDate : { required:true, type:"date", dateEquals: "01/01/2022" }
+```
+
+Instead of passing a date, you may specify another field to compare against the date as well:
+
+```javascript
+startDate : { required:true, type:"date", dateEquals: "createdDate" }
 ```
 
 ## discrete
