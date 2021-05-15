@@ -6,6 +6,12 @@ Below are all the currently supported constraints. If you need more you can crea
 propertyName = {
         // The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
         accepted : any value
+        
+        // The field under validation must be a date after the set targetDate
+        after : targetDate
+        
+        // The field under validation must be a date after or equal the set targetDate
+        afterOrEqual : targetDate
 
         // The field must be alphanumeric ONLY
         alpha : any value
@@ -81,6 +87,22 @@ The field must be yes, on, 1, or true. This is useful for validating "Terms of S
 
 ```javascript
 terms = { accepted = true }
+```
+
+## after
+
+The field under validation must be a value after a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+
+```javascript
+startDate : { required:true, type:"date", after: dateAdd( "d", 1, now() ) }
+```
+
+## afterOrEqual
+
+The field under validation must be a value after or equal a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+
+```javascript
+startDate : { required:true, type:"date", afterOrEqual: dateAdd( "d", 1, now() ) }
 ```
 
 ## alpha
