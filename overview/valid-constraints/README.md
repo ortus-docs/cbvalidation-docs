@@ -103,6 +103,12 @@ The field under validation must be a value after a given date. The dates will be
 startDate : { required:true, type:"date", after: dateAdd( "d", 1, now() ) }
 ```
 
+Instead of passing a date, you may specify another field to compare against the date as well:
+
+```javascript
+endDate : { required:true, type:"date", after: "startDate" }
+```
+
 ## afterOrEqual
 
 The field under validation must be a value after or equal a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
@@ -141,6 +147,12 @@ The field under validation must be a value before a given date. The dates will b
 
 ```javascript
 endDate : { required:true, type:"date", before: "01/01/2022" }
+```
+
+Instead of passing a date, you may specify another field to compare against the date as well:
+
+```javascript
+startDate : { required:true, type:"date", before: "endDate" }
 ```
 
 ## beforeOrEqual
