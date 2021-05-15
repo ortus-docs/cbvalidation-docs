@@ -357,6 +357,8 @@ One of the most versatile validators. It can test if the value is of the followi
 
 ```javascript
 myField = { type : "float" }
+myField = { type : "json" }
+myField = { type : "xml" }
 ```
 
 ## udf
