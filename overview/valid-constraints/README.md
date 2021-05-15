@@ -20,6 +20,12 @@ propertyName = {
         arrayItem : {
             // All the constraints to validate the items with
         }
+        
+        // The field under validation must be a date before the set targetDate
+        before : targetDate
+        
+        // The field under validation must be a date before or equal the set targetDate
+        beforeOrEqual : targetDate
 
         // discrete math modifiers
         discrete : (gt,gte,lt,lte,eq,neq):value
@@ -127,6 +133,22 @@ invoiceItems = {
         notes : { required: true }
     }
 }
+```
+
+## before
+
+The field under validation must be a value before a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+
+```javascript
+endDate : { required:true, type:"date", before: "01/01/2022" }
+```
+
+## beforeOrEqual
+
+The field under validation must be a value before or equal a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+
+```javascript
+endDate : { required:true, type:"date", beforeOrEqual: "01/01/2022" }
 ```
 
 ## discrete
