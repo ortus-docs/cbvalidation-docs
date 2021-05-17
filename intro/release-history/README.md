@@ -4,7 +4,7 @@ In this section you will find the release notes for each version we release unde
 
 ## 3.x
 
-Upgraded to leverage the new cbi18n v2.x module.
+Upgraded to leverage the new cbi18n v2.x module. New CFML engine compatiblities and moving to modernland!
 
 ## 2.x
 
