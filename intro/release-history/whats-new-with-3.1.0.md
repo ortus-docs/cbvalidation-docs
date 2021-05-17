@@ -4,6 +4,7 @@
 
 #### Added
 
+* New validator: `ArrayItem` which can validate an array's items and make sure all the items pass validation against a specific constraints schema.
 * New validator: `DateEquals` which can help you validate that a target value is a date and is the same date as the validation date or other field
 * New validator: `After` which can help you validate that a target value is a date and is after the validation date
 * New validator: `AfterOrEqual` which can help you validate that a target value is a date and is after or equal the validation date
