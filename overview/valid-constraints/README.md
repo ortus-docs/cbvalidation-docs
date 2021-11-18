@@ -13,7 +13,7 @@ propertyName = {
         // The field under validation must be a date after or equal the set targetDate
         afterOrEqual : targetDate
 
-        // The field must be alphanumeric ONLY
+        // The field must be alpha ONLY
         alpha : any value
         
         // The field under validation is an array and all items must pass this validation as well
