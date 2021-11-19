@@ -1,6 +1,6 @@
 # Available Constraints
 
-Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../../advanced/advanced-custom-validators.md) as well.
+Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../../advanced/advanced-custom-validators.md) as well.&#x20;
 
 ```javascript
 propertyName = {
@@ -27,6 +27,11 @@ propertyName = {
         // The field under validation must be a date before or equal the set targetDate
         beforeOrEqual : targetDate
         
+        // The field under validation is a struct and all nested validation rules must pass
+        constraints: {
+           // All the constraints for the nested struct
+        }
+        
         // The field under validation must be a date that is equal the set targetDate
         dateEquals : targetDate
         
@@ -35,6 +40,11 @@ propertyName = {
 
         // value in list
         inList : list
+        
+        // An alias for arrayItem
+        items : {
+            // All the constraints to validate the items with
+        }
 
         // max value
         max : value
@@ -44,6 +54,11 @@ propertyName = {
 
         // min value
         min : value
+        
+        // An alias for constraints
+        nestedConstraints: {
+           // All the constraints for the nested struct
+        }
 
         // range is a range of values the property value should exist in
         range : eg: 1..10 or 5..-5
@@ -100,7 +115,7 @@ terms = { accepted = true }
 
 ## after
 
-The field under validation must be a value after a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+The field under validation must be a value after a given date. The dates will be passed into the `dateCompare()` function in order to be converted and tested.
 
 ```javascript
 startDate : { required:true, type:"date", after: dateAdd( "d", 1, now() ) }
@@ -114,7 +129,7 @@ endDate : { required:true, type:"date", after: "startDate" }
 
 ## afterOrEqual
 
-The field under validation must be a value after or equal a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+The field under validation must be a value after or equal a given date. The dates will be passed into the `dateCompare()` function in order to be converted and tested.
 
 ```javascript
 startDate : { required:true, type:"date", afterOrEqual: dateAdd( "d", 1, now() ) }
@@ -130,23 +145,79 @@ terms = { alpha = true }
 
 ## arrayItem
 
-This validator is used to validate an array's items.  It will iterate through each of the array's items and validate each item against the `validationData` constraints you pass in.
+This validator is used to validate an array's items. It will iterate through each of the array's items and validate each item against the `validationData` constraints you pass in.
+
+```cfscript
+luckyNumbers = {
+    required : true,
+    type : "array",
+    arrayItem : {
+        required : true,
+        type : "numeric"
+    }
+}
+```
+
+You may also specify `items` as an alias to `arrayItem`.
+
+```cfscript
+luckyNumbers = {
+    required : true,
+    type : "array",
+    items : {
+        required : true,
+        type : "numeric"
+    }
+}
+```
+
+Any validation errors found will be named using the parent field name and array index.
+
+```cfscript
+var validationResult = validate(
+    target = {
+        "luckyNumbers": [ 7, 11, "not a number", 21 ]
+    },
+    constraints = {
+        required : true,
+        type : "array",
+        items : {
+            required : true,
+            type : "numeric"
+        }
+    }
+);
+```
+
+```json
+// validationResult.getAllErrorsAsJson()
+{
+    "luckyNumbers[3]": ["The 'item' has an invalid type, expected type is numeric"]
+}
+```
+
+You can validate nested structs by nesting a `constraints` validator.
 
 ```javascript
 invoiceItems = {
     required : true,
     type : "array",
     arrayItem : {
-        logDate : { required : true, type : "date" },
-        isBilled : { required: true, type : "boolean" },
-        notes : { required: true }
+        type : "struct",
+        constraints : {
+            logDate : { required : true, type : "date" },
+            isBilled : { required: true, type : "boolean" },
+            notes : { required: true }
+        }
     }
 }
 ```
 
+There is a [shortcut notation available](nested-struct-and-array-field-name-shortcuts.md#nested-array-shorthand) for `arrayItem` that uses a specialized field name to skip nesting the constraints.
+
 ## before
 
-The field under validation must be a value before a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+The field under validation must be a value before a given date. The dates will be passed into the `dateCompare()` function in order to be converted and tested.
 
 ```javascript
 endDate : { required:true, type:"date", before: "01/01/2022" }
@@ -160,15 +231,107 @@ startDate : { required:true, type:"date", before: "endDate" }
 
 ## beforeOrEqual
 
-The field under validation must be a value before or equal a given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+The field under validation must be a value before or equal a given date. The dates will be passed into the `dateCompare()` function in order to be converted and tested.
 
 ```javascript
 endDate : { required:true, type:"date", beforeOrEqual: "01/01/2022" }
 ```
 
+## constraints
+
+This validator is used to validate a nested struct.  The value of this validator are the constraints for the nested struct.
+
+```cfscript
+address = {
+    "required": true,
+    "type": "struct",
+    "constraints": {
+        "streetOne": { "required": true, "type": "string" },
+        "streetTwo": { "required": false, "type": "string" },
+        "city": { "required": true, "type": "string" },
+        "state": { "required": true, "type": "string", "size": 2 },
+        "zip": { "required": true, "type": "numeric", "size": 5 }
+    }
+}
+```
+
+Any validation errors found will be named using the parent field name and the child field name.
+
+```cfscript
+var validationResult = validate(
+    target = {
+        "address": {
+            "streetOne" : "123 Elm Street",
+            "streetTwo" : "",
+            "city"      : "Anytown",
+            "zip"       : "60606"
+        }
+    },
+    constraints = {
+        "address": {
+            "required": true,
+            "type": "struct",
+            "constraints": {
+                "streetOne": { "required": true, "type": "string" },
+                "streetTwo": { "required": false, "type": "string" },
+                "city": { "required": true, "type": "string" },
+                "state": { "required": true, "type": "string", "size": 2 },
+                "zip": { "required": true, "type": "numeric", "size": 5 }
+            }
+        }
+    }
+);
+```
+
+```json
+// validationResult.getAllErrorsAsJson()
+{
+    "address.state": ["The 'state' field is required"]
+}
+```
+
+`constraints` can be used as many levels deep as you need to go.
+
+```cfscript
+owner = {
+    "firstName": { "required": true, "type": "string" },
+    "lastName": { "required": true, "type": "string" },
+    "address": {
+        "required": true,
+        "type": "struct",
+        "constraints": {
+            "streetOne": { "required": true, "type": "string" },
+            "streetTwo": { "required": false, "type": "string" },
+            "city": { "required": true, "type": "string" },
+            "state": { "required": true, "type": "string", "size": 2 },
+            "zip": { "required": true, "type": "numeric", "size": 5 }
+        }
+    }
+}
+```
+
+`constraints` can also be combined with `items` to validate an array of structs.
+
+```cfscript
+invoiceItems = {
+    required : true,
+    type : "array",
+    arrayItem : {
+        type : "struct",
+        constraints : {
+            logDate : { required : true, type : "date" },
+            isBilled : { required: true, type : "boolean" },
+            notes : { required: true }
+        }
+    }
+}
+```
+
+There is a [shortcut notation available](nested-struct-and-array-field-name-shortcuts.md#nested-struct-shorthand) for `constraints` that uses a specialized field name to skip nesting the constraints.
+
 ## dateEquals
 
-The field under validation must be a value that is the same as the given date. The dates will be passed into the `dateCompare()`  function in order to be converted and tested.
+The field under validation must be a value that is the same as the given date. The dates will be passed into the `dateCompare()` function in order to be converted and tested.
 
 ```javascript
 endDate : { required:true, type:"date", dateEquals: "01/01/2022" }
@@ -205,6 +368,10 @@ The field must be in the included list
 myField = { inList = "red,green,blue" }
 ```
 
+## items
+
+See [arrayItem](./#arrayitem).
+
 ## max
 
 The field must be less than or equal to the defined value
@@ -232,6 +399,10 @@ The field must be greater than or equal to the defined value
 ```javascript
 myField = { min = 8 }
 ```
+
+## nestedConstraints
+
+See [constraints](./#constraints).
 
 ## range
 
@@ -318,7 +489,7 @@ myField = { sameAs = "otherField" }
 
 ## size
 
-The field value size must be within the range values and the validation data must follow the range pattern: `min..max.` Value can be a \(struct,string,array,query\)
+The field value size must be within the range values and the validation data must follow the range pattern: `min..max.` Value can be a (struct,string,array,query)
 
 ```javascript
 myField = { size : 10 }
@@ -375,7 +546,7 @@ myField = { udf = (value,target) => true }
 The field must be a unique value in a specific database table. The validation data is a struct with the following keys:
 
 * `table` : The name of the table to check
-* `column` : The column to check, defaults to the property field in check 
+* `column` : The column to check, defaults to the property field in check
 
 ```javascript
 myField = { unique = { table : "users", column : "username" } }
@@ -388,4 +559,3 @@ The field value will be passed to the validator CFC to be used for validation. P
 ```javascript
 myField = { validator = "UniqueValidator@cborm" }
 ```
-

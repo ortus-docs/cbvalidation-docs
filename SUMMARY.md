@@ -23,6 +23,7 @@
 * [Available Constraints](overview/valid-constraints/README.md)
   * [Custom Message Replacements](overview/valid-constraints/custom-message-replacements.md)
   * [Constraint Custom Messages](overview/valid-constraints/constraint-custom-messages.md)
+  * [Nested Struct and Array Field Name Shortcuts](overview/valid-constraints/nested-struct-and-array-field-name-shortcuts.md)
 * [Validating Constraints](overview/validating-constraints/README.md)
   * [Validating With Failures](overview/validating-constraints/validating-with-failures.md)
   * [Validating with shared constraints](overview/validating-constraints/validating-with-shared-constraints.md)
@@ -38,4 +39,3 @@
 * [Unique ORM Validator](advanced/unique-constraints.md)
 * [i18n Integration](advanced/i18n-integration.md)
 * [Custom Validation Managers](advanced/custom-validation-managers.md)
-
