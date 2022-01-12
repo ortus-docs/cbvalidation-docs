@@ -1,6 +1,10 @@
+---
+description: 2021-MAY-15
+---
+
 # What's New With 3.1.0
 
-### \[3.1.0\] =&gt; 2021-MAY-15
+### \[3.1.0] => 2021-MAY-15
 
 #### Added
 
@@ -26,4 +30,3 @@
 
 * Metadata for arguments did not have the right spacing for tosn of validators.
 * Added the missing `rules` struct argument to several validators that missed it.
-
