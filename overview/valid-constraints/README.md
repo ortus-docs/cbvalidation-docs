@@ -91,7 +91,7 @@ propertyName = {
         // specific type constraint, one in the list.
         type  : (alpha,array,binary,boolean,component,creditcard,date,email,eurodate,float,GUID,integer,ipaddress,json,numeric,query,ssn,string,struct,telephone,url,usdate,UUID,xml,zipcode),
 
-        // UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target):boolean
+        // UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target,metadata):boolean
         udf = variables.UDF or this.UDF or a closure.
 
         // Check if a column is unique in the database
@@ -382,13 +382,16 @@ myField = { max = 25 }
 
 ## method
 
-The `methodName` will be called on the target object and it will pass in validationData and targetValue. It must return a boolean response: **true** = pass, **false** = fail.
+The `methodName` will be called on the target object and it will pass in validationData, targetValue, and metadata. It must return a boolean response: **true** = pass, **false** = fail.
+
+Any data you place in the `metadata` structure will be set in the validation result object for later retrieval.
 
 ```javascript
 myField = { method = "methodName" }
 
-function methodName( validationData, targetValue ){
-    return true;
+function methodName( validationData, targetValue, metadata ){
+    metadata[ "customMessage" ] = "I am a custom message set via metadata.";
+    return false;
 }
 ```
 
@@ -534,11 +537,17 @@ myField = { type : "xml" }
 
 ## udf
 
-The field value will be passed to the declared closure/lambda to use for validation, must return **boolean** accept the incoming value and target object, `validate(value,target):boolean`
+The field value, the target object, and an empty metadata structure will be passed to the declared closure/lambda to use for validation. The UDF must return **boolean**, `validate( value, target, metadata ):boolean`
+
+Any data you place in the `metadata` structure will be set in the validation result object for later retrieval.
 
 ```javascript
-myField = { udf = function( value, target ) { return true; } }
-myField = { udf = (value,target) => true }
+myField = { udf = function( value, target, metadata ) { return true; } }
+myField = { udf = (value ,target, metadata ) => true }
+myField = { udf = function( value, target, metadata ) { 
+    metadata[ "customMessage" ] = "This is a custom error message from within the udf";
+    return false; 
+}
 ```
 
 ## unique
