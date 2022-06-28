@@ -1,6 +1,6 @@
 # Available Constraints
 
-Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../../advanced/advanced-custom-validators.md) as well.&#x20;
+Below are all the currently supported constraints. If you need more you can create your own [Custom validators](../../advanced/advanced-custom-validators.md) as well.
 
 ```javascript
 propertyName = {
@@ -37,6 +37,11 @@ propertyName = {
         
         // discrete math modifiers
         discrete : (gt,gte,lt,lte,eq,neq):value
+        
+        // the field must or must not be an empty value
+        // needed because `required` counts empty strings as valid
+        // and `type` ignores empty strings as "not required"
+        empty : boolean [false]
 
         // value in list
         inList : list
@@ -239,7 +244,7 @@ endDate : { required:true, type:"date", beforeOrEqual: "01/01/2022" }
 
 ## constraints
 
-This validator is used to validate a nested struct.  The value of this validator are the constraints for the nested struct.
+This validator is used to validate a nested struct. The value of this validator are the constraints for the nested struct.
 
 ```cfscript
 address = {
@@ -359,6 +364,39 @@ myField = { discrete = "gt:4" }
 myField = { discrete = "eq:luis" }
 myField = { discrete = "lte:1" }
 ```
+
+## empty
+
+The field is not required but if it exists it cannot be empty.
+
+```javascript
+myField = { empty = false }
+```
+
+This is needed since [required](./#required) validators allow empty strings when `false` while [type](./#type) validators ignore empty values as valid.  This means we can have a situation as follows:
+
+```javascript
+{
+    "startDate": {
+        "required": false,
+        "type": "date"
+    }
+}
+```
+
+With these validation rules passing in `startDate = ""` would pass the validation! The empty validator helps us ensure that the value passed in is not empty (and, in this case, a date).
+
+```javascript
+{
+    "startDate": {
+        "required": false,
+        "empty": false,
+        "type": "date"
+    }
+}
+```
+
+The field still isn't required, but if it is passed the value must be a non-empty value and it must be parseable as a date.
 
 ## inList
 
