@@ -98,6 +98,24 @@ The methods delegated by default are the following:
 * `getValidationResults()`
 * `isValid()`
 * `validate()`
-* `validateHasValue`
-* `validateIsNullOrEmpty`
-* `validateOrFail`
+* `validateHasValue()`
+* `validateIsNullOrEmpty()`
+* `validateOrFail()`
+
+You can also use the delegation for only certain methods if needed:
+
+```javascript
+// Shorthand Syntax
+component delegates="Validatable@cbValidation=validate,validateOrFail"{
+
+}
+
+// Long Syntax via delegate injection
+component{
+
+  property name="validatable" 
+        inject="Validatable@cbValidation" 
+        delegate="validate,validateOrFail"
+  
+}
+```

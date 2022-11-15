@@ -19,7 +19,7 @@ You can then use 2 simple validation methods and report on the results: `validat
 
 ## Professional Open Source
 
-![Ortus Solutions, Corp](<.gitbook/assets/ortus solutions logo.png>)
+![Ortus Solutions, Corp](.gitbook/assets/ortus-solutions-logo.png)
 
 The ColdBox ORM Module is a professional open-source software backed by [Ortus Solutions, Corp](https://www.ortussolutions.com/) offering services like:
 
