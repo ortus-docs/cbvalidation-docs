@@ -575,7 +575,7 @@ myField = { type : "xml" }
 
 ## udf
 
-The field value, the target object, and an empty metadata structure will be passed to the declared closure/lambda to use for validation. The UDF must return **boolean**, `validate( value, target, metadata ):boolean`
+The field value, the target object, and an empty metadata structure will be passed to the declared closure/lambda to use for validation. The UDF must return **boolean**, `validate( value, target, metadata ):boolean`. NOTE: The target object passed in is actually an instance of "GenericObject", not a struct. To access the underlying struct, use the getMemento() function and perfom any comparisons on that. See the example below. 
 
 Any data you place in the `metadata` structure will be set in the validation result object for later retrieval.
 
@@ -585,6 +585,10 @@ myField = { udf = (value ,target, metadata ) => true }
 myField = { udf = function( value, target, metadata ) { 
     metadata[ "customMessage" ] = "This is a custom error message from within the udf";
     return false; 
+}
+myField = { udf = function( value, target, metadata ) {
+    var myData = target.getMemento();
+    return myData["blah"] == something && value > someNumber;
 }
 ```
 
