@@ -469,7 +469,7 @@ myField = { notSameAsNoCase = "otherField" }
 The field must NOT be the same as another field with case sensitivity
 
 ```javascript
-myField = { snotSameAs = "otherField" }
+myField = { notSameAs = "otherField" }
 ```
 
 ## range
