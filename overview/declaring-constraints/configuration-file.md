@@ -4,7 +4,7 @@ description: Shared Constraints
 
 # Configuration File
 
-You can optionally register constraints in your [ColdBox configuration](https://github.com/ortus/cbox-validation/tree/cc7e4d96663e1732860bcea678a632286d72e87e/Configuration/README.md) file under the `validation` directive. This means you register them with a **unique** **name** of your choice and its value is a collection of constraints for fields in your objects or forms. These will be called lovingly **Shared Constraints.**
+You can optionally register constraints in your [ColdBox configuration](https://github.com/ortus/cbox-validation/tree/cc7e4d96663e1732860bcea678a632286d72e87e/Configuration/README.md) file under the `cbvalidation` directive. This means you register them with a **unique** **name** of your choice and its value is a collection of constraints for fields in your objects or forms. These will be called lovingly **Shared Constraints.**
 
 Here is an example:
 
@@ -12,7 +12,7 @@ Here is an example:
 
 {% code title="config/ColdBox.cfc" %}
 ```javascript
-validation = {
+cbvalidation = {
     sharedConstraints = {
         sharedUser = {
             fName = {required=true},
@@ -38,9 +38,9 @@ As you can see, our constraints definition describes the set of rules for a prop
 You can then use the keys for those constraints in the validation calls:
 
 ```javascript
-validate( target, "sharedUser" );
+validate( target=target, constraint="sharedUser" );
 
-validate( rc, "loginForm" );
+validate( target=rc, constraint="loginForm" );
 
-validate( rc, "changePasswordForm" );
+validate( target=rc, constraint="changePasswordForm" );
 ```
