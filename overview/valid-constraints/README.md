@@ -530,7 +530,9 @@ myField = { required=false }
 
 ## requiredIf
 
-The field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`. The validation data can be a `struct` or a `string` representing the field to check.
+The field under validation must be present and not empty if the `anotherfield` field is equal to the passed `value`. The validation data can be a `struct` or a `string` representing the field to check, or it can be a UDF/closure/lambda to use for validation. The UDF must return **boolean**, `validate( value, target, metadata ):boolean`
+
+Any data you place in the `metadata` structure will be set in the validation result object for later retrieval.
 
 ```javascript
 // Struct based
@@ -546,6 +548,14 @@ myField = {
 myField = {
  // myField is required if field3 exists and has a value.
  requiredIf = "field3"
+}
+
+// UDF Based
+myField = {
+ // myField is required if today is monday.
+ requiredIf = function( value, target, errorMetadata ) {
+        return dayOfWeekAsString( dayOfWeek( now() ) ) == "Monday";
+ }
 }
 ```
 
