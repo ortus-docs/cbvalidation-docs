@@ -639,7 +639,7 @@ myField = { type : "xml" }
 
 The field value, the target object, and an empty metadata structure will be passed to the declared closure/lambda to use for validation. The UDF must return **boolean**, `validate( value, target, metadata ):boolean`
 
-Any data you place in the `metadata` structure will be set in the validation result object for later retrieval.
+Any data you place in the `metadata` structure will be set in the validation result object for later retrieval. *Note: This validator will ignore values that are null or empty strings.*
 
 ```javascript
 myField = { udf = function( value, target, metadata ) { return true; } }
