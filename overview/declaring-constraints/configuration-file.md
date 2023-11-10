@@ -17,7 +17,7 @@ cbvalidation = {
         sharedUser = {
             fName = {required=true},
             lname = {required=true},
-            age   = {required=true, max=18 }
+            age   = {required=true, max=18 },
             metadata = {required=false, type="json"}
         },
         loginForm = {
@@ -38,9 +38,9 @@ As you can see, our constraints definition describes the set of rules for a prop
 You can then use the keys for those constraints in the validation calls:
 
 ```javascript
-validate( target=target, constraint="sharedUser" );
+validate( target=target, constraints="sharedUser" );
 
-validate( target=rc, constraint="loginForm" );
+validate( target=rc, constraints="loginForm" );
 
-validate( target=rc, constraint="changePasswordForm" );
+validate( target=rc, constraints="changePasswordForm" );
 ```

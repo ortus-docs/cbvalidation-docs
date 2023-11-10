@@ -94,7 +94,7 @@ function save( event, rc, prc ){
 
 ## Validation Results
 
-The return of the `validate()` method is our results object  `cbvalidation.models.result.ValidationResult` which has several methods that you can use to interact with the validation results.  Usually you woul use the `onError() and onSuccess()` callbacks to finalize the validation.
+The return of the `validate()` method is our results object  `cbvalidation.models.result.ValidationResult` which has several methods that you can use to interact with the validation results.  Usually you would use the `onError() and onSuccess()` callbacks to finalize the validation.
 
 ```javascript
 /**
