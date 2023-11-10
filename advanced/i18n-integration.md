@@ -10,7 +10,7 @@ If you are using i18n (Internationalization and Localization) in your ColdBox ap
 
 &#x20;You will do this by our lovely conventions for you resource bundle keys:
 
-### &#x20;Objects:
+### &#x20;Domain Objects:
 
 ```
 {ObjectName}.{Field}.{ConstraintType}}=Message
@@ -22,10 +22,18 @@ If you are using i18n (Internationalization and Localization) in your ColdBox ap
 {SharedConstraintName}.{Field}.{ConstraintType}=Message
 ```
 
-### &#x20;Forms with No Shared Constraints
+### &#x20;Forms with No Shared Constraints (A-la-carte constraints)
 
 ```
 GenericForm.{Field}.{ConstraintType}=Message
+```
+
+### Usage
+
+When your resource bundle keys are ready, you then specify the `locale` argument in your validation calls to put them into play:
+
+```
+validate( target=target, constraint="sharedUser", locale=getFwLocale());
 ```
 
 ### Key Replacements
