@@ -8,8 +8,9 @@ This module is a server-side rules validation engine that can provide you with a
 
 ## System Requirements
 
+* BoxLang 1+ (Preferred)
 * Lucee 5+
-* ColdFusion 2018+
+* ColdFusion 2023+
 
 ## Introduction
 

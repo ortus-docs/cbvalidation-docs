@@ -36,6 +36,10 @@
   * [Validating with a-la-carte constraints](overview/validating-constraints/validating-with-a-la-carte-constraints.md)
   * [Validating Custom Fields](overview/validating-constraints/validating-custom-fields.md)
   * [Validating With Profiles](overview/validating-constraints/validating-with-profiles.md)
+  * [Using Default Values](overview/validating-constraints/using-default-values.md)
+* [Null Value Handling](overview/null-value-handling.md)
+* [Validatable Delegate](overview/validatable-delegate.md)
+* [Using the Assert Helper](overview/using-the-assert-helper.md)
 * [Displaying Errors](overview/displaying-errors.md)
 * [WireBox Integration](overview/wirebox-dsl-and-integration.md)
 
