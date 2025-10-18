@@ -8,9 +8,11 @@ description: >-
 
 ## Instructions
 
-Just drop into your **modules** folder or use [CommandBox](https://www.ortussolutions.com/products/commandbox) to install
+Leverage [CommandBox](https://www.ortussolutions.com/products/commandbox) to install via your CLI
 
-`box install cbvalidation`
+```bash
+box install cbvalidation
+```
 
 The module will register several objects into WireBox using the `@cbvalidation` namespace. The validation manager is registered as `ValidationManager@cbvalidation`. It will also register several helper methods that can be used throughout the ColdBox application.
 
@@ -93,7 +95,12 @@ boolean function assert( target, message="" )
 
 If you are using ColdBox 7, then you can use the `Validatable@cbValidation` delegate. Which will allow you to add these validation traits to any object you desire. &#x20;
 
-```
+```groovy
+// BoxLang Syntax
+@delegates( "Validatable@cbValidation" )
+class{}
+
+// CFML Syntax
 component delegates="Validatable@cbValidation"{}
 ```
 
@@ -110,11 +117,24 @@ The methods delegated by default are the following:
 
 You can also use the delegation for only certain methods if needed:
 
-```javascript
-// Shorthand Syntax
-component delegates="Validatable@cbValidation=validate,validateOrFail"{
+```groovy
+// BoxLang Short Syntax
+@delegates( "Validatable@cbValidation=validate,validateOrFail" )
+class{}
+
+// BoxLang Long Syntax via delegate injection
+class{
+
+    @inject( "Validatable@cbValidation" )
+    @delegate( "validate,validateOrFail" )
+    property name="validatable";
 
 }
+
+// ----------------------------------------------------------------
+
+// CFML Short Syntax
+component delegates="Validatable@cbValidation=validate,validateOrFail"{}
 
 // Long Syntax via delegate injection
 component{
