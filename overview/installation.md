@@ -1,3 +1,9 @@
+---
+icon: inbox-in
+description: >-
+  Get CBValidation installed in your ColdBox application and configure it for validation workflows.
+---
+
 # Installation
 
 ## Instructions

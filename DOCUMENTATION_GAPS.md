@@ -6,47 +6,8 @@ After scanning the codebase and documentation, and iterating on fixes, here's th
 
 ---
 
-## ✅ COMPLETED DOCUMENTATION
-
-### 1. **`defaultValue` Constraint** ✅ DONE
-
-- **Status**: COMPLETED - Comprehensive guide created
-- **Location**: `overview/validating-constraints/using-default-values.md`
-- **Content**: Basic usage, when defaults apply, practical form examples, dynamic defaults with functions, API validation patterns, best practices
-- **BoxLang/CFML**: Dual examples with proper syntax (BoxLang uses `class {}`)
-
-### 2. **Null Value Handling Documentation** ✅ DONE
-
-- **Status**: COMPLETED - Full guide created
-- **Location**: `overview/null-value-handling.md`
-- **Content**: Validation rules, optional fields, nested structures, array filtering, validateOrFail() behavior, best practices
-- **BoxLang/CFML**: Comprehensive examples with both syntaxes
-
-### 3. **`Validatable` Delegate Pattern** ✅ DONE
-
-- **Status**: COMPLETED - Comprehensive guide created
-- **Location**: `overview/validatable-delegate.md`
-- **Content**: Shorthand/long syntax, property delegation, available methods, advanced usage, best practices, ColdBox 7+ specific
-- **BoxLang/CFML**: Full examples demonstrating both approaches
-
-### 4. **`assert()` Helper Method** ✅ DONE
-
-- **Status**: COMPLETED - Detailed guide created
-- **Location**: `overview/using-the-assert-helper.md`
-- **Content**: Basic usage, pre-conditions, argument validation, business logic invariants, exception handling, comparison with validate()
-- **BoxLang/CFML**: Practical examples and patterns
-
----
 
 ## 🔴 REMAINING CRITICAL GAPS
-
-### 1. **Type Validator - `eurodate` Reference**
-
-- **Status**: NOT FIXED - Outdated reference
-- **Current File**: `overview/valid-constraints/README.md`
-- **Issue**: Documentation mentions `eurodate` type which was removed in 4.5.0
-- **Action Needed**: Remove `eurodate` from type validator list
-- **Difficulty**: EASY (5 min)
 
 ### 2. **Constraint Profiles - Missing Deep Dive** (MEDIUM)
 

@@ -241,10 +241,31 @@ CFML example code:
 - **Lucee** 5.x+
 - **Dependencies**: ColdBox 7+, cbi18n 3.0+
 
-### Documentation Priority
+## Documentation Priority
 When writing new documentation:
 1. Always provide BoxLang example first, then CFML
 2. Use language-appropriate syntax highlighting (groovy for BoxLang, javascript for CFML)
 3. Include practical, copy-paste ready examples
 4. Link to related sections and external resources
 5. Include version compatibility notes when applicable
+
+## Docs MCP Server
+
+Gitbook offers an MCP server so you can use this for knowing how to document and how to create more expressive documentation.
+
+https://gitbook.com/docs/~gitbook/mcp
+
+I believe GitBook uses fontawesome icons.
+
+## Headers
+
+All docs can take a markdown header for GitBook processing:
+
+```
+---
+icon: terminal
+description: >-
+  In this page you will find a thorough overview of the capabilities of the
+  ColdBox Security module.
+---
+```
