@@ -91,7 +91,7 @@ boolean function validateIsNullOrEmpty( any targetValue )
 boolean function assert( target, message="" )
 ```
 
-### Delegate Mode
+## Delegate Mode
 
 If you are using ColdBox 7, then you can use the `Validatable@cbValidation` delegate. Which will allow you to add these validation traits to any object you desire. &#x20;
 
@@ -146,7 +146,7 @@ component{
 }
 ```
 
-### WireBox Integration
+## WireBox Integration
 
 The module will register several objects into WireBox using the `@cbvalidation` namespace. The validation manager is registered as `ValidationManager@cbvalidation`, which is the one you can inject and use anywhere you like.
 
