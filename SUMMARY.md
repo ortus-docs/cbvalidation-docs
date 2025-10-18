@@ -25,7 +25,7 @@
 * [Available Constraints](overview/valid-constraints/README.md)
   * [Custom Message Replacements](overview/valid-constraints/custom-message-replacements.md)
   * [Constraint Custom Messages](overview/valid-constraints/constraint-custom-messages.md)
-  * [Nested Struct and Array Field Name Shortcuts](overview/valid-constraints/nested-struct-and-array-field-name-shortcuts.md)
+  * [Nested Struct-Array Field Names](overview/valid-constraints/nested-struct-and-array-field-name-shortcuts.md)
 * [Declaring Constraints](overview/declaring-constraints/README.md)
   * [Configuration File](overview/declaring-constraints/configuration-file.md)
   * [Domain Object](overview/declaring-constraints/domain-object.md)
