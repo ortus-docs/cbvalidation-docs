@@ -1,3 +1,9 @@
+---
+icon: "fa-solid fa-shield-alt"
+description: >-
+    Learn how to declare constraints for your data validation needs using cbValidation.
+---
+
 # Declaring Constraints
 
 ## What are Constraints?
