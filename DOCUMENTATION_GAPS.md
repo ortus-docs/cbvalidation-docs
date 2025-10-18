@@ -15,26 +15,20 @@ No critical gaps remaining! All have been addressed.
 
 ## ⚠️ INCOMPLETE/NEEDS UPDATES
 
-### 1. **Valid Constraints Quick Reference**
-
-- **File**: `overview/valid-constraints/README.md`
-- **Issue**: References `eurodate` which was removed in 4.5.0
-- **Action**: Update the type list to remove `eurodate`
-
-### 2. **Available Constraints List**
+### 1. **Available Constraints List**
 
 - **Missing Validator Details**:
   - `notSameAs` / `notSameAsNoCase` - Added in 4.1.0, need detailed docs
   - `instanceOf` - Added in 4.0.0, minimal documentation
   - `empty` - Added in 3.4.0, documentation exists but could be clearer
 
-### 3. **Custom Validators Guide**
+### 2. **Custom Validators Guide**
 
 - **File**: `advanced/advanced-custom-validators.md`
 - **Issue**: Should mention the new metadata pattern from 4.3.0+
 - **Missing**: How validators can return metadata for error enhancement
 
-### 4. **Custom Validation Manager**
+### 3. **Custom Validation Manager**
 
 - **File**: `advanced/custom-validation-managers.md`
 - **Status**: Exists but may need updates for null handling improvements (4.7.0-4.8.0)
@@ -100,12 +94,12 @@ No critical gaps remaining! All have been addressed.
 - Null value handling guide
 - Validatable delegate comprehensive guide
 - `assert()` helper detailed documentation
+- Error metadata integration examples
+- Valid constraints quick reference (eurodate was already properly removed)
 
 **🟡 HIGH PRIORITY** (Quick Wins - <10 min each)
 
-1. Fix `eurodate` reference in type validator docs (5 min)
-2. Enhance constraint profiles documentation (30 min)
-3. Add error metadata integration examples (20 min)
+1. Enhance constraint profiles documentation (30 min)
 
 **🟢 MEDIUM PRIORITY** (Nice to Have)
 

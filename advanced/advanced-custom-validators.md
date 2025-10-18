@@ -10,8 +10,8 @@ If you use the `udf` validator, then you can declare your validation inline. Jus
 * `target` : The object that is the target of validation
 
 ```javascript
-slug : { 
-    required : true, 
+slug : {
+    required : true,
     udf : ( value, target ) => {
         if( isNull( arguments.value ) ) return false;
         return qb.from( "content" )
@@ -149,13 +149,13 @@ Approach number 2 is much more flexible as it will allow you to declare multiple
     this.constraints = {
         // Approach #1
         myField = {
-            required : true, 
-            validator : "MyCustomID" 
+            required : true,
+            validator : "MyCustomID"
         },
 
         // Approach #2
         myField2 = {
-            required : true, 
+            required : true,
             UniqueInMyDatabase : {
                 column : "column_name",
                 table : "table_name",
@@ -189,13 +189,13 @@ When using UDF or Method validators, your validation function receives an additi
 class {
     property name="email";
     property name="age";
-    
+
     this.constraints = {
         email: {
             required: true,
             udf: (value, target, errorMetadata) => {
                 if (isNull(arguments.value)) return false;
-                
+
                 // Check if email already exists in database
                 var existingUser = userService.findByEmail(arguments.value);
                 if (!isNull(existingUser)) {
@@ -208,34 +208,34 @@ class {
                 return true;
             }
         },
-        
+
         age: {
             required: true,
             method: "validateAgeRange"  // Method validator example
         }
     };
-    
+
     // Method validator that uses error metadata
     boolean function validateAgeRange(value, errorMetadata) {
         if (isNull(arguments.value)) return false;
-        
+
         var minAge = 18;
         var maxAge = 65;
-        
+
         if (arguments.value < minAge) {
             arguments.errorMetadata.minimumRequired = minAge;
             arguments.errorMetadata.provided = arguments.value;
             arguments.errorMetadata.category = "age_too_young";
             return false;
         }
-        
+
         if (arguments.value > maxAge) {
             arguments.errorMetadata.maximumAllowed = maxAge;
             arguments.errorMetadata.provided = arguments.value;
             arguments.errorMetadata.category = "age_too_old";
             return false;
         }
-        
+
         return true;
     }
 }
@@ -254,13 +254,13 @@ class {
 component {
     property name="email";
     property name="age";
-    
+
     this.constraints = {
         email = {
             required = true,
             udf = function( value, target, errorMetadata ) {
                 if ( isNull( arguments.value ) ) return false;
-                
+
                 // Check if email already exists in database
                 var existingUser = userService.findByEmail( arguments.value );
                 if ( !isNull( existingUser ) ) {
@@ -273,34 +273,34 @@ component {
                 return true;
             }
         },
-        
+
         age = {
             required = true,
             method = "validateAgeRange"  // Method validator example
         }
     };
-    
+
     // Method validator that uses error metadata
     boolean function validateAgeRange( value, errorMetadata ) {
         if ( isNull( arguments.value ) ) return false;
-        
+
         var minAge = 18;
         var maxAge = 65;
-        
+
         if ( arguments.value < minAge ) {
             arguments.errorMetadata.minimumRequired = minAge;
             arguments.errorMetadata.provided = arguments.value;
             arguments.errorMetadata.category = "age_too_young";
             return false;
         }
-        
+
         if ( arguments.value > maxAge ) {
             arguments.errorMetadata.maximumAllowed = maxAge;
             arguments.errorMetadata.provided = arguments.value;
             arguments.errorMetadata.category = "age_too_old";
             return false;
         }
-        
+
         return true;
     }
 }
@@ -329,27 +329,27 @@ var result = validate(target=user, constraints="userValidation");
 if (result.hasErrors()) {
     for (var error in result.getAllErrors()) {
         var metadata = error.getErrorMetadata();
-        
+
         // Use metadata for enhanced error handling
         switch (metadata.category ?: "") {
             case "email_duplicate":
                 // Show specific message about existing user
-                flash.put("error", "This email was already registered on " & 
+                flash.put("error", "This email was already registered on " &
                     dateFormat(metadata.existingSince, "mm/dd/yyyy"));
                 break;
-                
+
             case "age_too_young":
                 // Age-specific guidance
-                flash.put("error", "You must be at least " & 
+                flash.put("error", "You must be at least " &
                     metadata.minimumRequired & " years old to register");
                 break;
-                
+
             case "age_too_old":
                 // Different handling for maximum age
-                flash.put("error", "Registration is limited to ages " & 
+                flash.put("error", "Registration is limited to ages " &
                     metadata.maximumAllowed & " and under");
                 break;
-                
+
             default:
                 // Fallback to standard error message
                 flash.put("error", error.getMessage());
@@ -373,27 +373,27 @@ var result = validate( target=user, constraints="userValidation" );
 if ( result.hasErrors() ) {
     for ( var error in result.getAllErrors() ) {
         var metadata = error.getErrorMetadata();
-        
+
         // Use metadata for enhanced error handling
         switch ( metadata.category ?: "" ) {
             case "email_duplicate":
                 // Show specific message about existing user
-                flash.put( "error", "This email was already registered on " & 
+                flash.put( "error", "This email was already registered on " &
                     dateFormat( metadata.existingSince, "mm/dd/yyyy" ) );
                 break;
-                
+
             case "age_too_young":
                 // Age-specific guidance
-                flash.put( "error", "You must be at least " & 
+                flash.put( "error", "You must be at least " &
                     metadata.minimumRequired & " years old to register" );
                 break;
-                
+
             case "age_too_old":
                 // Different handling for maximum age
-                flash.put( "error", "Registration is limited to ages " & 
+                flash.put( "error", "Registration is limited to ages " &
                     metadata.maximumAllowed & " and under" );
                 break;
-                
+
             default:
                 // Fallback to standard error message
                 flash.put( "error", error.getMessage() );
@@ -447,7 +447,7 @@ if (!structIsEmpty(metadata)) {
     if (structKeyExists(metadata, "category")) {
         writeOutput("Error category: " & metadata.category);
     }
-    
+
     // Get complete error information including metadata
     var errorInfo = error.getMemento();
     // errorInfo.errorMetadata contains all metadata
@@ -472,7 +472,7 @@ if ( !structIsEmpty( metadata ) ) {
     if ( structKeyExists( metadata, "category" ) ) {
         writeOutput( "Error category: " & metadata.category );
     }
-    
+
     // Get complete error information including metadata
     var errorInfo = error.getMemento();
     // errorInfo.errorMetadata contains all metadata
