@@ -6,38 +6,38 @@ Below are all the currently supported constraints. If you need more you can crea
 propertyName = {
         // The field under validation must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance.
         accepted : any value
-        
+
         // The field under validation must be a date after the set targetDate
         after : targetDate
-        
+
         // The field under validation must be a date after or equal the set targetDate
         afterOrEqual : targetDate
 
         // The field must be alpha ONLY
         alpha : any value
-        
+
         // The field under validation is an array and all items must pass this validation as well
         arrayItem : {
             // All the constraints to validate the items with
         }
-        
+
         // The field under validation must be a date before the set targetDate
         before : targetDate
-        
+
         // The field under validation must be a date before or equal the set targetDate
         beforeOrEqual : targetDate
-        
+
         // The field under validation is a struct and all nested validation rules must pass
         constraints: {
            // All the constraints for the nested struct
         }
-        
+
         // The field under validation must be a date that is equal the set targetDate
         dateEquals : targetDate
-        
+
         // discrete math modifiers
         discrete : (gt,gte,lt,lte,eq,neq):value
-        
+
         // the field must or must not be an empty value
         // needed because `required` counts empty strings as valid
         // and `type` ignores empty strings as "not required"
@@ -45,10 +45,10 @@ propertyName = {
 
         // value in list
         inList : list
-        
+
         // Verify the instance of the target
         InstanceOf : "instance.path"
-        
+
         // An alias for arrayItem
         items : {
             // All the constraints to validate the items with
@@ -57,17 +57,17 @@ propertyName = {
         // max value
         max : value
 
-        // Validation method to use in the target object must return boolean accept the incoming value and target object 
+        // Validation method to use in the target object must return boolean accept the incoming value and target object
         method : methodName
 
         // min value
         min : value
-        
+
         // An alias for constraints
         nestedConstraints: {
            // All the constraints for the nested struct
         }
-        
+
         // not same as but with no case
         notSameAsNoCase : propertyName
 
@@ -88,7 +88,7 @@ propertyName = {
             anotherfield:value, anotherfield:value
         }
 
-        // The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed 
+        // The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed
         requiredUnless : {
             anotherfield:value, anotherfield:value
         }
@@ -103,7 +103,7 @@ propertyName = {
         size  : numeric or range, eg: 10 or 6..8
 
         // specific type constraint, one in the list.
-        type  : (alpha,array,binary,boolean,component,creditcard,date,email,eurodate,float,GUID,integer,ipaddress,json,numeric,query,ssn,string,struct,telephone,url,usdate,UUID,xml,zipcode),
+        type  : (alpha,array,binary,boolean,component,creditcard,date,email,float,GUID,integer,ipaddress,json,numeric,query,ssn,string,struct,telephone,url,usdate,UUID,xml,zipcode),
 
         // UDF to use for validation, must return boolean accept the incoming value and target object, validate(value,target,metadata):boolean
         udf = variables.UDF or this.UDF or a closure.
@@ -536,7 +536,7 @@ Any data you place in the `metadata` structure will be set in the validation res
 
 ```javascript
 // Struct based
-myField = { 
+myField = {
  // myField is required if field2 = test and field3 = hello
  requiredIf = {
   field2 = "test",
@@ -564,7 +564,7 @@ myField = {
 The field under validation must be present and not empty unless the `anotherfield` field is equal to the passed `value`. The validation data can be a `struct` or a `string` representing the field to check.
 
 ```javascript
-myField = { 
+myField = {
  // myField is required unless field2 = test and field3 = hello
  requiredUnless = {
   field2 = "test",
@@ -619,7 +619,6 @@ One of the most versatile validators. It can test if the value is of the followi
 * creditcard
 * date
 * email
-* eurodate
 * float
 * GUID
 * integer
@@ -654,9 +653,9 @@ Any data you place in the `metadata` structure will be set in the validation res
 ```javascript
 myField = { udf = function( value, target, metadata ) { return true; } }
 myField = { udf = (value ,target, metadata ) => true }
-myField = { udf = function( value, target, metadata ) { 
+myField = { udf = function( value, target, metadata ) {
     metadata[ "customMessage" ] = "This is a custom error message from within the udf";
-    return false; 
+    return false;
 }
 ```
 
