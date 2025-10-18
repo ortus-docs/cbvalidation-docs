@@ -119,9 +119,9 @@ component delegates="Validatable@cbValidation=validate,validateOrFail"{
 // Long Syntax via delegate injection
 component{
 
-  property name="validatable" 
-        inject="Validatable@cbValidation" 
+  property name="validatable"
+        inject="Validatable@cbValidation"
         delegate="validate,validateOrFail"
-  
+
 }
 ```
