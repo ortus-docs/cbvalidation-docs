@@ -1,8 +1,11 @@
+---
+icon: account-circle
+description: Information about the authors of the cbValidation module.
+---
+
 # Author
 
 ## Luis Fernando Majano Lainez
-
-
 
 ![](https://blobscdn.gitbook.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LA-UVvG0NM7NpDzssBL%2F-Lk6BFGIHo1oV7R83\_YL%2F-Lk6D1zW4YSdITH86ZYX%2FLuis%20F%20Majano.jpg?alt=media\&token=3106d0c5-15df-4fbe-ae5c-1bedd9a9363c)
 
@@ -26,4 +29,3 @@ Luis has a passion for Jesus, tennis, golf, volleyball and anything electronic. 
 ## Contributors
 
 ### Will de Bruin
-

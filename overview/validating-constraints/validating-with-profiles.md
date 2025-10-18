@@ -114,7 +114,7 @@ try {
 // Single profile
 var result = validate(target=user, profiles="update");
 
-// Multiple profiles  
+// Multiple profiles
 var result = validate(target=user, profiles="update,passwordChange");
 
 // With validateOrFail for APIs
@@ -147,17 +147,17 @@ class {
     property name="firstName" type="string";
     property name="lastName" type="string";
     property name="email" type="string";
-    
+
     // Step 2: Account Details
     property name="username" type="string";
     property name="password" type="string";
     property name="confirmPassword" type="string";
-    
+
     // Step 3: Profile Info
     property name="dateOfBirth" type="date";
     property name="phone" type="string";
     property name="address" type="string";
-    
+
     // Step 4: Preferences
     property name="newsletter" type="boolean";
     property name="marketingEmails" type="boolean";
@@ -176,7 +176,7 @@ class {
 
     this.constraintProfiles = {
         step1: "firstName,lastName,email",
-        step2: "username,password,confirmPassword", 
+        step2: "username,password,confirmPassword",
         step3: "dateOfBirth,phone,address",
         step4: "newsletter,marketingEmails",
         complete: "firstName,lastName,email,username,password,confirmPassword,dateOfBirth"
@@ -196,17 +196,17 @@ component {
     property name="firstName" type="string";
     property name="lastName" type="string";
     property name="email" type="string";
-    
+
     // Step 2: Account Details
     property name="username" type="string";
     property name="password" type="string";
     property name="confirmPassword" type="string";
-    
+
     // Step 3: Profile Info
     property name="dateOfBirth" type="date";
     property name="phone" type="string";
     property name="address" type="string";
-    
+
     // Step 4: Preferences
     property name="newsletter" type="boolean";
     property name="marketingEmails" type="boolean";
@@ -225,7 +225,7 @@ component {
 
     this.constraintProfiles = {
         step1 = "firstName,lastName,email",
-        step2 = "username,password,confirmPassword", 
+        step2 = "username,password,confirmPassword",
         step3 = "dateOfBirth,phone,address",
         step4 = "newsletter,marketingEmails",
         complete = "firstName,lastName,email,username,password,confirmPassword,dateOfBirth"
@@ -271,19 +271,19 @@ class {
     this.constraintProfiles = {
         // Full product creation
         create: "name,description,price,category,sku,active,tags",
-        
+
         // Quick product creation (minimal required fields)
         quickCreate: "name,price,category,sku",
-        
+
         // Update existing product (ID required, others optional)
         update: "name,description,price,category,active,tags",
-        
+
         // Bulk import validation (stricter rules)
         import: "name,price,category,sku",
-        
+
         // Admin-only fields
         admin: "name,description,price,category,sku,active,tags",
-        
+
         // Public API (limited fields)
         public: "name,description,price,category"
     };
@@ -320,19 +320,19 @@ component {
     this.constraintProfiles = {
         // Full product creation
         create = "name,description,price,category,sku,active,tags",
-        
+
         // Quick product creation (minimal required fields)
         quickCreate = "name,price,category,sku",
-        
+
         // Update existing product (ID required, others optional)
         update = "name,description,price,category,active,tags",
-        
+
         // Bulk import validation (stricter rules)
         import = "name,price,category,sku",
-        
+
         // Admin-only fields
         admin = "name,description,price,category,sku,active,tags",
-        
+
         // Public API (limited fields)
         public = "name,description,price,category"
     };
@@ -364,7 +364,7 @@ function create(event, rc, prc) {
             constraints: "Product",
             profiles: "create"
         );
-        
+
         var product = productService.create(validProduct);
         return event.renderData(data: product, statusCode: 201);
     } catch(ValidationException e) {
@@ -380,10 +380,10 @@ function update(event, rc, prc) {
         // Use 'update' profile for PUT /products/:id
         var validProduct = validateOrFail(
             target: rc,
-            constraints: "Product", 
+            constraints: "Product",
             profiles: "update"
         );
-        
+
         var product = productService.update(rc.id, validProduct);
         return event.renderData(data: product);
     } catch(ValidationException e) {
@@ -396,7 +396,7 @@ function update(event, rc, prc) {
 
 function bulkImport(event, rc, prc) {
     var results = [];
-    
+
     for (var item in rc.products) {
         try {
             // Stricter validation for bulk imports
@@ -405,7 +405,7 @@ function bulkImport(event, rc, prc) {
                 constraints: "Product",
                 profiles: "import"
             );
-            
+
             results.append({
                 status: "success",
                 product: productService.create(validProduct)
@@ -418,7 +418,7 @@ function bulkImport(event, rc, prc) {
             });
         }
     }
-    
+
     return event.renderData(data: results);
 }
 ```
@@ -438,7 +438,7 @@ function create(event, rc, prc) {
             constraints="Product",
             profiles="create"
         );
-        
+
         var product = productService.create(validProduct);
         return event.renderData(data=product, statusCode=201);
     } catch(ValidationException e) {
@@ -454,10 +454,10 @@ function update(event, rc, prc) {
         // Use 'update' profile for PUT /products/:id
         var validProduct = validateOrFail(
             target=rc,
-            constraints="Product", 
+            constraints="Product",
             profiles="update"
         );
-        
+
         var product = productService.update(rc.id, validProduct);
         return event.renderData(data=product);
     } catch(ValidationException e) {
@@ -470,7 +470,7 @@ function update(event, rc, prc) {
 
 function bulkImport(event, rc, prc) {
     var results = [];
-    
+
     for (var item in rc.products) {
         try {
             // Stricter validation for bulk imports
@@ -479,7 +479,7 @@ function bulkImport(event, rc, prc) {
                 constraints="Product",
                 profiles="import"
             );
-            
+
             results.append({
                 status = "success",
                 product = productService.create(validProduct)
@@ -492,7 +492,7 @@ function bulkImport(event, rc, prc) {
             });
         }
     }
-    
+
     return event.renderData(data=results);
 }
 ```
@@ -518,7 +518,7 @@ function validateByRole(user, data, role) {
         case "user": "public";
         default: "public";
     };
-    
+
     return validate(
         target: data,
         constraints: "Product",
@@ -544,7 +544,7 @@ function validateByRole(user, data, role) {
         default:
             profile = "public";
     }
-    
+
     return validate(
         target=data,
         constraints="Product",
@@ -590,20 +590,20 @@ For high-performance scenarios, cache constraint lookups:
 class ProductService {
     property name="validationManager" inject="ValidationManager@cbvalidation";
     property name="constraintCache" type="struct";
-    
+
     function init() {
         this.constraintCache = {};
         return this;
     }
-    
+
     function validateProduct(product, profile = "create") {
         var cacheKey = "Product_" & profile;
-        
+
         if (!this.constraintCache.keyExists(cacheKey)) {
             // Cache the constraint definition for reuse
             this.constraintCache[cacheKey] = validationManager.getConstraints("Product");
         }
-        
+
         return validationManager.validate(
             target: product,
             constraints: this.constraintCache[cacheKey],
@@ -622,20 +622,20 @@ class ProductService {
 component {
     property name="validationManager" inject="ValidationManager@cbvalidation";
     property name="constraintCache" type="struct";
-    
+
     function init() {
         variables.constraintCache = {};
         return this;
     }
-    
+
     function validateProduct(product, profile = "create") {
         var cacheKey = "Product_" & profile;
-        
+
         if (!variables.constraintCache.keyExists(cacheKey)) {
             // Cache the constraint definition for reuse
             variables.constraintCache[cacheKey] = validationManager.getConstraints("Product");
         }
-        
+
         return validationManager.validate(
             target=product,
             constraints=variables.constraintCache[cacheKey],
@@ -657,7 +657,7 @@ Keep profiles focused and avoid overlap:
 // ✅ FOCUSED PROFILES - Clear purpose, minimal overlap
 this.constraintProfiles = {
     create: "name,email,password",           // New user signup
-    login: "email,password",                 // Authentication  
+    login: "email,password",                 // Authentication
     profile: "name,bio,avatar",              // Profile updates
     security: "password,confirmPassword,currentPassword"  // Security changes
 };
@@ -680,7 +680,7 @@ registration: "firstName,lastName,email,password,confirmPassword"
 passwordReset: "password,confirmPassword,token"
 profileUpdate: "firstName,lastName,bio,avatar"
 
-// ❌ UNCLEAR - Hard to understand purpose  
+// ❌ UNCLEAR - Hard to understand purpose
 p1: "firstName,lastName,email"
 basic: "password,confirmPassword"
 ```
@@ -694,11 +694,11 @@ this.constraintProfiles = {
     registration: "email,password,confirmPassword",
     login: "email,password",
     passwordReset: "password,confirmPassword,resetToken",
-    
+
     // Profile management
     profileBasic: "firstName,lastName,bio",
     profileComplete: "firstName,lastName,bio,avatar,phone,address",
-    
+
     // Administrative
     adminCreate: "email,firstName,lastName,role,permissions",
     adminUpdate: "firstName,lastName,role,permissions"
@@ -710,7 +710,7 @@ this.constraintProfiles = {
 ```javascript
 /**
  * User Constraint Profiles
- * 
+ *
  * registration - New user signup (email + password)
  * login - User authentication (email + password only)
  * profileUpdate - Update user information (no sensitive fields)
@@ -719,7 +719,7 @@ this.constraintProfiles = {
  */
 this.constraintProfiles = {
     registration: "email,password,confirmPassword,firstName,lastName",
-    login: "email,password", 
+    login: "email,password",
     profileUpdate: "firstName,lastName,bio,phone,address",
     passwordChange: "currentPassword,password,confirmPassword",
     adminEdit: "firstName,lastName,email,role,permissions,active"
@@ -734,7 +734,7 @@ Monitor which profiles are used most frequently and optimize accordingly:
 // High-frequency profiles should be as lean as possible
 frequentUpdate: "firstName,lastName"  // 2 fields - very fast
 
-// Infrequent but comprehensive profiles can be larger  
+// Infrequent but comprehensive profiles can be larger
 completeRegistration: "firstName,lastName,email,password,confirmPassword,phone,address,preferences"  // 8 fields - acceptable for rare use
 ```
 
