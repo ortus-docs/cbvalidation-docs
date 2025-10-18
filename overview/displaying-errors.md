@@ -15,7 +15,7 @@ prc.validationResults = validate( obj );
 
 ## Views:
 
-```markup
+```xml
 <-- Display all errors as a message box --->
 #getInstance( "MessageBox@cbMessagebox" )
     .renderMessage( type="error", messageArray=prc.validationResults.getAllErrors() )#
@@ -23,7 +23,7 @@ prc.validationResults = validate( obj );
 
 If you want more control you can use the `hasErrors()` and iterate over the errors to display:
 
-```javascript
+```xml
 <cfif prc.validationResults.hasErrors()>
     <ul>
     <cfloop array="#prc.validationResults.getErrors()#" index="thisError">
