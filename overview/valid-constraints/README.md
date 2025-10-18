@@ -131,6 +131,14 @@ The field must be yes, on, 1, or true. This is useful for validating "Terms of S
 terms = { accepted : true }
 ```
 
+**Common Use Cases:**
+
+* Terms of service and privacy policy acceptance
+* Newsletter subscription opt-ins
+* Age verification checkboxes
+* Legal disclaimer acknowledgments
+* Cookie consent confirmations
+
 ## after
 
 The field under validation must be a value after a given date. The dates will be passed into the `dateCompare()` function in order to be converted and tested. _Note: This validator will ignore values that are null or empty strings._
@@ -145,6 +153,14 @@ Instead of passing a date, you may specify another field to compare against the 
 endDate : { required:true, type:"date", after: "startDate" }
 ```
 
+**Common Use Cases:**
+
+* Event end dates must be after start dates
+* Subscription expiration dates after purchase dates
+* Delivery dates after order dates
+* Meeting end times after start times
+* Contract termination dates after effective dates
+
 ## afterOrEqual
 
 The field under validation must be a value after or equal a given date. The dates will be passed into the `dateCompare()` function in order to be converted and tested. _Note: This validator will ignore values that are null or empty strings._
@@ -158,8 +174,16 @@ startDate : { required:true, type:"date", afterOrEqual: dateAdd( "d", 1, now() )
 The field must be alphabetical ONLY. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-terms = { alpha = true }
+firstName = { alpha = true }
 ```
+
+**Common Use Cases:**
+
+* First and last names (no numbers or special characters)
+* Department or division names
+* Country and city names
+* Product category names
+* Language or locale identifiers
 
 ## arrayItem
 
@@ -232,6 +256,16 @@ invoiceItems = {
 ```
 
 There is a [shortcut notation available](nested-struct-and-array-field-name-shortcuts.md#nested-array-shorthand) for `arrayItem` that uses a specialized field name to skip nesting the constraints.
+
+**Common Use Cases:**
+
+* Shopping cart items validation
+* Form field arrays (multiple phone numbers, addresses)
+* Tag lists and category arrays
+* File upload collections
+* Multi-select option validation
+* Invoice line items
+* Survey question responses
 
 ## before
 
@@ -416,8 +450,20 @@ The field still isn't required, but if it is passed the value must be a non-empt
 The field must be in the included list. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { inList = "red,green,blue" }
+status = { inList = "active,inactive,pending" },
+priority = { inList = "low,medium,high,critical" },
+color = { inList = "red,green,blue,yellow" }
 ```
+
+**Common Use Cases:**
+
+* Status fields (active/inactive, published/draft)
+* Priority levels (low/medium/high/critical)
+* User roles (admin/user/guest/moderator)
+* Product categories or types
+* Geographic regions or time zones
+* Payment methods (credit/debit/paypal/stripe)
+* File formats or MIME types
 
 ## instanceOf
 
@@ -478,8 +524,20 @@ See [arrayItem](./#arrayitem).
 The field must be less than or equal to the defined value. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { max = 25 }
+age = { max = 120 },
+price = { max = 9999.99 },
+quantity = { max = 100 }
 ```
+
+**Common Use Cases:**
+
+* Age limits and maximum age restrictions
+* Price caps and budget limits
+* Quantity restrictions in shopping carts
+* File size limits (in MB/KB)
+* Rating scales (1-5, 1-10)
+* Percentage values (0-100)
+* Inventory limits
 
 ## method
 
@@ -501,8 +559,20 @@ function methodName( validationData, targetValue, metadata ){
 The field must be greater than or equal to the defined value. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { min = 8 }
+age = { min = 18 },
+password = { min = 8 },
+price = { min = 0.01 }
 ```
+
+**Common Use Cases:**
+
+* Minimum age requirements (18+, 21+)
+* Password length requirements
+* Minimum order values
+* Required experience years
+* Minimum bid amounts
+* Rating thresholds
+* Stock quantity minimums
 
 ## nestedConstraints
 
@@ -562,26 +632,59 @@ alternateEmail: {
 The field must be within the range values and the validation data must follow the range pattern: `min..max`. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { range = "1..5" }
-myField = { range = "5..-5" }
+rating = { range = "1..5" },
+temperature = { range = "-20..50" },
+percentage = { range = "0..100" }
 ```
+
+**Common Use Cases:**
+
+* Rating systems (1-5 stars, 1-10 scale)
+* Temperature ranges for equipment
+* Percentage values (0-100%)
+* Age ranges for demographics
+* Price ranges for budgets
+* Quantity ranges for bulk orders
+* Time ranges (hours: 0-23, minutes: 0-59)
 
 ## regex
 
 The field must pass the regular expression match with no case sensitivity. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { regex = "^(sick|vacation|disability)$" }
+leaveType = { regex = "^(sick|vacation|disability)$" },
+productCode = { regex = "^[A-Z]{2}\d{4}$" },
+phoneFormat = { regex = "^\(\d{3}\) \d{3}-\d{4}$" }
 ```
+
+**Common Use Cases:**
+
+* Product codes and SKU patterns
+* Phone number formatting
+* License plate formats
+* Social security number patterns
+* Custom ID formats (employee IDs, customer codes)
+* URL slug patterns
+* Version number formats
 
 ## required
 
 The field must have some type of value and not null or an empty string.
 
 ```javascript
-myField = { required=true }
-myField = { required=false }
+firstName = { required = true },
+email = { required = true },
+newsletter = { required = false }
 ```
+
+**Common Use Cases:**
+
+* Essential user information (name, email, password)
+* Legal requirements (terms acceptance, age verification)
+* Contact information for orders
+* Mandatory form fields
+* Required configuration settings
+* Critical system parameters
 
 ## requiredIf
 
@@ -639,25 +742,53 @@ myField = {
 The field must be the same as another field with no case sensitivity. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { sameAsNoCase = "otherField" }
+confirmEmail = { sameAsNoCase = "email" },
+displayName = { sameAsNoCase = "username" }
 ```
+
+**Common Use Cases:**
+
+* Email confirmation (case-insensitive matching)
+* Username verification fields
+* Display name matching
+* Case-insensitive code confirmation
 
 ## sameAs
 
 The field must be the same as another field with case sensitivity. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { sameAs = "otherField" }
+confirmPassword = { sameAs = "password" },
+verifyApiKey = { sameAs = "apiKey" }
 ```
+
+**Common Use Cases:**
+
+* Password confirmation fields
+* API key verification
+* Security code confirmation
+* Case-sensitive token matching
+* Exact duplicate field validation
 
 ## size
 
 The field value size must be within the range values and the validation data must follow the range pattern: `min..max.` Value can be a (struct,string,array,query). _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { size : 10 }
-myFiedl = { size : "8..20" }
+username = { size = "3..20" },
+description = { size = "10..500" },
+tags = { size = "1..10" }  // Array size
 ```
+
+**Common Use Cases:**
+
+* Username length requirements (3-20 characters)
+* Password complexity (8-128 characters)
+* Description fields (min/max word counts)
+* Tag or category limits (max 10 items)
+* Comment length restrictions
+* File name length limits
+* Array size validation (shopping cart items)
 
 ## type
 
@@ -691,10 +822,25 @@ One of the most versatile validators. It can test if the value is of the followi
 _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { type : "float" }
-myField = { type : "json" }
-myField = { type : "xml" }
+email = { type = "email" },
+price = { type = "numeric" },
+birthDate = { type = "date" },
+isActive = { type = "boolean" },
+config = { type = "json" }
 ```
+
+**Common Use Cases:**
+
+* **email**: User registration, contact forms
+* **numeric/float**: Prices, quantities, measurements
+* **date/usdate**: Birth dates, appointment scheduling
+* **boolean**: Feature toggles, yes/no questions
+* **creditcard**: Payment processing
+* **telephone**: Contact information
+* **url**: Website links, API endpoints
+* **json/xml**: Configuration data, API payloads
+* **array/struct**: Complex data validation
+* **guid/uuid**: Unique identifiers
 
 ## udf
 
@@ -721,8 +867,20 @@ The field must be a unique value in a specific database table. The validation da
 _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { unique = { table : "users", column : "username" } }
+username = { unique = { table = "users", column = "username" } },
+email = { unique = { table = "users", column = "email_address" } },
+productSku = { unique = { table = "products" } }  // Uses field name as column
 ```
+
+**Common Use Cases:**
+
+* User registration (unique usernames, emails)
+* Product catalogs (unique SKUs, product codes)
+* Employee records (unique employee IDs, SSNs)
+* Customer accounts (unique account numbers)
+* Inventory management (unique serial numbers)
+* Content management (unique slugs, URLs)
+* Organization data (unique department codes)
 
 ## validator
 
