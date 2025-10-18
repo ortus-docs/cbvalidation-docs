@@ -1,5 +1,6 @@
 ---
 description: Using the Validatable delegate for object validation
+icon: shuffle
 ---
 
 # Validatable Delegate
@@ -17,9 +18,7 @@ Instead of injecting the `ValidationManager` into every class, you can delegate 
 The simplest way to make an object validatable:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="User.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 class delegates="Validatable@cbValidation" {
@@ -35,11 +34,9 @@ class delegates="Validatable@cbValidation" {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="User.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 component delegates="Validatable@cbValidation" {
@@ -54,9 +51,7 @@ component delegates="Validatable@cbValidation" {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Selective Method Delegation
@@ -64,15 +59,14 @@ component delegates="Validatable@cbValidation" {
 Delegate only specific validation methods:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 ```groovy
 class delegates="Validatable@cbValidation=validate,validateOrFail" {
     property name="sku" type="string";
     property name="price" type="numeric";
 }
 ```
+
 {% code title="product.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 // Only add validate and validateOrFail methods
@@ -82,11 +76,9 @@ component delegates="Validatable@cbValidation=validate,validateOrFail" {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="product.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 // Only add validate and validateOrFail methods
@@ -96,9 +88,7 @@ component delegates="Validatable@cbValidation=validate,validateOrFail" {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Long Syntax with Property Injection
@@ -106,9 +96,7 @@ component delegates="Validatable@cbValidation=validate,validateOrFail" {
 For more control, use explicit property delegation:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="order.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 class {
@@ -126,11 +114,9 @@ class {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="order.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 component {
@@ -148,32 +134,28 @@ component {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Available Delegated Methods
 
 When using the Validatable delegate, the following methods are available:
 
-- `validate()` - Validate and return result object
-- `validateOrFail()` - Validate or throw exception
-- `isValid()` - Quick boolean check (stores results)
-- `getValidationResults()` - Get stored validation results
-- `validateHasValue()` - Check if a value exists
-- `validateIsNullOrEmpty()` - Check if value is null/empty
-- `assert()` - Assert a condition is true
-- `getValidationManager()` - Access the ValidationManager
+* `validate()` - Validate and return result object
+* `validateOrFail()` - Validate or throw exception
+* `isValid()` - Quick boolean check (stores results)
+* `getValidationResults()` - Get stored validation results
+* `validateHasValue()` - Check if a value exists
+* `validateIsNullOrEmpty()` - Check if value is null/empty
+* `assert()` - Assert a condition is true
+* `getValidationManager()` - Access the ValidationManager
 
 ## Using Delegated Validation Methods
 
 ### Validate Method
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="handler.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function saveUser(event, rc, prc) {
@@ -193,11 +175,9 @@ function saveUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="handler.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function saveUser(event, rc, prc) {
@@ -217,9 +197,7 @@ function saveUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### ValidateOrFail Method
@@ -227,9 +205,7 @@ function saveUser(event, rc, prc) {
 For API endpoints with exception handling:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="api.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function apiCreateUser(event, rc, prc) {
@@ -251,11 +227,9 @@ function apiCreateUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="api.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function apiCreateUser(event, rc, prc) {
@@ -277,9 +251,7 @@ function apiCreateUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### IsValid Method
@@ -287,9 +259,7 @@ function apiCreateUser(event, rc, prc) {
 Quick validation with stored results:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="validation-check.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function processUser(event, rc, prc) {
@@ -308,11 +278,9 @@ function processUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="validation-check.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function processUser(event, rc, prc) {
@@ -331,9 +299,7 @@ function processUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Advanced Usage
@@ -343,9 +309,7 @@ function processUser(event, rc, prc) {
 Pass profiles for targeted validation:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="profile-validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 component delegates="Validatable@cbValidation" {
@@ -378,11 +342,9 @@ function updateUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="profile-validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 component delegates="Validatable@cbValidation" {
@@ -415,9 +377,7 @@ function updateUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Custom Validation with Callbacks
@@ -425,9 +385,7 @@ function updateUser(event, rc, prc) {
 Combine validation with business logic:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="callback-validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 component delegates="Validatable@cbValidation" {
@@ -464,11 +422,9 @@ function createProduct(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="callback-validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 component delegates="Validatable@cbValidation" {
@@ -505,9 +461,7 @@ function createProduct(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Best Practices
@@ -580,13 +534,14 @@ public boolean function isEligible() {
 ## Supported ColdBox Versions
 
 The Validatable delegate requires:
-- **ColdBox 7.0+**
-- **cbValidation 4.1.0+**
+
+* **ColdBox 7.0+**
+* **cbValidation 4.1.0+**
 
 For earlier ColdBox versions, use the mixin methods via `validate()` and `validateOrFail()`.
 
 ## See Also
 
-- [Installation & Mixins](../installation.md) - Mixin methods for handlers, views, interceptors
-- [Validation Results](README.md) - Understanding validation result objects
-- [Custom Validators](../../advanced/advanced-custom-validators.md) - Creating custom validation logic
+* [Installation & Mixins](../installation.md) - Mixin methods for handlers, views, interceptors
+* [Validation Results](../overview/) - Understanding validation result objects
+* [Custom Validators](advanced-custom-validators.md) - Creating custom validation logic

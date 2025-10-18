@@ -1,10 +1,11 @@
 ---
-icon: settings
-description: >-
-    Configuration options for CBValidation module.
+description: Configuration options for CBValidation module.
+icon: square-sliders-vertical
 ---
 
 # Configuration
+
+### Settings
 
 You can configure the module by creating a `cbvalidation` key in the `config/Coldbox.cfc` `moduleSettings` structure
 
@@ -26,14 +27,27 @@ moduleSettings = {
 ```
 {% endcode %}
 
-## manager
+#### manager
 
-The `manager` key by default points to `cbValidation.models.ValidationManager`.  If you would like to override or decorate our manager, then you can set the classpath of the manager to use.  This manager must adhere to our interface: `cbvalidation.interfaces.IValidationManager`
+The `manager` key by default points to `cbValidation.models.ValidationManager`. If you would like to override or decorate our manager, then you can set the classpath of the manager to use. This manager must adhere to our interface: `cbvalidation.interfaces.IValidationManager`
 
-## sharedConstraints
+#### sharedConstraints
 
-This structure will hold all of your shared constraints for forms or/and objects that you can easily reference by name.  It's like declaring the constraints inline but storing them globally.
+This structure will hold all of your shared constraints for forms or/and objects that you can easily reference by name. It's like declaring the constraints inline but storing them globally.
 
 {% hint style="danger" %}
 **Important:** The module will register several objects into WireBox using the `@cbvalidation` namespace. The validation manager is registered as `ValidationManager@cbvalidation`
+{% endhint %}
+
+### WireBox Integration
+
+The module will register several objects into WireBox using the `@cbvalidation` namespace. The validation manager is registered as `ValidationManager@cbvalidation`, which is the one you can inject and use anywhere you like.
+
+```javascript
+// get reference
+property name="validationManager" inject="ValidationManager@cbvalidation";
+```
+
+{% hint style="danger" %}
+Remember, you have the mixins available to you in your handlers/interceptors/layouts and views and the `Validatable@cbValidation` delegate for any model object.
 {% endhint %}

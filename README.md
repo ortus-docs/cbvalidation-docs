@@ -1,6 +1,6 @@
 ---
-icon: checklist-check
 description: cbValidation is the server-side validation engine for ColdBox applications
+icon: sunglasses
 ---
 
 # Introduction
@@ -35,7 +35,7 @@ The ColdBox ORM Module is a professional open-source software backed by [Ortus S
 
 ## Discussion & Help
 
-The Box Products discussion group and community can be found here:&#x20;
+The Box Products discussion group and community can be found here:
 
 [https://community.ortussolutions.com/c/communities](https://community.ortussolutions.com/c/communities/contentbox/15)
 

@@ -1,3 +1,7 @@
+---
+icon: display
+---
+
 # Displaying Errors
 
 After validation you can use the same results object and use it to display the validation errors in your client side:

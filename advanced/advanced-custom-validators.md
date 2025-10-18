@@ -1,3 +1,7 @@
+---
+icon: code
+---
+
 # Custom Validators
 
 If the core validators are not sufficient for you, then you can create your own custom validators. You can either leverage the `udf` validator and create your own closure/lambda to validate inline or create a reusable validator CFC
@@ -179,137 +183,115 @@ Starting with CBValidation 4.3.0, both UDF and Method validators support **error
 When using UDF or Method validators, your validation function receives an additional `errorMetadata` argument (passed by reference) that you can populate with custom data when validation fails.
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="User.bx" overflow="wrap" lineNumbers="true" %}
+```
+this.constraints = {
+    email: {
+        required: true,
+        udf: (value, target, errorMetadata) => {
+            if (isNull(arguments.value)) return false;
 
-{% code language="groovy" %}
-// UDF Validator with Error Metadata
-class {
-    property name="email";
-    property name="age";
-
-    this.constraints = {
-        email: {
-            required: true,
-            udf: (value, target, errorMetadata) => {
-                if (isNull(arguments.value)) return false;
-
-                // Check if email already exists in database
-                var existingUser = userService.findByEmail(arguments.value);
-                if (!isNull(existingUser)) {
-                    // Populate error metadata with additional context
-                    arguments.errorMetadata.duplicateUserId = existingUser.getId();
-                    arguments.errorMetadata.existingSince = existingUser.getCreatedDate();
-                    arguments.errorMetadata.conflictType = "email_duplicate";
-                    return false;
-                }
-                return true;
+            // Check if email already exists in database
+            var existingUser = userService.findByEmail(arguments.value);
+            if (!isNull(existingUser)) {
+                // Populate error metadata with additional context
+                arguments.errorMetadata.duplicateUserId = existingUser.getId();
+                arguments.errorMetadata.existingSince = existingUser.getCreatedDate();
+                arguments.errorMetadata.conflictType = "email_duplicate";
+                return false;
             }
-        },
-
-        age: {
-            required: true,
-            method: "validateAgeRange"  // Method validator example
+            return true;
         }
-    };
+    },
 
-    // Method validator that uses error metadata
-    boolean function validateAgeRange(value, errorMetadata) {
-        if (isNull(arguments.value)) return false;
-
-        var minAge = 18;
-        var maxAge = 65;
-
-        if (arguments.value < minAge) {
-            arguments.errorMetadata.minimumRequired = minAge;
-            arguments.errorMetadata.provided = arguments.value;
-            arguments.errorMetadata.category = "age_too_young";
-            return false;
-        }
-
-        if (arguments.value > maxAge) {
-            arguments.errorMetadata.maximumAllowed = maxAge;
-            arguments.errorMetadata.provided = arguments.value;
-            arguments.errorMetadata.category = "age_too_old";
-            return false;
-        }
-
-        return true;
+    age: {
+        required: true,
+        method: "validateAgeRange"  // Method validator example
     }
+};
+
+// Method validator that uses error metadata
+boolean function validateAgeRange(value, errorMetadata) {
+    if (isNull(arguments.value)) return false;
+
+    var minAge = 18;
+    var maxAge = 65;
+
+    if (arguments.value < minAge) {
+        arguments.errorMetadata.minimumRequired = minAge;
+        arguments.errorMetadata.provided = arguments.value;
+        arguments.errorMetadata.category = "age_too_young";
+        return false;
+    }
+
+    if (arguments.value > maxAge) {
+        arguments.errorMetadata.maximumAllowed = maxAge;
+        arguments.errorMetadata.provided = arguments.value;
+        arguments.errorMetadata.category = "age_too_old";
+        return false;
+    }
+
+    return true;
 }
+```
 {% endcode %}
-
-{% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="User.cfc" overflow="wrap" lineNumbers="true" %}
+```
+this.constraints = {
+    email = {
+        required = true,
+        udf = function( value, target, errorMetadata ) {
+            if ( isNull( arguments.value ) ) return false;
 
-{% code language="javascript" %}
-// UDF Validator with Error Metadata
-component {
-    property name="email";
-    property name="age";
-
-    this.constraints = {
-        email = {
-            required = true,
-            udf = function( value, target, errorMetadata ) {
-                if ( isNull( arguments.value ) ) return false;
-
-                // Check if email already exists in database
-                var existingUser = userService.findByEmail( arguments.value );
-                if ( !isNull( existingUser ) ) {
-                    // Populate error metadata with additional context
-                    arguments.errorMetadata.duplicateUserId = existingUser.getId();
-                    arguments.errorMetadata.existingSince = existingUser.getCreatedDate();
-                    arguments.errorMetadata.conflictType = "email_duplicate";
-                    return false;
-                }
-                return true;
+            // Check if email already exists in database
+            var existingUser = userService.findByEmail( arguments.value );
+            if ( !isNull( existingUser ) ) {
+                // Populate error metadata with additional context
+                arguments.errorMetadata.duplicateUserId = existingUser.getId();
+                arguments.errorMetadata.existingSince = existingUser.getCreatedDate();
+                arguments.errorMetadata.conflictType = "email_duplicate";
+                return false;
             }
-        },
-
-        age = {
-            required = true,
-            method = "validateAgeRange"  // Method validator example
+            return true;
         }
-    };
+    },
 
-    // Method validator that uses error metadata
-    boolean function validateAgeRange( value, errorMetadata ) {
-        if ( isNull( arguments.value ) ) return false;
-
-        var minAge = 18;
-        var maxAge = 65;
-
-        if ( arguments.value < minAge ) {
-            arguments.errorMetadata.minimumRequired = minAge;
-            arguments.errorMetadata.provided = arguments.value;
-            arguments.errorMetadata.category = "age_too_young";
-            return false;
-        }
-
-        if ( arguments.value > maxAge ) {
-            arguments.errorMetadata.maximumAllowed = maxAge;
-            arguments.errorMetadata.provided = arguments.value;
-            arguments.errorMetadata.category = "age_too_old";
-            return false;
-        }
-
-        return true;
+    age = {
+        required = true,
+        method = "validateAgeRange"  // Method validator example
     }
+};
+
+// Method validator that uses error metadata
+boolean function validateAgeRange( value, errorMetadata ) {
+    if ( isNull( arguments.value ) ) return false;
+
+    var minAge = 18;
+    var maxAge = 65;
+
+    if ( arguments.value < minAge ) {
+        arguments.errorMetadata.minimumRequired = minAge;
+        arguments.errorMetadata.provided = arguments.value;
+        arguments.errorMetadata.category = "age_too_young";
+        return false;
+    }
+
+    if ( arguments.value > maxAge ) {
+        arguments.errorMetadata.maximumAllowed = maxAge;
+        arguments.errorMetadata.provided = arguments.value;
+        arguments.errorMetadata.category = "age_too_old";
+        return false;
+    }
+
+    return true;
 }
+```
 {% endcode %}
-
-{% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Accessing Error Metadata
@@ -317,95 +299,69 @@ component {
 Once validation fails and metadata is populated, you can access it through the `ValidationError` object:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="ValidationExample.bx" overflow="wrap" lineNumbers="true" %}
+```
+    // Use metadata for enhanced error handling
+    switch (metadata.category ?: "") {
+        case "email_duplicate":
+            // Show specific message about existing user
+            flash.put("error", "This email was already registered on " &
+                dateFormat(metadata.existingSince, "mm/dd/yyyy"));
+            break;
 
-{% code language="groovy" %}
-// Validate and handle errors with metadata
-var result = validate(target=user, constraints="userValidation");
+        case "age_too_young":
+            // Age-specific guidance
+            flash.put("error", "You must be at least " &
+                metadata.minimumRequired & " years old to register");
+            break;
 
-if (result.hasErrors()) {
-    for (var error in result.getAllErrors()) {
-        var metadata = error.getErrorMetadata();
+        case "age_too_old":
+            // Different handling for maximum age
+            flash.put("error", "Registration is limited to ages " &
+                metadata.maximumAllowed & " and under");
+            break;
 
-        // Use metadata for enhanced error handling
-        switch (metadata.category ?: "") {
-            case "email_duplicate":
-                // Show specific message about existing user
-                flash.put("error", "This email was already registered on " &
-                    dateFormat(metadata.existingSince, "mm/dd/yyyy"));
-                break;
-
-            case "age_too_young":
-                // Age-specific guidance
-                flash.put("error", "You must be at least " &
-                    metadata.minimumRequired & " years old to register");
-                break;
-
-            case "age_too_old":
-                // Different handling for maximum age
-                flash.put("error", "Registration is limited to ages " &
-                    metadata.maximumAllowed & " and under");
-                break;
-
-            default:
-                // Fallback to standard error message
-                flash.put("error", error.getMessage());
-        }
+        default:
+            // Fallback to standard error message
+            flash.put("error", error.getMessage());
     }
 }
+```
 {% endcode %}
-
-{% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="ValidationExample.cfm" overflow="wrap" lineNumbers="true" %}
+```
+    // Use metadata for enhanced error handling
+    switch ( metadata.category ?: "" ) {
+        case "email_duplicate":
+            // Show specific message about existing user
+            flash.put( "error", "This email was already registered on " &
+                dateFormat( metadata.existingSince, "mm/dd/yyyy" ) );
+            break;
 
-{% code language="javascript" %}
-// Validate and handle errors with metadata
-var result = validate( target=user, constraints="userValidation" );
+        case "age_too_young":
+            // Age-specific guidance
+            flash.put( "error", "You must be at least " &
+                metadata.minimumRequired & " years old to register" );
+            break;
 
-if ( result.hasErrors() ) {
-    for ( var error in result.getAllErrors() ) {
-        var metadata = error.getErrorMetadata();
+        case "age_too_old":
+            // Different handling for maximum age
+            flash.put( "error", "Registration is limited to ages " &
+                metadata.maximumAllowed & " and under" );
+            break;
 
-        // Use metadata for enhanced error handling
-        switch ( metadata.category ?: "" ) {
-            case "email_duplicate":
-                // Show specific message about existing user
-                flash.put( "error", "This email was already registered on " &
-                    dateFormat( metadata.existingSince, "mm/dd/yyyy" ) );
-                break;
-
-            case "age_too_young":
-                // Age-specific guidance
-                flash.put( "error", "You must be at least " &
-                    metadata.minimumRequired & " years old to register" );
-                break;
-
-            case "age_too_old":
-                // Different handling for maximum age
-                flash.put( "error", "Registration is limited to ages " &
-                    metadata.maximumAllowed & " and under" );
-                break;
-
-            default:
-                // Fallback to standard error message
-                flash.put( "error", error.getMessage() );
-        }
+        default:
+            // Fallback to standard error message
+            flash.put( "error", error.getMessage() );
     }
 }
+```
 {% endcode %}
-
-{% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Error Metadata in i18n Messages
@@ -413,7 +369,6 @@ if ( result.hasErrors() ) {
 Error metadata integrates seamlessly with CBValidation's i18n support. You can reference metadata values in your resource bundle messages:
 
 {% code title="i18n/validation_en.properties" overflow="wrap" lineNumbers="true" %}
-
 ```properties
 # Standard validation messages
 email.required=Email address is required
@@ -424,7 +379,6 @@ email.udf=The email address '{rejectedValue}' is already registered by user #{du
 age.method.too_young=You must be at least {minimumRequired} years old (you entered {provided})
 age.method.too_old=Maximum age allowed is {maximumAllowed} (you entered {provided})
 ```
-
 {% endcode %}
 
 ### ValidationError Metadata API
@@ -432,57 +386,25 @@ age.method.too_old=Maximum age allowed is {maximumAllowed} (you entered {provide
 The `ValidationError` object provides methods to work with error metadata:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="ErrorMetadataAPI.bx" overflow="wrap" lineNumbers="true" %}
-
-{% code language="groovy" %}
-// Get all metadata as a struct
-var metadata = error.getErrorMetadata();
-
-// Check if metadata exists
-if (!structIsEmpty(metadata)) {
-    // Access specific metadata values
-    if (structKeyExists(metadata, "category")) {
-        writeOutput("Error category: " & metadata.category);
-    }
-
-    // Get complete error information including metadata
-    var errorInfo = error.getMemento();
-    // errorInfo.errorMetadata contains all metadata
-}
+```
+// Get complete error information including metadata
+var errorInfo = error.getMemento();
+// errorInfo.errorMetadata contains all metadata
+```
 {% endcode %}
-
-{% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="ErrorMetadataAPI.cfm" overflow="wrap" lineNumbers="true" %}
-
-{% code language="javascript" %}
-// Get all metadata as a struct
-var metadata = error.getErrorMetadata();
-
-// Check if metadata exists
-if ( !structIsEmpty( metadata ) ) {
-    // Access specific metadata values
-    if ( structKeyExists( metadata, "category" ) ) {
-        writeOutput( "Error category: " & metadata.category );
-    }
-
-    // Get complete error information including metadata
-    var errorInfo = error.getMemento();
-    // errorInfo.errorMetadata contains all metadata
-}
+```
+// Get complete error information including metadata
+var errorInfo = error.getMemento();
+// errorInfo.errorMetadata contains all metadata
+```
 {% endcode %}
-
-{% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Best Practices for Error Metadata

@@ -1,3 +1,7 @@
+---
+icon: earth-europe
+---
+
 # i18n Integration
 
 ## Internationalization
@@ -5,24 +9,24 @@
 If you are using i18n (Internationalization and Localization) in your ColdBox applications you can also localize your validation error messages from the ColdBox validators.
 
 {% hint style="info" %}
-&#x20;**Info** You do not need to install the `cbi18n` module. This module is already a dependency of the `cbvalidation` module.
+**Info** You do not need to install the `cbi18n` module. This module is already a dependency of the `cbvalidation` module.
 {% endhint %}
 
-&#x20;You will do this by our lovely conventions for you resource bundle keys:
+You will do this by our lovely conventions for you resource bundle keys:
 
-### &#x20;Domain Objects:
+### Domain Objects:
 
 ```
 {ObjectName}.{Field}.{ConstraintType}}=Message
 ```
 
-### &#x20;Forms with Shared Constraints Name
+### Forms with Shared Constraints Name
 
 ```
 {SharedConstraintName}.{Field}.{ConstraintType}=Message
 ```
 
-### &#x20;Forms with No Shared Constraints (A-la-carte constraints)
+### Forms with No Shared Constraints (A-la-carte constraints)
 
 ```
 GenericForm.{Field}.{ConstraintType}=Message

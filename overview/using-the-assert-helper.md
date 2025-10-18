@@ -1,14 +1,15 @@
 ---
 description: Using the assert() helper method
+icon: hand-holding-medical
 ---
 
 # Using the Assert Helper
 
 The `assert()` helper method allows you to validate conditions and throw exceptions if they fail. It's useful for:
 
-- Checking pre-conditions before processing
-- Validating method arguments
-- Ensuring business logic invariants
+* Checking pre-conditions before processing
+* Validating method arguments
+* Ensuring business logic invariants
 
 The `assert()` method was introduced in 4.3.1.
 
@@ -19,9 +20,7 @@ The `assert()` method mimics Java's `assert` keyword. It evaluates a condition t
 ## Basic Usage
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="assertions.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function processOrder(orderId) {
@@ -41,11 +40,9 @@ function processOrder(orderId) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="assertions.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function processOrder(orderId) {
@@ -65,9 +62,7 @@ function processOrder(orderId) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Syntax
@@ -81,8 +76,8 @@ boolean function assert(
 
 **Parameters:**
 
-- `target` - The value to evaluate as boolean (required)
-- `message` - Custom error message (optional)
+* `target` - The value to evaluate as boolean (required)
+* `message` - Custom error message (optional)
 
 **Returns:** `true` if assertion passes
 
@@ -91,9 +86,7 @@ boolean function assert(
 ## Return Values
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 ```groovy
 // ✅ Returns true when condition is true
 if (assert(true, "This passes")) {
@@ -115,11 +108,9 @@ try {
     writeOutput(e.message);  // "Value cannot be null"
 }
 ```
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 ```javascript
 // ✅ Returns true when condition is true
 if (assert(true, "This passes")) {
@@ -141,9 +132,7 @@ try {
     writeOutput(e.message);  // "Value cannot be null"
 }
 ```
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Common Patterns
@@ -151,9 +140,7 @@ try {
 ### Null Checking
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="null-checking.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function saveUser(user) {
@@ -168,11 +155,9 @@ function saveUser(user) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="null-checking.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function saveUser(user) {
@@ -187,17 +172,13 @@ function saveUser(user) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Range Validation
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="range-validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function setDiscount(percentage) {
@@ -210,11 +191,9 @@ function setDiscount(percentage) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="range-validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function setDiscount(percentage) {
@@ -227,17 +206,13 @@ function setDiscount(percentage) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Array/Collection Validation
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="collection-validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function processItems(items) {
@@ -255,11 +230,9 @@ function processItems(items) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="collection-validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function processItems(items) {
@@ -277,17 +250,13 @@ function processItems(items) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### State Validation
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="state-validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function deleteOrder(order) {
@@ -304,11 +273,9 @@ function deleteOrder(order) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="state-validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function deleteOrder(order) {
@@ -325,17 +292,13 @@ function deleteOrder(order) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### API Input Validation
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="api-validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function apiUpdateUser(event, rc, prc) {
@@ -363,11 +326,9 @@ function apiUpdateUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="api-validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function apiUpdateUser(event, rc, prc) {
@@ -395,9 +356,7 @@ function apiUpdateUser(event, rc, prc) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Assert vs Validate
@@ -406,11 +365,11 @@ Choose the right tool for the job:
 
 ### Use `assert()` when:
 
-- Checking **pre-conditions** before processing
-- Validating **method arguments**
-- Ensuring **business logic invariants**
-- You want quick **fail-fast** behavior
-- Condition is simple and **boolean**
+* Checking **pre-conditions** before processing
+* Validating **method arguments**
+* Ensuring **business logic invariants**
+* You want quick **fail-fast** behavior
+* Condition is simple and **boolean**
 
 ```javascript
 assert(quantity > 0, "Quantity must be greater than 0");
@@ -418,11 +377,11 @@ assert(quantity > 0, "Quantity must be greater than 0");
 
 ### Use `validate()` when:
 
-- Validating **complex objects** with multiple rules
-- Collecting **multiple errors** from one check
-- Validating **form data** or **user input**
-- You need **detailed error messages** and fields
-- Working with **constraint definitions**
+* Validating **complex objects** with multiple rules
+* Collecting **multiple errors** from one check
+* Validating **form data** or **user input**
+* You need **detailed error messages** and fields
+* Working with **constraint definitions**
 
 ```javascript
 var results = validate(target: product, constraints: productConstraints);
@@ -433,9 +392,7 @@ var results = validate(target: product, constraints: productConstraints);
 ### Catching AssertError
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="error-handling.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 function processData(data) {
@@ -453,11 +410,9 @@ function processData(data) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="error-handling.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 function processData(data) {
@@ -475,9 +430,7 @@ function processData(data) {
 }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Best Practices
@@ -540,6 +493,6 @@ function calculateTotal(items) {
 
 ## See Also
 
-- [Validation](README.md) - Full validation system
-- [Installation & Mixins](../installation.md) - Available helper methods
-- [Validatable Delegate](validatable-delegate.md) - Object validation delegation
+* [Validation](./) - Full validation system
+* [Installation & Mixins](../installation.md) - Available helper methods
+* [Validatable Delegate](../advanced/validatable-delegate.md) - Object validation delegation

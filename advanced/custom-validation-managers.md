@@ -1,3 +1,7 @@
+---
+icon: code-branch
+---
+
 # Custom Validation Managers
 
 If you would like to adapt your own validation engines to work with ANY ColdBox application you can do this by implementing the following interfaces:

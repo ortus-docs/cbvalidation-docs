@@ -1,3 +1,7 @@
+---
+icon: database
+---
+
 # Unique ORM Validator
 
 ## Usage

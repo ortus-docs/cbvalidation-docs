@@ -1,5 +1,6 @@
 ---
 description: Understanding null value handling in validation
+icon: expand
 ---
 
 # Null Value Handling
@@ -9,9 +10,10 @@ CBValidation handles null values carefully to ensure robust validation across ne
 ## Overview
 
 Null value handling (enhanced in 4.7.0-4.8.0) ensures that:
-- Null values don't cause validation errors unexpectedly
-- Nested structures and arrays properly filter null values
-- The `validateOrFail()` method returns clean, null-free results
+
+* Null values don't cause validation errors unexpectedly
+* Nested structures and arrays properly filter null values
+* The `validateOrFail()` method returns clean, null-free results
 
 ## Validation Rules for Nulls
 
@@ -20,9 +22,7 @@ Null value handling (enhanced in 4.7.0-4.8.0) ensures that:
 Null values are treated as missing when `required: true`:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 var constraints = {
@@ -42,11 +42,9 @@ var result = validate(target={ email: "test@example.com" }, constraints: constra
 result.hasErrors();  // false
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 var constraints = {
@@ -66,9 +64,7 @@ var result = validate(target={ email: "test@example.com" }, constraints=constrai
 result.hasErrors();  // false
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ### Optional Fields with Type Checking
@@ -76,9 +72,7 @@ result.hasErrors();  // false
 When `required: false` (default), null values are generally ignored by type validators:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="optional-validation.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 var constraints = {
@@ -102,11 +96,9 @@ var result = validate(target={ phone: "555" }, constraints: constraints);
 result.hasErrors();  // true
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="optional-validation.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 var constraints = {
@@ -130,22 +122,19 @@ var result = validate(target={ phone: "555" }, constraints=constraints);
 result.hasErrors();  // true
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Null Filtering in validateOrFail()
 
 The `validateOrFail()` method filters out null values from results (4.7.0+). This ensures clean data:
 
-{% tabs %}
 
-{% tab title="BoxLang" %}
 
-{% code title="filterin
+\{% code title="filterin
 
-g-nulls.bx" overflow="wrap" lineNumbers="true" %}
+g-nulls.bx" overflow="wrap" lineNumbers="true" %\}
+
 ```groovy
 var data = {
     name: "John",
@@ -170,11 +159,6 @@ var validated = validateOrFail(target: data, constraints: constraints);
 //     // phone and address removed (were null)
 // }
 ```
-{% endcode %}
-
-{% endtab %}
-
-{% tab title="CFML" %}
 
 {% code title="filtering-nulls.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
@@ -203,18 +187,12 @@ var validated = validateOrFail(target=data, constraints=constraints);
 ```
 {% endcode %}
 
-{% endtab %}
-
-{% endtabs %}
-
 ## Nested Structures with Nulls
 
 When validating nested structures, null values in nested objects are properly handled:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="nested-nulls.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 var data = {
@@ -253,11 +231,9 @@ var validated = validateOrFail(target: data, constraints: constraints);
 // }
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="nested-nulls.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 var data = {
@@ -296,9 +272,7 @@ var validated = validateOrFail(target=data, constraints=constraints);
 // }
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Array Items with Nulls
@@ -306,9 +280,7 @@ var validated = validateOrFail(target=data, constraints=constraints);
 Arrays are properly filtered when items contain null values:
 
 {% tabs %}
-
 {% tab title="BoxLang" %}
-
 {% code title="array-nulls.bx" overflow="wrap" lineNumbers="true" %}
 ```groovy
 var data = {
@@ -349,11 +321,9 @@ var validated = validateOrFail(target: data, constraints: constraints);
 // All items returned (none were null as a whole)
 ```
 {% endcode %}
-
 {% endtab %}
 
 {% tab title="CFML" %}
-
 {% code title="array-nulls.cfc" overflow="wrap" lineNumbers="true" %}
 ```javascript
 var data = {
@@ -394,9 +364,7 @@ var validated = validateOrFail(target=data, constraints=constraints);
 // All items returned (none were null as a whole)
 ```
 {% endcode %}
-
 {% endtab %}
-
 {% endtabs %}
 
 ## Best Practices
@@ -459,10 +427,10 @@ var formResult = validate(target: rc, constraints: constraints);
 
 Understand the distinction:
 
-- **Null**: `javacast("null", "")` - No value exists
-- **Empty String**: `""` - Value exists but is blank
-- **Zero**: `0` or `0.0` - Valid numeric value
-- **False**: `false` - Valid boolean value
+* **Null**: `javacast("null", "")` - No value exists
+* **Empty String**: `""` - Value exists but is blank
+* **Zero**: `0` or `0.0` - Valid numeric value
+* **False**: `false` - Valid boolean value
 
 Most validators treat empty strings the same as null, except in special cases:
 
@@ -481,6 +449,6 @@ validate(target: { field: false }, constraints: constraints);  // ✅ PASSES
 
 ## See Also
 
-- [Default Values](using-default-values.md) - Apply defaults before validation
-- [Validating Constraints](README.md) - Main validation documentation
-- [Custom Validators](../../advanced/advanced-custom-validators.md) - Handle special null logic
+* [Default Values](../overview/using-default-values.md) - Apply defaults before validation
+* [Validating Constraints](../overview/) - Main validation documentation
+* [Custom Validators](advanced-custom-validators.md) - Handle special null logic
