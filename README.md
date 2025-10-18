@@ -1,4 +1,5 @@
 ---
+icon: checklist-check
 description: cbValidation is the server-side validation engine for ColdBox applications
 ---
 
