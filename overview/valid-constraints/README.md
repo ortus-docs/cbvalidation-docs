@@ -128,7 +128,7 @@ propertyName = {
 The field must be yes, on, 1, or true. This is useful for validating "Terms of Service" acceptance. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-terms = { accepted = true }
+terms = { accepted : true }
 ```
 
 ## after
@@ -421,15 +421,53 @@ myField = { inList = "red,green,blue" }
 
 ## instanceOf
 
-The value passed must be an instance of a particular type. _Note: This validator will ignore values that are null or empty strings._
+The value passed must be an instance of a particular type. This validator checks that an object is an instance of a specific class or component, useful for validating that dependency injection worked correctly or that factory methods returned the expected type. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-{
-    "user": {
-        "instanceOf": "UserModel"
-    }
+// Basic dependency injection validation
+userService: {
+    required: true,
+    instanceOf: "UserService"  // Must be UserService instance
+},
+emailService: {
+    instanceOf: "models.services.EmailService"  // Full path validation
+},
+configBean: {
+    instanceOf: "ConfigurationBean"  // Validate configuration objects
 }
 ```
+
+**Advanced Usage Examples:**
+
+```javascript
+// Factory pattern validation
+gateway: {
+    required: true,
+    instanceOf: "PaymentGateway"  // Ensure factory returned correct type
+},
+validator: {
+    instanceOf: "CreditCardValidator"  // Type-safe validator injection
+},
+
+// API Response validation
+data: { instanceOf: "models.ResultCollection" },
+pagination: { instanceOf: "models.PaginationInfo" }
+```
+
+**Common Use Cases:**
+
+* **Dependency Injection Validation**: Ensure WireBox injected the correct service types
+* **Factory Pattern Validation**: Verify factory methods return expected object types
+* **API Response Validation**: Validate that API responses contain properly typed objects
+* **Plugin/Module Validation**: Ensure loaded plugins implement required interfaces
+* **Configuration Validation**: Verify configuration objects are the expected type
+
+**Path Specification:**
+
+* Use simple names for objects in the same package: `"UserService"`
+* Use dot notation for full paths: `"models.services.UserService"`
+* Works with interfaces and abstract classes
+* Supports CFC inheritance checking
 
 ## items
 
@@ -472,19 +510,52 @@ See [constraints](./#constraints).
 
 ## notSameAsNoCase
 
-The field must NOT be the same as another field with no case sensitivity. _Note: This validator will ignore values that are null or empty strings._
+The field must NOT be the same as another field with no case sensitivity. This validator is useful for scenarios where you need to ensure two fields are different, regardless of letter casing. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { notSameAsNoCase = "otherField" }
+// Password cannot be the same as username (case insensitive)
+username: { required: true, size: "3..20" },
+password: {
+    required: true,
+    size: "8..50",
+    notSameAsNoCase: "username"  // Password can't match username
+}
 ```
+
+**Common Use Cases:**
+
+* Preventing passwords from matching usernames
+* Ensuring alternate contact fields are different
+* Validating that backup values don't duplicate primary values
 
 ## notSameAs
 
-The field must NOT be the same as another field with case sensitivity. _Note: This validator will ignore values that are null or empty strings._
+The field must NOT be the same as another field with case sensitivity. This validator ensures exact case-sensitive comparison between fields. _Note: This validator will ignore values that are null or empty strings._
 
 ```javascript
-myField = { notSameAs = "otherField" }
+// New password must be different from current password
+currentPassword: { required: true },
+newPassword: {
+    required: true,
+    size: "8..50",
+    notSameAs: "currentPassword"  // Case-sensitive comparison
+},
+alternateEmail: {
+    type: "email",
+    notSameAs: "primaryEmail"  // Must be different emails
+}
 ```
+
+**Common Use Cases:**
+
+* Password change validation (new password ≠ old password)
+* Ensuring backup contact information is different
+* Validating that case-sensitive codes or identifiers are unique
+
+**When to Use Each:**
+
+* Use `notSameAs` when case matters (passwords, case-sensitive codes)
+* Use `notSameAsNoCase` when case doesn't matter (usernames, display names)
 
 ## range
 

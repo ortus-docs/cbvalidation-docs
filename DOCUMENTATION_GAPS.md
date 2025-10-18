@@ -18,20 +18,7 @@ No critical gaps remaining! All have been addressed.
 ### 1. **Available Constraints List**
 
 - **Missing Validator Details**:
-  - `notSameAs` / `notSameAsNoCase` - Added in 4.1.0, need detailed docs
-  - `instanceOf` - Added in 4.0.0, minimal documentation
-  - `empty` - Added in 3.4.0, documentation exists but could be clearer
-
-### 2. **Custom Validators Guide**
-
-- **File**: `advanced/advanced-custom-validators.md`
-- **Issue**: Should mention the new metadata pattern from 4.3.0+
-- **Missing**: How validators can return metadata for error enhancement
-
-### 3. **Custom Validation Manager**
-
-- **File**: `advanced/custom-validation-managers.md`
-- **Status**: Exists but may need updates for null handling improvements (4.7.0-4.8.0)
+  - `empty` - Added in 3.4.0, documentation exists but could be clearer (basic example provided)
 
 ---
 
@@ -57,12 +44,7 @@ No critical gaps remaining! All have been addressed.
 
 ## 🔧 DOCUMENTATION MAINTENANCE ISSUES
 
-### 1. **Code Examples**
-
-- Some examples use deprecated `validateModel()`
-- Should use `validate()` consistently
-
-### 2. **API Documentation**
+### 1. **API Documentation**
 
 - Consider generating from code comments for ValidationManager
 - Current docs are partially manual
@@ -96,6 +78,10 @@ No critical gaps remaining! All have been addressed.
 - `assert()` helper detailed documentation
 - Error metadata integration examples
 - Valid constraints quick reference (eurodate was already properly removed)
+- **NEW**: Enhanced `notSameAs`/`notSameAsNoCase` documentation with detailed examples and use cases
+- **NEW**: Comprehensive `instanceOf` validator documentation with factory patterns and dependency injection examples
+- **NEW**: Fixed deprecated `validateModel()` references throughout documentation
+- **NEW**: Custom validation managers documentation reviewed (adequate for purpose)
 
 **🟡 HIGH PRIORITY** (Quick Wins - <10 min each)
 
@@ -110,5 +96,5 @@ No critical gaps remaining! All have been addressed.
 **🔵 LOW PRIORITY** (Future Enhancements)
 
 1. API documentation generation from code comments
-2. Deprecated method cleanup (validateModel)
-3. Additional constraint-specific examples
+2. Additional constraint-specific examples
+3. Enhanced `empty` validator documentation (currently has basic coverage)
