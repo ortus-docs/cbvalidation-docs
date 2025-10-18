@@ -3,7 +3,7 @@
 You can also tell the validation manager to **ONLY** validate on certain fields and not all the fields declared in the validation constraints.
 
 ```javascript
-prc.results = validateModel( target=user, fields="login,password" );
+prc.results = validate( target: user, fields: "login,password" );
 ```
 
 This will only validate the `login` and `password` fields.
@@ -16,9 +16,9 @@ You can also use the following arguments:
 * `excludeFields` : The fields to exclude in the validation
 
 ```javascript
-prc.results = validateModel( 
-    target=user, 
-    includeFields="username,password", 
-    excludeFields="id" 
+prc.results = validate(
+    target: user,
+    includeFields: "username,password",
+    excludeFields: "id"
 );
 ```

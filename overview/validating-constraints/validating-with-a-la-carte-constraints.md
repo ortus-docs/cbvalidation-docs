@@ -4,10 +4,10 @@
 
 ```javascript
 var myConstraints = {
-	login = { required=true, size=6..10 }, 
-	password = { required=true, size=6..10 }
+	login : { required:true, size:6..10 },
+	password : { required:true, size:6..10 }
 };
-prc.results = validateModel( target=user, constraints=myConstraints );
+prc.results = validate( target: user, constraints: myConstraints );
 ```
 
 &#x20;This will validate the object using the inline constraints that you built.

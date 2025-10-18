@@ -4,10 +4,10 @@ We also have the ability to validate a target object or form with shared constra
 
 ```javascript
     // validate user object
-    prc.results = validateModel( target=user, constraints="sharedUser" );
+    prc.results = validate( target: user, constraints: "sharedUser" );
 
     // validate incoming form elements in the RC or request collection
-    prc.results = validateModel( target=rc, constraints="sharedUser" );
+    prc.results = validate( target: rc, constraints: "sharedUser" );
 ```
 
 This will validate the object and `rc` using the `sharedUser` constraints defined in the [configuration file:](../declaring-constraints/configuration-file.md#declaration) `config/Coldbox.cfc`
