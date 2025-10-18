@@ -189,7 +189,7 @@ firstName = { alpha = true }
 
 This validator is used to validate an array's items. It will iterate through each of the array's items and validate each item against the `validationData` constraints you pass in. _Note: This validator will ignore values that are null or empty strings._
 
-```cfscript
+```groovy
 luckyNumbers = {
     required : true,
     type : "array",
@@ -202,7 +202,7 @@ luckyNumbers = {
 
 You may also specify `items` as an alias to `arrayItem`.
 
-```cfscript
+```groovy
 luckyNumbers = {
     required : true,
     type : "array",
@@ -215,7 +215,7 @@ luckyNumbers = {
 
 Any validation errors found will be named using the parent field name and array index.
 
-```cfscript
+```groovy
 var validationResult = validate(
     target = {
         "luckyNumbers": [ 7, 11, "not a number", 21 ]
@@ -293,7 +293,7 @@ endDate : { required:true, type:"date", beforeOrEqual: "01/01/2022" }
 
 This validator is used to validate a nested struct. The value of this validator are the constraints for the nested struct. _Note: This validator will ignore values that are null._
 
-```cfscript
+```groovy
 address = {
     "required": true,
     "type": "struct",
@@ -309,7 +309,7 @@ address = {
 
 Any validation errors found will be named using the parent field name and the child field name.
 
-```cfscript
+```groovy
 var validationResult = validate(
     target = {
         "address": {
@@ -344,7 +344,7 @@ var validationResult = validate(
 
 `constraints` can be used as many levels deep as you need to go.
 
-```cfscript
+```groovy
 owner = {
     "firstName": { "required": true, "type": "string" },
     "lastName": { "required": true, "type": "string" },
@@ -364,7 +364,7 @@ owner = {
 
 `constraints` can also be combined with `items` to validate an array of structs.
 
-```cfscript
+```groovy
 invoiceItems = {
     required : true,
     type : "array",
