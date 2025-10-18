@@ -22,7 +22,7 @@ The `assert()` method mimics Java's `assert` keyword. It evaluates a condition t
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="assertions.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function processOrder(orderId) {
     // Assert that orderId is provided
     assert(orderId > 0, "Order ID must be greater than 0");
@@ -87,7 +87,7 @@ boolean function assert(
 
 {% tabs %}
 {% tab title="BoxLang" %}
-```groovy
+```javascript
 // ✅ Returns true when condition is true
 if (assert(true, "This passes")) {
     writeOutput("Assertion passed!");  // Executes
@@ -142,7 +142,7 @@ try {
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="null-checking.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function saveUser(user) {
     // Assert user is not null
     assert(!isNull(user), "User object cannot be null");
@@ -180,7 +180,7 @@ function saveUser(user) {
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="range-validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function setDiscount(percentage) {
     // Ensure percentage is within valid range
     assert(percentage >= 0, "Discount cannot be negative");
@@ -214,7 +214,7 @@ function setDiscount(percentage) {
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="collection-validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function processItems(items) {
     // Assert collection is not empty
     assert(isArray(items) && items.len() > 0, "Items array cannot be empty");
@@ -258,7 +258,7 @@ function processItems(items) {
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="state-validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function deleteOrder(order) {
     // Assert order is in a state that can be deleted
     assert(
@@ -300,7 +300,7 @@ function deleteOrder(order) {
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="api-validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function apiUpdateUser(event, rc, prc) {
     try {
         // Assert required fields
@@ -394,7 +394,7 @@ var results = validate(target: product, constraints: productConstraints);
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="error-handling.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function processData(data) {
     try {
         assert(!isNull(data), "Data cannot be null");

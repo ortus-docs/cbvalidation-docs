@@ -16,7 +16,7 @@ When a field has a `defaultValue` defined and the field's current value is null 
 
 {% tab title="BoxLang" %}
 
-```groovy
+```javascript
 class {
     this.constraints = {
         status: {
@@ -90,7 +90,7 @@ The default is **NOT** applied when:
 {% tab title="BoxLang" %}
 
 {% code title="User.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 class {
     property name="name" type="string";
     property name="email" type="string";
@@ -175,7 +175,7 @@ You can use closures to compute dynamic defaults:
 {% tab title="BoxLang" %}
 
 {% code title="Order.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 class {
     property name="orderNumber" type="string";
     property name="createdDate" type="date";
@@ -245,7 +245,7 @@ component {
 {% tab title="BoxLang" %}
 
 {% code title="ProductHandler.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function apiCreateProduct(event, rc, prc) {
     var productConstraints = {
         name: { required: true, size: "1..255" },
@@ -325,6 +325,7 @@ function apiCreateProduct(event, rc, prc) {
 ## Best Practices
 
 ### 1. Use for Optional Fields Only
+
 Default values work best for truly optional fields:
 ```javascript
 // Good - truly optional
@@ -335,13 +336,14 @@ email: { defaultValue: "noemail@example.com", required: true, type: "email" }
 ```
 
 ### 2. Defaults Should Match Constraint Rules
+
 Always ensure your default value complies with other constraints:
 
 {% tabs %}
 
 {% tab title="BoxLang" %}
 
-```groovy
+```javascript
 // ✅ Good - default matches type and range constraints
 priority: {
     defaultValue: 5,
@@ -382,6 +384,7 @@ status = {
 {% endtabs %}
 
 ### 3. Use Functions for Dynamic Defaults
+
 For timestamp or unique identifier defaults, use functions:
 
 ```javascript
@@ -397,6 +400,7 @@ uuid: {
 ```
 
 ### 4. Document Default Behavior
+
 Always document which fields have defaults:
 
 ```javascript

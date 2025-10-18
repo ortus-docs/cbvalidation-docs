@@ -15,7 +15,7 @@ Traditional nested validation would require defining complex constraint structur
 
 For a nested struct, this is done by defining the field as a dot-delimited field name following the nested structure.
 
-```groovy
+```javascript
 var validationResult = validate(
     target = {
         "address": {
@@ -39,7 +39,7 @@ var validationResult = validate(
 
 This can be continued as many levels deep as necessary.
 
-```groovy
+```javascript
 var validationResult = validate(
     target = {
         "owner": {
@@ -72,7 +72,7 @@ var validationResult = validate(
 
 Use the asterisk (`*`) notation to validate all items in an array:
 
-```groovy
+```javascript
 // Validate array of numbers
 var validationResult = validate(
     target = {
@@ -92,7 +92,7 @@ var validationResult = validate(
 
 Validate objects within arrays by combining dot notation with asterisk:
 
-```groovy
+```javascript
 var validationResult = validate(
     target = {
         "employees": [
@@ -112,7 +112,7 @@ var validationResult = validate(
 
 Handle deeply nested structures with multiple array levels:
 
-```groovy
+```javascript
 var validationResult = validate(
     target = {
         "departments": [
@@ -143,7 +143,7 @@ var validationResult = validate(
 
 ### User Profile with Multiple Addresses
 
-```groovy
+```javascript
 var validationResult = validate(
     target = {
         "user": {
@@ -196,7 +196,7 @@ var validationResult = validate(
 
 ### E-commerce Order Structure
 
-```groovy
+```javascript
 var validationResult = validate(
     target = {
         "order": {
@@ -252,7 +252,7 @@ var validationResult = validate(
 
 When validation fails on nested fields, the error messages include the full field path for precise error identification:
 
-```groovy
+```javascript
 var result = validate(target=orderData, constraints=orderConstraints);
 
 if (result.hasErrors()) {
@@ -270,7 +270,7 @@ if (result.hasErrors()) {
 
 ### 1. Use Descriptive Field Names
 
-```groovy
+```javascript
 // ❌ Hard to understand
 "data.items.*.val": { "required": true }
 
@@ -280,7 +280,7 @@ if (result.hasErrors()) {
 
 ### 2. Group Related Constraints
 
-```groovy
+```javascript
 // ❌ Mixed up constraint definitions
 constraints = {
     "user.email": { "required": true, "type": "email" },
@@ -303,7 +303,7 @@ constraints = {
 
 ### 3. Validate Array Container and Items
 
-```groovy
+```javascript
 constraints = {
     // Validate the array itself
     "user.addresses": { "required": true, "type": "array", "size": "1..5" },
@@ -320,7 +320,7 @@ constraints = {
 
 Perfect for validating complex JSON payloads:
 
-```groovy
+```javascript
 // POST /api/users - Create user with profile and preferences
 var apiConstraints = {
     "name": { "required": true, "type": "string", "size": "2..100" },
@@ -337,7 +337,7 @@ var apiConstraints = {
 
 Handle complex form submissions with nested data:
 
-```groovy
+```javascript
 // Registration form with emergency contacts
 var formConstraints = {
     "personal.firstName": { "required": true, "size": "2..50" },
@@ -352,7 +352,7 @@ var formConstraints = {
 
 Validate application configuration files:
 
-```groovy
+```javascript
 // App config with database connections and feature flags
 var configConstraints = {
     "database.connections.*.host": { "required": true, "type": "string" },

@@ -95,7 +95,7 @@ boolean function assert( target, message="" )
 
 If you are using ColdBox 7, then you can use the `Validatable@cbValidation` delegate. Which will allow you to add these validation traits to any object you desire. &#x20;
 
-```groovy
+```javascript
 // BoxLang Syntax
 @delegates( "Validatable@cbValidation" )
 class{}
@@ -117,7 +117,7 @@ The methods delegated by default are the following:
 
 You can also use the delegation for only certain methods if needed:
 
-```groovy
+```javascript
 // BoxLang Short Syntax
 @delegates( "Validatable@cbValidation=validate,validateOrFail" )
 class{}

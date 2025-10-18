@@ -23,7 +23,7 @@ Define profiles using the `this.constraintProfiles` struct in your object:
 {% tab title="BoxLang" %}
 
 {% code title="User.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 class {
     property name="firstName" type="string";
     property name="lastName" type="string";
@@ -90,7 +90,7 @@ Every validation method accepts a `profiles` argument:
 
 {% tab title="BoxLang" %}
 
-```groovy
+```javascript
 // Single profile
 var result = validate(target: user, profiles: "update");
 
@@ -141,7 +141,7 @@ For complex forms split across multiple steps:
 {% tab title="BoxLang" %}
 
 {% code title="UserRegistration.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 class {
     // Step 1: Basic Info
     property name="firstName" type="string";
@@ -247,7 +247,7 @@ Different API endpoints often need different validation rules:
 {% tab title="BoxLang" %}
 
 {% code title="Product.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 class {
     property name="id" type="numeric";
     property name="name" type="string";
@@ -355,7 +355,7 @@ Use profiles to match your API endpoints:
 {% tab title="BoxLang" %}
 
 {% code title="ProductHandler.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function create(event, rc, prc) {
     try {
         // Use 'create' profile for POST /products
@@ -510,7 +510,7 @@ Different user roles may have different validation requirements:
 
 {% tab title="BoxLang" %}
 
-```groovy
+```javascript
 function validateByRole(user, data, role) {
     var profile = switch(role) {
         case "admin": "admin";
@@ -585,7 +585,7 @@ For high-performance scenarios, cache constraint lookups:
 
 {% tab title="BoxLang" %}
 
-```groovy
+```javascript
 // In your service layer
 class ProductService {
     property name="validationManager" inject="ValidationManager@cbvalidation";

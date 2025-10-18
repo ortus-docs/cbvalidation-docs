@@ -24,7 +24,7 @@ Null values are treated as missing when `required: true`:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 var constraints = {
     email: { required: true, type: "email" }
 };
@@ -74,7 +74,7 @@ When `required: false` (default), null values are generally ignored by type vali
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="optional-validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 var constraints = {
     phone: { type: "string", size: "10..20" }  // not required
 };
@@ -135,7 +135,7 @@ The `validateOrFail()` method filters out null values from results (4.7.0+). Thi
 
 g-nulls.bx" overflow="wrap" lineNumbers="true" %\}
 
-```groovy
+```javascript
 var data = {
     name: "John",
     email: "john@example.com",
@@ -194,7 +194,7 @@ When validating nested structures, null values in nested objects are properly ha
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="nested-nulls.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 var data = {
     name: "John",
     address: {
@@ -282,7 +282,7 @@ Arrays are properly filtered when items contain null values:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="array-nulls.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 var data = {
     name: "Product Collection",
     items: [

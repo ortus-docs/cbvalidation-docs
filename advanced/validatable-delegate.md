@@ -20,7 +20,7 @@ The simplest way to make an object validatable:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="User.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 class delegates="Validatable@cbValidation" {
 
     property name="id" type="numeric";
@@ -60,7 +60,7 @@ Delegate only specific validation methods:
 
 {% tabs %}
 {% tab title="BoxLang" %}
-```groovy
+```javascript
 class delegates="Validatable@cbValidation=validate,validateOrFail" {
     property name="sku" type="string";
     property name="price" type="numeric";
@@ -68,7 +68,7 @@ class delegates="Validatable@cbValidation=validate,validateOrFail" {
 ```
 
 {% code title="product.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 // Only add validate and validateOrFail methods
 component delegates="Validatable@cbValidation=validate,validateOrFail" {
     property name="sku" type="string";
@@ -98,7 +98,7 @@ For more control, use explicit property delegation:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="order.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 class {
     property name="validatable"
         inject="Validatable@cbValidation"
@@ -157,7 +157,7 @@ When using the Validatable delegate, the following methods are available:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="handler.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function saveUser(event, rc, prc) {
     var user = entityNew("User");
     populateModel(user);
@@ -207,7 +207,7 @@ For API endpoints with exception handling:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="api.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function apiCreateUser(event, rc, prc) {
     var user = entityNew("User");
     populateModel(user);
@@ -261,7 +261,7 @@ Quick validation with stored results:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="validation-check.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 function processUser(event, rc, prc) {
     var user = entityNew("User");
     populateModel(user);
@@ -311,7 +311,7 @@ Pass profiles for targeted validation:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="profile-validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 component delegates="Validatable@cbValidation" {
     property name="name" type="string";
     property name="email" type="string";
@@ -387,7 +387,7 @@ Combine validation with business logic:
 {% tabs %}
 {% tab title="BoxLang" %}
 {% code title="callback-validation.bx" overflow="wrap" lineNumbers="true" %}
-```groovy
+```javascript
 component delegates="Validatable@cbValidation" {
     property name="sku" type="string";
     property name="price" type="numeric";
