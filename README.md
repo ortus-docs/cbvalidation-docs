@@ -3,43 +3,153 @@ description: cbValidation is the server-side validation engine for ColdBox appli
 icon: sunglasses
 ---
 
-# Introduction
+CBValidation is the server-side validation engine that provides a unified approach to object, struct, and form validation for ColdBox applications. Built with flexibility and performance in mind, it allows you to construct declarative validation constraint rules and validate them with ease. Whether you're validating API requests, form submissions, or domain objects, CBValidation gives you the tools to ensure data integrity across your entire application.
 
-This module is a server-side rules validation engine that can provide you with a unified approach to object, struct, and form validation. You can construct validation constraint rules and then tell the engine to validate them accordingly. You can also create validation profiles to create a more complex validation schema for fields.
+The validation engine is based on **constraint-driven validation** where you declaratively specify validation rules for properties or fields. These constraints can live directly in your domain objects, be defined as shared constraints in your ColdBox configuration, or created dynamically on-the-fly for maximum flexibility.
 
-## System Requirements
+## Quick Example 🚀
 
-* BoxLang 1+ (Preferred)
-* Lucee 5+
-* ColdFusion 2023+
+Here's a taste of CBValidation's power with a simple user registration example:
 
-## Introduction
+{% code title="models/User.bx" overflow="wrap" lineNumbers="true" %}
 
-ColdBox validation is based on a way to declaratively specify validation rules for **properties** or **fields** in an object or form. The **constraints** can exist inside of the target object or you can define object and form constraints in your ColdBox [configuration file](overview/declaring-constraints/configuration-file.md) so you can reuse validation constraints or as we call them: **shared constraints**. You can also create validation constraints on the fly or store them pretty much anywhere you like.
+{% code language="javascript" %}
+class {
+    property name="firstName";
+    property name="lastName";
+    property name="email";
+    property name="password";
+    property name="age";
 
-You can then use 2 simple validation methods and report on the results: `validate(), validateOrFail()`
+    // Define validation constraints directly in your model
+    this.constraints = {
+        firstName = {
+            required = true,
+            size = "2..50",
+            requiredMessage = "Please enter your first name"
+        },
+        lastName = {
+            required = true,
+            size = "2..50",
+            requiredMessage = "Please enter your last name"
+        },
+        email = {
+            required = true,
+            type = "email",
+            typeMessage = "Please enter a valid email address"
+        },
+        password = {
+            required = true,
+            size = "8..128",
+            sizeMessage = "Password must be at least 8 characters long"
+        },
+        age = {
+            required = true,
+            type = "numeric",
+            range = "13..120",
+            rangeMessage = "Age must be between 13 and 120"
+        }
+    };
+}
+{% endcode %}
+
+{% endcode %}
+
+{% code title="handlers/UserHandler.bx" overflow="wrap" lineNumbers="true" %}
+
+{% code language="javascript" %}
+function register( event, rc, prc ) {
+    validate( populate( "User" ) )
+        .onError( results => {
+            flash.put( "errors", results.getAllErrors() );
+            relocate( "users/editor" );
+        })
+        .onSuccess( results => {
+            userService.save( user );
+            flash.put( "success", "Registration successful!" );
+            relocate( "users/welcome" );
+        });
+}
+{% endcode %}
+
+{% endcode %}
+
+With just two simple validation methods - `validate()` and `validateOrFail()` - you get comprehensive validation with detailed error reporting, custom messages, and seamless integration with your ColdBox application.
+
+## Features ✨
+
+### 🎯 **Flexible Constraint Definition**
+
+- **Domain Object Constraints** - Define validation rules directly in your models for encapsulated validation logic
+- **Shared Constraints** - Reusable validation rules stored in your ColdBox configuration
+- **A-la-carte Constraints** - Dynamic validation rules created on-the-fly for specific scenarios
+- **External Constraints** - Load validation rules from databases, JSON files, or services
+
+### 🔧 **Powerful Validation Rules**
+
+- **30+ Built-in Validators** - Required, email, size, range, regex, date comparisons, and more
+- **Custom Validators** - Create your own validation rules with full framework integration
+- **Nested Object Support** - Validate complex data structures with dot notation (`user.address.street`)
+- **Array Validation** - Validate arrays and array items with wildcard notation (`items.*.price`)
+- **Conditional Validation** - Rules like `requiredIf`, `requiredUnless` for dynamic requirements
+
+### 🎨 **User Experience Features**
+
+- **Custom Error Messages** - Personalized, user-friendly validation messages
+- **Message Replacement Variables** - Dynamic messages with context like `{min}`, `{max}`, `{rejectedValue}`
+- **Internationalization (i18n)** - Multi-language validation messages through cbi18n integration
+- **Constraint Profiles** - Validate specific field groups for different scenarios (registration, update, etc.)
+
+### 🚀 **Developer Experience**
+
+- **Two Simple Methods** - `validate()` for result objects, `validateOrFail()` for exception-based validation
+- **Rich Error Information** - Detailed validation results with field names, messages, and metadata
+- **Exception Integration** - Automatic ValidationException throwing with JSON error details
+- **Mixin Integration** - Validation methods available globally in handlers, views, layouts, and interceptors
+
+### 🔄 **Advanced Features**
+
+- **Method/UDF Validation** - Call custom validation methods with error metadata support
+- **Database Unique Constraints** - Built-in unique field validation against database tables
+- **Null Value Handling** - Intelligent handling of null, empty, and undefined values
+- **WireBox Integration** - Full dependency injection support for custom validators
+- **Performance Optimized** - Efficient constraint processing and validator caching
+
+### 🛡️ **Enterprise Ready**
+
+- **Production Tested** - Battle-tested in countless ColdBox applications
+- **Comprehensive Documentation** - Detailed guides, examples, and best practices
+- **Professional Support** - Backed by Ortus Solutions with commercial support options
+- **BoxLang Compatible** - Full support for both CFML and BoxLang platforms
 
 ## Professional Open Source
 
 ![Ortus Solutions, Corp](.gitbook/assets/ortus-solutions-logo.png)
 
-The ColdBox ORM Module is a professional open-source software backed by [Ortus Solutions, Corp](https://www.ortussolutions.com/) offering services like:
+CBValidation is professional open-source software backed by [Ortus Solutions, Corp](https://www.ortussolutions.com/) offering services like:
 
-* Custom Development
-* Professional Support & Mentoring
-* Training
-* Server Tuning
-* Security Hardening
-* Code Reviews
-* [Much More](https://www.ortussolutions.com/)
+- Custom Development
+- Professional Support & Mentoring
+- Training
+- Server Tuning
+- Security Hardening
+- Code Reviews
+- [Much More](https://www.ortussolutions.com/)
 
-## Discussion & Help
+## Resources & Community
 
-The Box Products discussion group and community can be found here:
+- Source: https://github.com/coldbox-modules/cbvalidation
+- Issues: https://github.com/coldbox-modules/cbvalidation/issues
+- Official Site: https://www.coldbox.org
+- BoxLang Site: https://boxlang.io
+- Video Training:
+  - https://www.cfcasts.com
+  - https://learn.boxlang.io
+  - https://youtube.com/c/OrtusSolutions
+- Comunity: https://community.ortussolutions.com/
+- Slack: https://boxteam.ortussolutions.com
 
-[https://community.ortussolutions.com/c/communities](https://community.ortussolutions.com/c/communities/contentbox/15)
-
-### HONOR GOES TO GOD ABOVE ALL
+## HONOR GOES TO GOD ABOVE ALL
 
 Because of His grace, this project exists. If you don't like this, then don't read it, it's not for you.
 

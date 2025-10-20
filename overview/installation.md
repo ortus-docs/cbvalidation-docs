@@ -16,6 +16,12 @@ box install cbvalidation
 
 The module will register several objects into WireBox using the `@cbvalidation` namespace. The validation manager is registered as `ValidationManager@cbvalidation`. It will also register several helper methods that can be used throughout the ColdBox application.
 
+## System Requirements
+
+* BoxLang 1+ (Preferred)
+* Lucee 5+
+* ColdFusion 2023+
+
 ## Mixins - Helper Methods
 
 The module will also register the following methods in your handlers/interceptors/layouts/views
