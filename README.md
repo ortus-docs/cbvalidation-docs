@@ -11,53 +11,47 @@ The validation engine is based on **constraint-driven validation** where you dec
 
 Here's a taste of CBValidation's power with a simple user registration example:
 
-{% code title="models/User.bx" overflow="wrap" lineNumbers="true" %}
+```js
+property name="firstName";
+property name="lastName";
+property name="email";
+property name="password";
+property name="age" type="numeric";
 
-{% code language="javascript" %}
-class {
-    property name="firstName";
-    property name="lastName";
-    property name="email";
-    property name="password";
-    property name="age";
-
-    // Define validation constraints directly in your model
-    this.constraints = {
-        firstName = {
-            required = true,
-            size = "2..50",
-            requiredMessage = "Please enter your first name"
-        },
-        lastName = {
-            required = true,
-            size = "2..50",
-            requiredMessage = "Please enter your last name"
-        },
-        email = {
-            required = true,
-            type = "email",
-            typeMessage = "Please enter a valid email address"
-        },
-        password = {
-            required = true,
-            size = "8..128",
-            sizeMessage = "Password must be at least 8 characters long"
-        },
-        age = {
-            required = true,
-            type = "numeric",
-            range = "13..120",
-            rangeMessage = "Age must be between 13 and 120"
-        }
-    };
+// Define validation constraints directly in your model
+this.constraints = {
+    firstName: {
+        required: true,
+        size: "2..50",
+        requiredMessage: "Please enter your first name"
+    },
+    lastName: {
+        required: true,
+        size: "2..50",
+        requiredMessage: "Please enter your last name"
+    },
+    email: {
+        required: true,
+        type: "email",
+        typeMessage: "Please enter a valid email address"
+    },
+    password: {
+        required: true,
+        size: "8..128",
+        sizeMessage: "Password must be at least 8 characters long"
+    },
+    age: {
+        required: true,
+        type: "numeric",
+        range: "13..120",
+        rangeMessage: "Age must be between 13 and 120"
+    }
 }
-{% endcode %}
+```
 
-{% endcode %}
+Now the validation:
 
-{% code title="handlers/UserHandler.bx" overflow="wrap" lineNumbers="true" %}
-
-{% code language="javascript" %}
+```java
 function register( event, rc, prc ) {
     validate( populate( "User" ) )
         .onError( results => {
@@ -70,9 +64,7 @@ function register( event, rc, prc ) {
             relocate( "users/welcome" );
         });
 }
-{% endcode %}
-
-{% endcode %}
+```
 
 With just two simple validation methods - `validate()` and `validateOrFail()` - you get comprehensive validation with detailed error reporting, custom messages, and seamless integration with your ColdBox application.
 
