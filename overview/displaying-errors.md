@@ -18,7 +18,7 @@ prc.validationResults = validate( obj );
 ```xml
 <-- Display all errors as a message box --->
 #getInstance( "MessageBox@cbMessagebox" )
-    .renderMessage( type="error", messageArray=prc.validationResults.getAllErrors() )#
+    .renderMessage( type="error", message=prc.validationResults.getAllErrors() )#
 ```
 
 If you want more control you can use the `hasErrors()` and iterate over the errors to display:
